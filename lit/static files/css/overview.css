@@ -1,9 +1,0 @@
-* {
-    font-family: 'DM Mono', monospace;
-}
-
-.cards::after{
-    content: '';
-    flex: auto;
-}
-
