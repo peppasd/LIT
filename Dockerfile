@@ -9,3 +9,8 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 
 COPY . /code/
+
+EXPOSE 8080
+
+CMD ["python3", "manage.py", "migrate"]
+CMD ["python3", "manage.py", "runserver"]
