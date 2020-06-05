@@ -11,10 +11,21 @@
         <!-- Main css -->
         <link rel="stylesheet" href="main.css">
         <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">         <title>Register!</title>
+    
+        <title>Password</title>
     </head>
     
     
     <body>
+        <div class="d-flex justify-content-between mb-4">
+            <img alt="LIT Logo" class="mt-2 ml-2" height="48" src="../images/lit.svg" width="48"/>
+    
+            <h1 class="text-center mt-2">Projects</h1>
+            <button type="button" class="btn">
+                <i class="material-icons" style="font-size: 48px;">account_circle</i>
+            </button>
+        </div>
+
         <div class="main">
 
             <!-- Sign up form -->
@@ -28,13 +39,13 @@
                                     <label for="email"><i class="zmdi zmdi-email"></i></label>
                                     <input type="email" name="email" id="email" placeholder="Your Email"/>
                                 </div>
+                                <div class="signup-image">
+                                    <a href="./sign-in.html" class="signup-image-link">I am already member</a>
+                                </div>
                                 <div class="form-group form-button">
-                                    <input type="submit" name="signup" id="signup" class="form-submit" value="Reset"/>
+                                    <button  class="material-icons btn floating-btn primaryColor">add</button>
                                 </div>
                                 </form>
-                        </div>
-                        <div class="signup-image">
-                            <a href="./sign-in.html" class="signup-image-link">I am already member</a>
                         </div>
                     </div>
                 </div>
@@ -42,6 +53,18 @@
 
 
         </div>
+
+        <footer class="footer lightColor">
+            <div class="d-flex justify-content-around">
+                    <span class="text-muted">© 2020 Copyright:
+                        <a href="https://github.com/peppasd/LIT">LIT</a>
+                    </span>
+                <a href="#Impressum" class="text-muted">Impressum</a>
+            </div>
+        </footer>
+
+
     </body>
 
 
+</html>

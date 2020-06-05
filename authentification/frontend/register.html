@@ -10,10 +10,24 @@
         
         <!-- Main css -->
         <link rel="stylesheet" href="main.css">
-        <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">     </head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">     
+    
+        <title>Register</title>
+    </head>
     
     
     <body>
+        <div class="d-flex justify-content-between mb-4">
+            <img alt="LIT Logo" class="mt-2 ml-2" height="48" src="../images/lit.svg" width="48"/>
+    
+            <h1 class="text-center mt-2">Projects</h1>
+            <button type="button" class="btn">
+                <i class="material-icons" style="font-size: 48px;">account_circle</i>
+            </button>
+        </div>
+
+
         <div class="main">
 
             <!-- Sign up form -->
@@ -24,30 +38,29 @@
                             <h2 class="form-title">Register</h2>
                             <form method="POST" class="register-form" id="register-form">
                                 <div class="form-group">
-                                    <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                    <input type="text" name="name" id="name" placeholder="Your Name"/>
+                                    <input type="text" placeholder="Your Name"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                    <input type="email" name="email" id="email" placeholder="Your Email"/>
+                                    <input type="email" placeholder="Your Email"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                    <input type="password" name="pass" id="pass" placeholder="Password"/>
+                                    <input type="password" placeholder="Password"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                    <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
+                                    <input type="password" placeholder="Repeat your password"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                    <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree with all statements in the <a href="#" class="term-service">Terms of service</a></label>
+                                    <div class="d-flex justify-content-between">
+                                        <div class='col-mr-auto'><input type="checkbox" class="agree-term"/></div>
+                                        <div class='col'><label class="label-agree-term">I agree with all statements in the <a href="#" class="term-service">Terms of service</a>.</label></div>
+                                </div>
+                                    
                                 </div>
                                 <div class="form-group form-button">
-                                    <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                                    <input type="submit" class="form-submit" value="Register"/>
                                 </div>   
                                 <div>
-                                    <a href="./sign-in.html" class="signup-link">I am already member</a>
+                                    Already have an account? <a href="./sign-in.html" class="signup-link">Sign in</a>.
                                 </div>
                             </form>
                         </div>
@@ -57,6 +70,17 @@
 
 
         </div>
+
+        <footer class="footer lightColor">
+            <div class="d-flex justify-content-around">
+                    <span class="text-muted">© 2020 Copyright:
+                        <a href="https://github.com/peppasd/LIT">LIT</a>
+                    </span>
+                <a href="#Impressum" class="text-muted">Impressum</a>
+            </div>
+        </footer>
+
     </body>
 
 
+</html>
