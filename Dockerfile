@@ -1,6 +1,7 @@
 FROM python:3.8
 
 ENV PYTHONUNBUFFERED 1
+ENV PORT=8000
 
 RUN mkdir /code
 WORKDIR /code
@@ -10,7 +11,8 @@ RUN pip install -r requirements.txt
 
 COPY . /code/
 
-EXPOSE 8080
+EXPOSE $PORT
 
-CMD ["python3", "manage.py", "migrate"]
-CMD ["python3", "manage.py", "runserver"]
+CMD ["sh", "-c", "python3 manage.py migrate"]
+CMD ["sh", "-c", "python3 manage.py runserver ${PORT}"]
+# https://stackoverflow.com/a/54504297
