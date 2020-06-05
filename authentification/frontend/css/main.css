@@ -2,7 +2,6 @@
   font-family: 'DM Mono', monospace;
 }
 
-
 p {
   margin-bottom: 0px;
   font-size: 15px;
@@ -39,24 +38,6 @@ body {
   left: 50%;}
 
 
-.form-submit {
-  display: inline-block;
-  background: #6dabe4;
-  color: #fff;
-  border-bottom: none;
-  width: auto;
-  padding: 15px 39px;
-  border-radius: 5px;
-  margin-top: 25px;
-  cursor: pointer; }
-
-.form-submit:hover {
-  background: #4292dc; }
-
-.form-title{
-  margin-bottom: 20px;
-}
-
 .term-service {
 font-size: 13px;
 color: #222; }
@@ -74,25 +55,7 @@ display: block;
 border: none;
 border-bottom: 1px solid #999;
 padding: 6px 30px;
-font-family: 'DM Mono',monospace;
 box-sizing: border-box; }
-
-.floating-btn{
-  width: 80px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-  color: white;
-  font-size: 40px;
-  text-decoration: none;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-  position: fixed;
-  right: 20px;
-  bottom: 80px;
-}
 
 .primaryColor{
   background: rgb(242, 133, 15);
