@@ -1,13 +1,26 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from .forms import UserCreationFormExtended
 
 # Create your views here.
 
-def register(request):
-    return render(request, 'frontend/html/register.html')
+def index(request):    
+    return render(request, 'index.html')
 
-def signin(request):
-    return render(request, 'frontend/html/sign-in.html')
+def signup(request): 
+    if request.method == 'POST':
+        form = UserCreationFormExtended(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = UserCreationFormExtended()   
+    return render(request, 'registration/signup.html',{
+        'form':form
+    })
 
-def resetpsw(request):
-    return render(request, 'frontend/html/resetpsw.html')
+def login(request):    
+    return render(request, 'login.html')
+
+def logout(request):    
+    return render(request, 'logout.html')
