@@ -13,23 +13,23 @@
     <title>{% block title %}{% endblock %}</title>
     <style type="text/css">
         .asteriskField {
-          display: none;
+            display: none;
         }
 
-       /* #hint_id_username, #hint_id_password1, #hint_id_password2{ 
+        /* #hint_id_username, #hint_id_password1, #hint_id_password2{ 
             display: none;
         }
         */
-    
+
         form .alert ul li {
-          list-style: none;
+            list-style: none;
         }
-    
+
         form .alert ul {
-          padding: 0;
-          margin: 0;
+            padding: 0;
+            margin: 0;
         }
-      </style>
+    </style>
 </head>
 
 <body>
@@ -49,28 +49,28 @@
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    {% if user.is_authenticated %}                    
-                    <li class="nav-item">
-                        <a class="nav-link" href={% url 'logout' %}>Logout</a>
-                    </li> 
-                    <li class="nav-item">
-                        <a class="nav-link" href={% url 'password_change' %}>Change Password</a>
-                    </li> 
-                    <li class="nav-item">
-                        <a class="nav-link" href={% url 'profile_edit' %}>Profile Setting</a>
-                    </li>                                  
+                    {% if user.is_authenticated %}
+                    <!-- Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            {{user.username}}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href={% url 'profile_edit' %}>Profile Setting</a>
+                            <a class="dropdown-item" href={% url 'password_change' %}>Change Password</a>
+                            <a class="dropdown-item" href={% url 'logout' %}>Logout</a>
+                        </div>
+                    </li>
+
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href={% url 'signup' %}>Sign Up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href={% url 'login' %}>Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href={% url 'password_reset' %}>Forgot your Password?</a>
-                    </li>
-                    {% endif %}                    
-                    
+                        <a class="nav-link" href={% url 'login' %}>Login</a> </li>
+
+                    {% endif %}
+
                 </ul>
             </div>
         </div>
