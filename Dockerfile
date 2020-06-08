@@ -14,5 +14,5 @@ COPY . /code/
 EXPOSE $PORT
 
 CMD ["sh", "-c", "python3 manage.py migrate"]
-CMD ["sh", "-c", "python3 manage.py runserver ${PORT}"]
+CMD ["sh", "-c", "python3 manage.py runserver 0.0.0.0:${PORT}"]
 # https://stackoverflow.com/a/54504297
