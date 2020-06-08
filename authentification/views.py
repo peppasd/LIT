@@ -12,14 +12,14 @@ def index(request):
 
 def signup(request): 
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserCreationFormExtended(request.POST)
         if form.is_valid():
             form.save()
             return render(request, 'registration/signup_done.html', {
                 'form':form
             })
     else:
-        form = UserCreationForm()   
+        form = UserCreationFormExtended()   
     return render(request, 'registration/signup.html',{
         'form':form
     })

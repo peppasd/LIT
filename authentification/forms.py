@@ -8,18 +8,16 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth import password_validation
 
 
-class UserCreationFormExtended(UserCreationForm):    
+class UserCreationFormExtended(UserCreationForm): 
+    email = forms.EmailField(
+        label=_("Email"),
+        max_length=254,
+        widget=forms.EmailInput(attrs={'autocomplete': 'email'})
+    )   
 
     class Meta:
         model = User
-        fields = ("username", "email")
-
-    def save(self, commit=True):
-        user = super(UserCreationForm, self).save(commit=False)
-        user.email = self.cleaned_data["email"]
-        if commit:
-            user.save()
-        return user
+        fields = ("username", "email")    
 
 class EditProfileForm(UserChangeForm):
     password= None
