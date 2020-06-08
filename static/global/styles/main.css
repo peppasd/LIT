@@ -1,0 +1,83 @@
+html, body {
+    font-family: 'DM Mono', monospace;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff3e0;
+}
+
+main > .container-fluid {
+    padding: 60px 0 60px;
+    width: 75%;
+}
+
+.nav-light{
+    background-color: #fff3e0;
+}
+
+.footer {
+    background-color: #fff3e0;
+}
+
+.footer > .container-fluid {
+    width: 75%;
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: rgb(242, 133, 15);
+}
+
+.btn {
+    border-radius: 1rem;
+}
+
+.btn:focus {
+    box-shadow: none;
+}
+
+.btn-outline-primary {
+    border-color: black;
+    border-width: 2px;
+    color: black;
+}
+
+.btn-outline-primary:hover {
+    background-color: transparent;
+    color: black;
+    border-color: rgb(242, 133, 15);
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active {
+    background-color: rgb(242, 133, 15);
+    border-color: rgb(237, 96, 1);
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active:focus {
+    box-shadow: none;
+}
+
+
+.btn-outline-secondary {
+    border-color: gray;
+    border-width: 2px;
+    color: grey;
+}
+
+.btn-outline-secondary:hover {
+    background-color: transparent;
+    border-color: rgb(255, 197, 68);
+    color: grey;
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled):active {
+    background-color: rgb(255, 197, 68);
+    border-color: rgb(242, 133, 15);
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled):active:focus {
+    box-shadow: none;
+}
+  
