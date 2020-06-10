@@ -25,7 +25,7 @@ SECRET_KEY = '*ol&ft2dc!(+)y_&#lp&yj1bmv(ps+cjwmb)*=8l9sdev#e9w!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -61,7 +61,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            os.path.join(BASE_DIR, 'home/templates')
+            os.path.join(BASE_DIR, 'home/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -135,7 +135,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    os.path.join(BASE_DIR, "home/static")
+    os.path.join(BASE_DIR, "home/static"),
 ]
 
 LOGIN_REDIRECT_URL = 'index'

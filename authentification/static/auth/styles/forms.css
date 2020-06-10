@@ -1,0 +1,15 @@
+.card {
+    border: none;
+}
+
+.form-control {
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 1rem;
+}
+
+.form-control:focus {
+    background-color: transparent;
+    border: 2px solid rgb(242, 133, 15);
+    box-shadow: none;
+}

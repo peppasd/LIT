@@ -6,10 +6,6 @@ from django.contrib.auth import update_session_auth_hash
 from django.urls import reverse
 
 # Create your views here.
-
-def index(request):    
-    return render(request, 'index.html')
-
 def signup(request): 
     if request.method == 'POST':
         form = UserCreationFormExtended(request.POST)
