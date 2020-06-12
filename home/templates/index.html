@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/styles/home.css' %}">
+{% endblock %}
+
+{%block title%}Home{% endblock %}
+
+{% block main %}
+<div class="row justify-content-center align-items-center text-center h-100">
+    <div>
+        <img id="logo-img" src="{% static 'global/assets/logo.svg' %}" alt="logo">
+        <h1>lit</h1>
+        <p>The <b>lit</b> way to label your data.</p>
+    </div>
+</div>
+{% endblock %}
