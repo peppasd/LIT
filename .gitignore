@@ -4,6 +4,10 @@ __pycache__/
 *$py.class
 
 # C extensions
+
+# FS
+.DS_Store
+
 *.so
 
 # Distribution / packaging
@@ -139,3 +143,10 @@ cython_debug/
 
 #VS Code
 .vscode
+/.idea
+/.idea/LIT.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/vcs.xml
+/.idea/.gitignore
