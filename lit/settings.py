@@ -26,7 +26,7 @@ SECRET_KEY = '*ol&ft2dc!(+)y_&#lp&yj1bmv(ps+cjwmb)*=8l9sdev#e9w!'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '.run.app',
+    '.a.run.app',
 ]
 
 # Application definition
