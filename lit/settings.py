@@ -25,8 +25,9 @@ SECRET_KEY = '*ol&ft2dc!(+)y_&#lp&yj1bmv(ps+cjwmb)*=8l9sdev#e9w!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    '.a.run.app',
+]
 
 # Application definition
 
@@ -81,13 +82,19 @@ WSGI_APPLICATION = 'lit.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+def getDbHost(): 
+    if os.environ['GCR'] == 'true':
+        return '10.17.17.3'
+    else:
+        return 'db'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'db',
+        'HOST': getDbHost(),
         'PORT': 5432,
     }
 }
