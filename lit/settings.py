@@ -77,13 +77,19 @@ WSGI_APPLICATION = 'lit.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+def getDbHost(): 
+    if os.environ['GCR'] == 'true':
+        return '10.17.17.3'
+    else:
+        return 'db'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'db',
+        'HOST': getDbHost(),
         'PORT': 5432,
     }
 }
