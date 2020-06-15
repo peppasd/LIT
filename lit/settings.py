@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '.a.run.app',
+    'localhost',
+    '127.0.0.1',
 ]
 
 # Application definition
@@ -83,10 +85,14 @@ WSGI_APPLICATION = 'lit.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 def getDbHost(): 
-    if os.environ['GCR'] == 'true':
-        return '10.17.17.3'
-    else:
+    try:
+        if os.environ['GCR'] == true:
+            return '10.17.17.3'
+        else:
+            return 'db'
+    except KeyError:
         return 'db'
+
 
 DATABASES = {
     'default': {
