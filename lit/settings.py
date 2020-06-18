@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'lit.wsgi.application'
 
 def getDbHost(): 
     try:
-        if os.environ['GCR'] == true:
+        if os.environ['GCR'] == 'true':
             return '10.17.17.3'
         else:
             return 'db'
