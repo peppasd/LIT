@@ -26,6 +26,7 @@ SECRET_KEY = '*ol&ft2dc!(+)y_&#lp&yj1bmv(ps+cjwmb)*=8l9sdev#e9w!'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
     '.a.run.app',
 ]
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'home',
     'authentification',
     'crispy_forms',
+    'project_overview',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

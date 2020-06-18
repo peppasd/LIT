@@ -1,0 +1,39 @@
+{% extends "base.hmtl" %}
+
+    {% block title %} 
+        {{project.title}}
+    {% endblock %}
+
+
+    {% block main %}
+    <div class="container">
+        <h1 class="text-center"><b>{{project.title}}</b></h1>
+        <hr class="hr-text">
+    </div>
+
+    <div class="row">
+
+        <div class="col-8 col-sm-12">
+
+        </div>
+
+        <div class="col-4 col">
+            <table class="table table-hover">
+                <thead>
+                    <tr><th>Members</th></tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{user.username}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+    {% endblock %}
+
