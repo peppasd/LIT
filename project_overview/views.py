@@ -3,15 +3,26 @@ from django.shortcuts import render
 #Dummy Project
 projects = [
     {
+        'id' : '001',
         'title' : 'Face Detector',
-        'members': 'John, Big John, Raw John',
         'date_created': 'August 22, 2030'
     },
     
     {
+        'id': '002',
         'title' : 'Puppy Detector',
-        'members': 'Pop, Big Pop, Raw Pop',
         'date_created': 'November 02, 1894'
+    }
+]
+members = [
+    {
+       'username': 'John'
+    },
+    {
+       'username': 'Big John'
+    },
+    {
+       'username': 'Raw John'
     }
 ]
 
@@ -19,6 +30,7 @@ projects = [
 # Create your views here.
 def project_overview(request):
     context = {
-        'projects': projects
+        'projects': projects,
+        'members': members
     }
     return render(request, 'project_overview.html', context)
