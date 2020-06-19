@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Login {% endblock %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'project_overview/styles/project.css' %}">
+{% endblock %}
+
+{% block main %}
+
+    <h1 class="text-center"><b>The Queen Project</b></h1>
+    <hr class="hr-text">
+
+<div class="row">
+
+    <div class="col-lg-10 col-sm-12">
+        <div class='col-4 sm-8'>
+            <h3>Photos:</h3>
+        </div>
+        <div class='col-8 sm-4 d-flex justify-content-end'>
+            <a href = '/project/images'>
+                <button type="button" class="btn" ><u>All images</u></button>
+            </a>
+        </div>
+        <div class='col'>
+            <div class='row ml-4'>
+                {% if photos %}
+                {% for photo in photos %}
+                <div class='square'> <img src = "{{photo}}"> </div>
+                {% endfor %}
+                {% else %}
+                No images availble for the project.
+                {% endif %}
+
+                <!--Upload Image Button-->
+                <div class='square'> <img src = "https://cdn3.iconfinder.com/data/icons/glypho-generic-icons/64/action-upload-alt-512.png"> </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    
+{% endblock main %}

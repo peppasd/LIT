@@ -5,36 +5,79 @@
 
 {% load static %}
 {% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'project_overview/styles/projects.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'project_overview/styles/project.css' %}">
 {% endblock %}
 
 {% block main %}
 
-    <h1 class="text-center"><b>{{projects.title}}</b></h1>
+    <h1 class="text-center"><b>The Queen Project</b></h1>
     <hr class="hr-text">
 
 <div class="row">
 
-    <div class="col-8 col-sm-12">
-        
+    <div class="col-lg-10 col-sm-12">
+        <div class= 'row'>
+            <div class='col-12'>
+                <h3>Tags:</h3>
+            </div>
+            <div class='col'>
+                <div class='row ml-4'>
+                    {% if tags %}
+                        {% for tag in tags %}
+                        <button type="button" class="btn btn-primary mr-3 mt-3">{{tag}}</button>
+                        {% endfor%}
+                    {% else %}
+                    No tags available for the project.
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class='row mt-4'>
+            <div class='col-4 sm-8'>
+                <h3>Photos:</h3>
+            </div>
+            <div class='col-8 sm-4 d-flex justify-content-end'>
+                <a href = '/images'>
+                    <button type="button" class="btn mr-sm-5" ><u>All images</u></button>
+                </a>
+            </div>
+            <div class='col'>
+                <div class='row d-flex justify-content-around'>
+                    {% if photos %}
+                    {% for photo in photos %}
+                    <div class='square'> <img src = "{{photo}}"> </div>
+                    {% endfor %}
+                    {% else %}
+                    No images availble for the project.
+                    {% endif %}
+
+                    <!--Upload Image Button-->
+                    <div class='square'> <img src = "https://cdn3.iconfinder.com/data/icons/glypho-generic-icons/64/action-upload-alt-512.png"> </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="col-4 col-sm-6">
-        <table class="table table-hover">
-            <thead>
-                <tr><th>Members</th></tr>
-            </thead>
-            <tbody>
-                {% for member in members %}
-                <tr>
-                    <td>{{member.username}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="col-lg-2 col-sm-6">
+        <div class="row ml-sm-5">
+            <table class="table table-hover">
+                <h3>Members:</h3>
+                <tbody>
+                    {% if members %}
+                    {% for member in members %}
+                    <tr><td>{{member.username}}</td></tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr><td>Nobody here.</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-outline-primary">Invite</button>
+        </div>
     </div>
 </div>
-
+    
 {% endblock main %}
 
 

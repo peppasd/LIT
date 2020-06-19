@@ -1,3 +1,31 @@
+.square > img {
+  background-color: rgb(237, 96, 1);
+  max-width:100%;
+  max-height:auto;
+}
+.square {
+  border-radius: 1rem;
+  margin: 20px;
+  border: 3px solid rgb(242, 133, 15) ;
+  height: 175px;
+  width: 175px;
+  overflow: hidden;
+}
+
+.btn-primary{
+  color:white;
+  background-color: rgb(242, 133, 15);
+  border-color: rgb(242, 133, 15);
+}
+.btn-primary:active{
+  background-color: rgb(242, 133, 15);
+  border-color: rgb(242, 133, 15);
+}
+.btn-primary:hover{
+  background-color: rgb(237, 96, 1);
+  border-color: rgb(237, 96, 1);
+}
+
 .hr-text {
     line-height: 1em;
     position: relative;
@@ -10,7 +38,6 @@
   }
   .hr-text:before {
     content: '';
-    background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(#818078), to(transparent));
     background: linear-gradient(to right, transparent, #818078, transparent);
     position: absolute;
     left: 0;
