@@ -9,7 +9,6 @@
   width: 300px;
   height: 300px;
   object-fit: cover;
-
 }
 .square {
   border-radius: 1rem;
@@ -23,12 +22,49 @@
 .square-grid {
   border-radius: 1rem;
   margin: 20px;
-  border: 3px solid rgb(242, 133, 15) ;
+  border: 3px solid rgb(242, 133, 15);
   height: 300px;
   width: 300px;
   overflow: hidden;
   float:center;
+  position: relative;
 }
+.checkbox {
+  position:absolute; bottom:50px; right:20px;
+}
+.btn-delete{
+  border:none;
+  background-color: transparent;
+  background-image: url("https://cdn2.iconfinder.com/data/icons/round-interface-1/217/50-512.png");
+  background-size: cover;
+  border-radius: 2px;
+  border-width: 2px;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right:3%;
+  top: 3%;
+  }
+
+.btn-success{
+  border-color:rgb(237, 96, 1);
+  border-width: 2px;
+  position: absolute;
+  max-width:100px;
+  max-height:10px;
+  right:3%;
+  top: 92%;
+  }
+.btn-nosuccess{
+  border-color:rgb(237, 96, 1);
+  border-width: 2px;
+  background-color: gray;
+  position: absolute;
+  max-width:100px;
+  max-height:10px;
+  right:3%;
+  top: 92%;
+  }
 
 .btn-primary{
   color:white;

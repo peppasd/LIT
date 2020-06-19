@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block main %}
-
+    
     <h1 class="text-center"><b>The Queen Project</b></h1>
     <hr class="hr-text">
 
@@ -31,6 +31,7 @@
                         {% else %}
                         No tags available for the project.
                         {% endif %}
+                        <button type="button" class="btn btn-outline-primary mr-3 mt-3">+</button>
                     </div>
                 </div>
             </div>
@@ -40,10 +41,10 @@
                     <h3>Stats:</h3>
                 </div>
                 <div class='col'>
-                    Percent Tagged:
-                    <div class='row progress align-center ml-4 '>
+                    Count Images :  {{count_images}} <p></p>
+                    <div class='row progress align-center ml-3 '>
                         <div class="progress-bar " role="progressbar" aria-valuenow="70"
-                        aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                        aria-valuemin="0" aria-valuemax="100" style="width:70%"> 70%
                         </div>
                     </div>
                 </div>
@@ -64,7 +65,7 @@
                 <div class='row d-flex justify-content-around'>
                     {% if images %}
                     {% for image in images %}
-                    <div class='square'> <img src = "{{image}}"> </div>
+                    <div class='square'> <img src = "{{image.url}}"> </div>
                     {% endfor %}
                     {% else %}
                     No image availble for the project.

@@ -27,7 +27,15 @@
         <div class='row d-flex justify-content-around'>
             {% if images %}
             {% for image in images %}
-            <div class='square-grid'> <img src = "{{image}}"> </div>
+            <div class='square-grid'> 
+                <button type="button" class="btn btn-delete"></button>
+                {% if image.isTagged %}
+                <button type="button" class="btn btn-success"></button>
+                {% else %}
+                <button type="button" class="btn btn-nosuccess"></button>
+                {% endif %}
+                <img src = "{{image.url}}" onclick="alert('image click');" > 
+            </div>
             {% endfor %}
             {% else %}
             No image availble for the project.
