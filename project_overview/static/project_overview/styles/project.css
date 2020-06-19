@@ -1,7 +1,15 @@
 .square > img {
   background-color: rgb(237, 96, 1);
-  max-width:100%;
-  max-height:auto;
+  width: 175px;
+  height: 175px;
+  object-fit: cover;
+}
+.square-grid > img {
+  background-color: rgb(237, 96, 1);
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+
 }
 .square {
   border-radius: 1rem;
@@ -10,6 +18,16 @@
   height: 175px;
   width: 175px;
   overflow: hidden;
+  text-align:center;
+}
+.square-grid {
+  border-radius: 1rem;
+  margin: 20px;
+  border: 3px solid rgb(242, 133, 15) ;
+  height: 300px;
+  width: 300px;
+  overflow: hidden;
+  float:center;
 }
 
 .btn-primary{

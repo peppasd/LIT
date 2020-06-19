@@ -14,32 +14,27 @@
     <hr class="hr-text">
 
 <div class="row">
+    <div class='col-4 sm-8'>
+        <h3>Images:</h3>
+    </div>
+    <div class='col-12 sm-4 d-flex justify-content-end'>
+        <button type="button" class="btn btn-outline-primary mr-4"> Upload </button>
+        <a href = '/project/'>
+            <button type="button" class="btn btn-outline-primary">Overview</button>
+        </a>
+    </div>
+    <div class='col'>
+        <div class='row d-flex justify-content-around'>
+            {% if images %}
+            {% for image in images %}
+            <div class='square-grid'> <img src = "{{image}}"> </div>
+            {% endfor %}
+            {% else %}
+            No image availble for the project.
+            {% endif %}
 
-    <div class="col-lg-10 col-sm-12">
-        <div class='col-4 sm-8'>
-            <h3>Photos:</h3>
-        </div>
-        <div class='col-8 sm-4 d-flex justify-content-end'>
-            <a href = '/project/images'>
-                <button type="button" class="btn" ><u>All images</u></button>
-            </a>
-        </div>
-        <div class='col'>
-            <div class='row ml-4'>
-                {% if photos %}
-                {% for photo in photos %}
-                <div class='square'> <img src = "{{photo}}"> </div>
-                {% endfor %}
-                {% else %}
-                No images availble for the project.
-                {% endif %}
-
-                <!--Upload Image Button-->
-                <div class='square'> <img src = "https://cdn3.iconfinder.com/data/icons/glypho-generic-icons/64/action-upload-alt-512.png"> </div>
-            </div>
         </div>
     </div>
-
 </div>
     
 {% endblock main %}
