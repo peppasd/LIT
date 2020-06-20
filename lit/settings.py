@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     '.a.run.app',
     'localhost',
     '127.0.0.1',
+    '0.0.0.0',
 ]
 
 # Application definition
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'home',
     'authentification',
     'crispy_forms',
+    'projects',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
