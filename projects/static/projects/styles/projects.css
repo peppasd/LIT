@@ -20,7 +20,6 @@
 
     border-radius: 50%;
     color: white;
-    font-size: 40px;
     text-decoration: none;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
     position: fixed;
@@ -64,6 +63,22 @@ a:hover {
 
 .btn {
     border-radius: 1rem;
+}
+.floating-btn{
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /*border-radius: 50%; dunno if squared button is better*/
+    color: white;
+    font-size: 40px;
+    text-decoration: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+    position: fixed;
+    right: 20px;
+    bottom: 80px;
 }
 
 .btn:focus {

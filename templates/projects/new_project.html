@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %} Create a new project {% endblock %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'auth/styles/forms.css' %}">
+{% endblock %}
+
+{% block main %}
+
+<div class="row justify-content-center">
+    <div class="col-xl-6 col-md-8 col-10">
+        <div class="card">
+            <div class="card-body nav-light">
+                <form method="POST" novalidate>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="projName">Project name</label>
+                        <input id="projName" type="text" class="form-control mb-3" placeholder="New LIT Project">
+
+                        <label for="projDesc">Project description</label>
+                        <textarea id="projDesc" class="form-control mb-3" maxlength="160" rows="3" style="resize: none; height: auto;"
+                            placeholder="A short description of your project"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary mb-3">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

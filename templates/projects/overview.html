@@ -6,6 +6,8 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'projects/styles/projects.css' %}">
+<!-- Google Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -39,5 +41,6 @@
     </div>
 
     {% endfor %}
- </div>
+    </div>
+    <button onclick="window.location.href = '{% url 'new_project' %}' ;" class="material-icons floating-btn btn primaryColor">add</button>
 {% endblock %}

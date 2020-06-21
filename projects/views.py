@@ -10,3 +10,5 @@ def overview(request):
         'project_list': project_list,
     }
     return render(request, 'projects/overview.html', context=context)
+def new_project(request):
+    return render(request, 'projects/new_project.html')
