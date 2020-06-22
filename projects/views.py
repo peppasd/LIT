@@ -4,6 +4,7 @@ from .forms import ProjectForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 import datetime
+from .utils import existsUser
 
 # Create your views here.
 
@@ -24,15 +25,17 @@ def new_project(request):
             #post.name = form.cleaned_data['name']
             #post.description = form.cleaned_data['description']
             #post.progress = form.cleaned_data['progress']
-            #post.created = str
+            post.created = str
             #post.labeled_photos = form.cleaned_data['labeled_photos']
             #post.photos_total = form.cleaned_data['photos_total']              
-            #post.labels = form.cleaned_data['labels']
-            #post.users = form.cleaned_data['users']
+            #post.labels = form.cleaned_data['labels']            
             user_name = form.cleaned_data['user_tmp']
+            user_names = user_name.split(', ')
             post.save()
-            post.users.add(User.objects.get(username=user_name))
-            post.save()
+            for user in user_names:
+                if existsUser(user):
+                    post.users.add(User.objects.get(username=user))            
+                post.save()
             return HttpResponseRedirect('/projects/overview/')
     else:
         form = ProjectForm()
