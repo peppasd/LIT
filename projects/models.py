@@ -1,16 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 # Create your models here.
 
 class Project(models.Model):
     name = models.CharField(max_length=160)
     description = models.CharField(max_length=160)
-    progress = models.IntegerField()    
-    created = models.DateField()
-    labeled_photos = models.IntegerField()
-    photos_total = models.IntegerField()
-    users = models.ManyToManyField(User)
+    progress = models.IntegerField(default=0)    
+    created = models.DateField(default=datetime.date.today)
+    labeled_photos = models.IntegerField(default=0)
+    photos_total = models.IntegerField(default=0)
+    labels=models.CharField(max_length=160)
+    #users = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name

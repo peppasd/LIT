@@ -14,19 +14,22 @@
     <div class="col-xl-6 col-md-8 col-10">
         <div class="card">
             <div class="card-body nav-light">
-                <form method="POST" novalidate>
+                <form method="POST">
                     {% csrf_token %}
                     <div class="form-group">
+                        <input type="hidden" name="progress" value="0">
+                        <input type="hidden" name="created" value="1970-01-01">
+                        <input type="hidden" name="labeled_photos" value="0">
+                        <input type="hidden" name="photos_total" value="0">
                         <label for="projName">Project name</label>
-                        <input id="projName" type="text" class="form-control mb-3" placeholder="New LIT Project" required>
-
+                        <input name="name" id="projName" type="text" class="form-control mb-3" placeholder="New LIT Project" required>
                         <label for="projDesc">Project description</label>
-                        <textarea id="projDesc" class="form-control mb-3" maxlength="160" rows="3" style="resize: none; height: auto;"
+                        <textarea name="description" id="projDesc" class="form-control mb-3" maxlength="160" rows="3" style="resize: none; height: auto;"
                             placeholder="A short description of your project" required></textarea>
                         <label for="projLabel">Select Label and Labeltype separated by commas.<br/> Possible Types are: Int, Float, String, Bool. </label>
-                        <input id="projLabel" type="text" class="form-control mb-3" placeholder="Name::Type, OtherName::Type"required>
+                        <input name="labels" id="projLabel" type="text" class="form-control mb-3" placeholder="Name::Type, OtherName::Type"required>
                         <label for="projUsers">Invite other users separated by commas</label>
-                        <input id="projUsers" type="text" class="form-control mb-3" placeholder="LitUser1, LitUser2">
+                        <input name="users" id="projUsers" type="text" class="form-control mb-3" placeholder="LitUser1, LitUser2">
                     </div>
                     <button type="submit" class="btn btn-outline-primary mb-3">Create</button>
                 </form>
