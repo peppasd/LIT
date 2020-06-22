@@ -9,8 +9,10 @@ def existsUser(username):
 
 def allProjects_user(username):
     ret = []
-    users = Project.users.objects.all()
-    for elm in users:
-        if elm.username == username:
-            ret.append(elm)
+    projects = Project.objects.all()
+    for project in projects:
+        users = project.users.objects.all()
+        for elm in users:
+            if elm.username == username:
+                ret.append(project)    
     return ret
