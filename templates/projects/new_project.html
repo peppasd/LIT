@@ -18,11 +18,15 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="projName">Project name</label>
-                        <input id="projName" type="text" class="form-control mb-3" placeholder="New LIT Project">
+                        <input id="projName" type="text" class="form-control mb-3" placeholder="New LIT Project" required>
 
                         <label for="projDesc">Project description</label>
                         <textarea id="projDesc" class="form-control mb-3" maxlength="160" rows="3" style="resize: none; height: auto;"
-                            placeholder="A short description of your project"></textarea>
+                            placeholder="A short description of your project" required></textarea>
+                        <label for="projLabel">Select Label and Labeltype separated by commas.<br/> Possible Types are: Int, Float, String, Bool. </label>
+                        <input id="projLabel" type="text" class="form-control mb-3" placeholder="Name::Type, OtherName::Type"required>
+                        <label for="projUsers">Invite other users separated by commas</label>
+                        <input id="projUsers" type="text" class="form-control mb-3" placeholder="LitUser1, LitUser2">
                     </div>
                     <button type="submit" class="btn btn-outline-primary mb-3">Create</button>
                 </form>
