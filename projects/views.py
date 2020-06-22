@@ -18,16 +18,20 @@ def new_project(request):
     now = datetime.datetime.now()
     str = now.strftime('%Y-%m-%d')
     if request.method == "POST":
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST)        
         if form.is_valid():                 
-            post = form.save(commit=False)             
-            post.name = form.cleaned_data['name']
-            post.description = form.cleaned_data['description']
-            post.progress = form.cleaned_data['progress']
-            post.created = str
-            post.labeled_photos = form.cleaned_data['labeled_photos']
-            post.photos_total = form.cleaned_data['photos_total']              
-            post.labels = form.cleaned_data['labels']
+            post = form.save(commit=False)                         
+            #post.name = form.cleaned_data['name']
+            #post.description = form.cleaned_data['description']
+            #post.progress = form.cleaned_data['progress']
+            #post.created = str
+            #post.labeled_photos = form.cleaned_data['labeled_photos']
+            #post.photos_total = form.cleaned_data['photos_total']              
+            #post.labels = form.cleaned_data['labels']
+            #post.users = form.cleaned_data['users']
+            user_name = form.cleaned_data['user_tmp']
+            post.save()
+            post.users.add(User.objects.get(username=user_name))
             post.save()
             return HttpResponseRedirect('/projects/overview/')
     else:

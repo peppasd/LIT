@@ -12,7 +12,8 @@ class Project(models.Model):
     labeled_photos = models.IntegerField(default=0)
     photos_total = models.IntegerField(default=0)
     labels=models.CharField(max_length=160)
-    #users = models.ManyToManyField(User)
+    user_tmp=models.CharField(max_length=1024, default='')
+    users = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name
