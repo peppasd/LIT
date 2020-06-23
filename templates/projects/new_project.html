@@ -16,7 +16,7 @@
             <div class="card-body nav-light">
                 <form method="POST">
                     {% csrf_token %}
-                    <div class="form-group">
+                    <div class="form-group"> 
                         <input type="hidden" name="progress" value="0">
                         <input type="hidden" name="created" value="1970-01-01">
                         <input type="hidden" name="labeled_photos" value="0">
@@ -28,8 +28,8 @@
                             placeholder="A short description of your project" required></textarea>
                         <label for="projLabel">Select Label and Labeltype separated by commas.<br/> Possible Types are: Int, Float, String, Bool. </label>
                         <input name="labels" id="projLabel" type="text" class="form-control mb-3" placeholder="Name::Type, OtherName::Type"required>
-                        <label for="projUsers">Invite other users separated by commas</label>
-                        <input name="user_tmp" id="projUsers" type="text" class="form-control mb-3" placeholder="LitUser1, LitUser2">
+                        <label for="projUsers">Invite other users separated by commas</label> 
+                        <input name="user_tmp" id="projUsers" type="text" class="form-control mb-3" value='{{txt}}'>
                     </div>
                     <button type="submit" class="btn btn-outline-primary mb-3">Create</button>
                 </form>

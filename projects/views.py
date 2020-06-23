@@ -19,10 +19,18 @@ def overview(request):
 
 @login_required
 def new_project(request):
+    user_list = User.objects.all()
+    txt = ''
+    for user in user_list:
+        txt += user.username + ', '
+    context = {
+        'txt': txt,
+    }
+    print(txt)
     now = datetime.datetime.now()
     str = now.strftime('%Y-%m-%d')
     if request.method == "POST":
-        form = ProjectForm(request.POST)        
+        form = ProjectForm(request.POST)
         if form.is_valid():                 
             post = form.save(commit=False)  
             post.created = str          
@@ -33,10 +41,10 @@ def new_project(request):
             post.save()
             for user in user_names:
                 if existsUser(user):
-                    post.users.add(User.objects.get(username=user))            
+                    post.users.add(User.objects.get(username=user))                
                 post.save()
             return HttpResponseRedirect('/projects/overview/')
     else:
         form = ProjectForm()
-    return render(request, 'projects/new_project.html', {'form': form})
+    return render(request, 'projects/new_project.html', context=context)
 
