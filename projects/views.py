@@ -5,9 +5,11 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 import datetime
 from .utils import existsUser
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required
 def overview(request):
     project_list = Project.objects.all()
     context = {
@@ -15,22 +17,19 @@ def overview(request):
     }
     return render(request, 'projects/overview.html', context=context)
 
+@login_required
 def new_project(request):
     now = datetime.datetime.now()
     str = now.strftime('%Y-%m-%d')
     if request.method == "POST":
         form = ProjectForm(request.POST)        
         if form.is_valid():                 
-            post = form.save(commit=False)                         
-            #post.name = form.cleaned_data['name']
-            #post.description = form.cleaned_data['description']
-            #post.progress = form.cleaned_data['progress']
-            post.created = str
-            #post.labeled_photos = form.cleaned_data['labeled_photos']
-            #post.photos_total = form.cleaned_data['photos_total']              
-            #post.labels = form.cleaned_data['labels']            
+            post = form.save(commit=False)  
+            post.created = str          
             user_name = form.cleaned_data['user_tmp']
             user_names = user_name.split(', ')
+            post.save()
+            post.users.add(request.user)
             post.save()
             for user in user_names:
                 if existsUser(user):
