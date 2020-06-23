@@ -2,7 +2,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'eu.gcr.io/label-it-2020/dev', '.']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'eu.gcr.io/label-it-2020:$COMMIT_SHA']
+  args: ['push', 'eu.gcr.io/label-it-2020/dev:$COMMIT_SHA']
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - 'run'
