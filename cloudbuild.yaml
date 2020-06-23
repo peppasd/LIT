@@ -15,4 +15,4 @@ steps:
   - '--platform'
   - 'managed'
 images:
-- eu.gcr.io/label-it-2020/dev
+- eu.gcr.io/label-it-2020/lit/dev
