@@ -52,7 +52,7 @@ def project_overview(request):
     context = {
         'projects': projects,
         'members': members,
-        'images': [images[0],images[1]],
+        'images': [images[0],images[1],images[2]],
         'tags':tags,
         'count_images': count_images,
     }

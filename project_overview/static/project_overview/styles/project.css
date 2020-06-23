@@ -1,7 +1,7 @@
 .square > img {
   background-color: rgb(237, 96, 1);
-  width: 175px;
-  height: 175px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
 }
 .square-grid > img {
@@ -14,8 +14,8 @@
   border-radius: 1rem;
   margin: 20px;
   border: 3px solid rgb(242, 133, 15) ;
-  height: 175px;
-  width: 175px;
+  height: 200px;
+  width: 200px;
   overflow: hidden;
   text-align:center;
 }
@@ -66,18 +66,28 @@
   top: 92%;
   }
 
-.btn-primary{
-  color:white;
+.btn-primary:disabled{
   background-color: rgb(242, 133, 15);
   border-color: rgb(242, 133, 15);
-}
-.btn-primary:active{
-  background-color: rgb(242, 133, 15);
-  border-color: rgb(242, 133, 15);
+  opacity: 100%;
 }
 .btn-primary:hover{
   background-color: rgb(237, 96, 1);
   border-color: rgb(237, 96, 1);
+  transition: 1.5s;
+}
+
+.btn-edit-icon {
+  background-image: url("http://icons.iconarchive.com/icons/icons8/windows-8/512/Editing-Edit-icon.png");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  float:center;
+  width: 50px;
+}
+.btn-edit-icon:hover{
+  border-color: rgb(242, 133, 15);
+  transition: 1s;
 }
 
 .hr-text {
@@ -108,4 +118,16 @@
     line-height: 1.5em;
     color: #818078;
     background-color: #fcfcfa;
+  }
+
+  .title{
+    text-align: center;
+    padding: 0 0 20px 0;
+    width:100%;
+    transition: 0.2s;
+    top:0;
+  }
+
+  .progress-bar{
+    background-color: rgb(242, 133, 15)
   }
