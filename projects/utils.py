@@ -11,7 +11,7 @@ def allProjects_user(username):
     ret = []
     projects = Project.objects.all()
     for project in projects:
-        users = project.users.objects.all()
+        users = project.users.all()
         for elm in users:
             if elm.username == username:
                 ret.append(project)    
