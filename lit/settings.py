@@ -26,7 +26,10 @@ SECRET_KEY = '*ol&ft2dc!(+)y_&#lp&yj1bmv(ps+cjwmb)*=8l9sdev#e9w!'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
     '.a.run.app',
+    '127.0.0.1',
+    '0.0.0.0',
 ]
 
 # Application definition
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
     'home',
     'authentification',
     'crispy_forms',
+    'projects',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -63,6 +67,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'home/templates'),
+            os.path.join(BASE_DIR, 'projects/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -83,10 +88,14 @@ WSGI_APPLICATION = 'lit.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 def getDbHost(): 
-    if os.environ['GCR'] == 'true':
-        return '10.17.17.3'
-    else:
+    try:
+        if os.environ['GCR'] == 'true':
+            return '10.17.17.3'
+        else:
+            return 'db'
+    except KeyError:
         return 'db'
+
 
 DATABASES = {
     'default': {
@@ -143,9 +152,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "home/static"),
+    os.path.join(BASE_DIR, "projects/static"),
 ]
 
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = '/projects/'
 LOGOUT_REDIRECT_URL = 'logout_done'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
