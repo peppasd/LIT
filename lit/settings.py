@@ -28,6 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '.a.run.app',
+    'localhost',
+    '127.0.0.1',
+    '0.0.0.0',
 ]
 
 # Application definition
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
     'authentification',
     'crispy_forms',
     'project_overview',
+    'projects',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -92,6 +96,7 @@ def getDbHost():
             return 'db'
     except KeyError:
         return 'db'
+
 
 DATABASES = {
     'default': {
@@ -150,7 +155,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "home/static"),
 ]
 
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = '/projects/overview/'
 LOGOUT_REDIRECT_URL = 'logout_done'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'

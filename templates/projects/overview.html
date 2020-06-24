@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Overview {% endblock %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'projects/styles/projects.css' %}">
+{% endblock %}
+
+{% block main %}
+
+{% if project_list %}
+    <div class="ml-0 row row-cols-1 row-cols-lg-2 m-3">
+    {% for project in project_list%}
+
+    <div class="col">
+        <div class="card mb-5">
+            <div class="row no-gutters">
+                <div class="col">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ project.name }}</h4>
+                        <h6 class="card-subtitle text-muted mb-3">{{project.created}}</h6>
+
+                        <p class="card-text">{{ project.description }}</p>
+
+                        <div class="progress mt-3 mb-1">
+                            <!-- TODO: change style after demo -->
+                            <div class="progress-bar" role="progressbar" style="width:50%" aria-valuenow="{{ project.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <small class="text-muted">{{ project.labeled_photos }} labeled photos</small>
+
+                        <div class="d-flex justify-content-end">
+                            <a href="{#% url to our projcet %#}" class="btn btn-outline-primary mt-4">Open Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+{%else %}
+    <p>No projects</p>
+{% endif %}
+<a role="button" href="{% url 'new_project' %}" class="floating-btn btn"> 
+    <i class="material-icons">add</i> 
+</a>
+{% endblock %}
