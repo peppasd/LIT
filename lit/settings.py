@@ -28,7 +28,6 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '.a.run.app',
-    'localhost',
     '127.0.0.1',
     '0.0.0.0',
 ]
@@ -45,7 +44,6 @@ INSTALLED_APPS = [
     'home',
     'authentification',
     'crispy_forms',
-    'project_overview',
     'projects',
 ]
 
@@ -69,6 +67,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'home/templates'),
+            os.path.join(BASE_DIR, 'projects/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -153,9 +152,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "home/static"),
+    os.path.join(BASE_DIR, "projects/static"),
 ]
 
-LOGIN_REDIRECT_URL = '/projects/overview/'
+LOGIN_REDIRECT_URL = '/projects/'
 LOGOUT_REDIRECT_URL = 'logout_done'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'

@@ -5,7 +5,7 @@
 
 {% load static %}
 {% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'projects/styles/projects.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'projects/styles/overview.css' %}">
 {% endblock %}
 
 {% block main %}
@@ -31,7 +31,7 @@
                         <small class="text-muted">{{ project.labeled_photos }} labeled photos</small>
 
                         <div class="d-flex justify-content-end">
-                            <a href="{#% url to our projcet %#}" class="btn btn-outline-primary mt-4">Open Project</a>
+                            <a href="{% url 'project_overview' %}" class="btn btn-outline-primary mt-4">Open Project</a>
                         </div>
                     </div>
                 </div>

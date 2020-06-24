@@ -1,0 +1,52 @@
+.card {
+    border: 2px solid black;
+    background-color: transparent;
+    border-radius: 1rem;
+    transition-duration: 0.3s;
+}
+
+.card:hover {
+    border: 2px solid rgb(242, 133, 15);
+}
+
+.cards::after{
+    content: '';
+    flex: auto;
+}
+
+.floating-btn{
+    position: fixed;
+    right: 20px;
+    bottom: 80px;
+    width: 60px;
+    height: 60px;
+    background: rgb(242, 133, 15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+h6 {
+    font-size: small;
+}
+
+.pwdheight{
+    height: 115%;
+}
+
+.confirm_password{
+    height: 90%;
+}
+
+.progress {
+    border: 2px solid black;
+    background-color: transparent;
+}
+
+.progress-bar {
+    background-color: rgb(255, 197, 68);
+}
