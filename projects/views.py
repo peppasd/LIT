@@ -18,15 +18,7 @@ def overview(request):
     return render(request, 'overview.html', context=context)
 
 @login_required
-def new_project(request):
-    user_list = User.objects.all()
-    txt = ''
-    for user in user_list:
-        txt += user.username + ', '
-    context = {
-        'txt': txt,
-    }
-    print(txt)
+def new_project(request):    
     now = datetime.datetime.now()
     str = now.strftime('%Y-%m-%d')
     if request.method == "POST":
@@ -46,7 +38,7 @@ def new_project(request):
             return HttpResponseRedirect('/projects/')
     else:
         form = ProjectForm()
-    return render(request, 'new_project.html', context=context)
+    return render(request, 'new_project.html', {'form':form})
 
 #Dummy Project
 projects = [
