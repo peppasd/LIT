@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Login {% endblock %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'project_overview/styles/project.css' %}">
+{% endblock %}
+
+{% block main %}
+
+    <h1 class="text-center"><b>The Queen Project</b></h1>
+    <hr class="hr-text">
+
+<div class="row">
+    <div class='col-12 col-sm-4'>
+        <h3>Images:</h3>
+    </div>
+    <div class='col-12 col-sm-8 d-flex justify-content-around justify-content-lg-end'>
+        <button type="button" class="btn btn-outline-primary mr-4"> Upload </button>
+        <a href = '/project/'>
+            <button type="button" class="btn btn-outline-primary">Overview</button>
+        </a>
+    </div>
+    <div class='col'>
+        <div class='row d-flex justify-content-around'>
+            {% if images %}
+            {% for image in images %}
+            <div class='square-grid'> 
+                <button type="button" class="btn btn-delete"></button>
+                {% if image.isTagged %}
+                <button type="button" class="btn btn-success"></button>
+                {% else %}
+                <button type="button" class="btn btn-nosuccess"></button>
+                {% endif %}
+                <img src = "{{image.url}}" onclick="alert('image click');" > 
+            </div>
+            {% endfor %}
+            {% else %}
+            No image availble for the project.
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+    
+{% endblock main %}

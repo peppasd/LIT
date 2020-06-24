@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Login {% endblock %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'project_overview/styles/project.css' %}">
+{% endblock %}
+
+{% block main %}
+
+<!-- TITLE -->
+<div class="title" id='myHeader'>
+    <h1><b>The Queen Project</b></h1>
+    <!--  <button type="button" class="btn btn-edit-icon mr-5" onclick="alert('Edit title!')"></button>  -->
+    <hr class="hr-text">
+</div>
+
+
+<div class="row">
+
+    <div class="col-lg-8 col-sm-12">
+
+        <div class='row'>
+            <!--Description-->
+            <h3>Description:</h3>
+            <div class='col-12'>
+                Salute the one and immortal Queen.<br> //Todo: Add functionality and select project by ID.
+            </div>
+        </div>
+
+        <div class= 'row mt-5'>
+            <!--TAGS-->
+            <div class='col-12 col-lg-8 px-0'>
+                <div class='row'>
+                    <div class='col'>
+                        <h3>Tags:</h3>
+                    </div>
+                    <div class='col d-flex justify-content-end'>
+                    </div>
+                </div>
+                <div class='col'>
+                    <div class='row ml-1'>
+                        {% if tags %}
+                        {% for tag in tags %}
+                        <button type="button" class="btn btn-primary mr-3 mt-3" disabled>{{tag}}</button>
+                        {% endfor%}
+                        {% else %}
+                        No tags available for the project.
+                        {% endif %}
+                        <!--edit tags button-->
+                        <button type="button" class="btn btn-edit-icon mr-3 mt-3" onclick="alert('Edit tags!')"></button>
+                    </div>
+                </div>
+            </div>
+
+            <!--STATS-->
+            <div class='col-12 col-lg-4 mt-4 px-0 mt-lg-0'>
+                <div class='col-12 px-0'>
+                    <h3>Stats:</h3>
+                </div>
+                <div class='col'>
+                    Count Images :  {{count_images}} <p></p>
+                    <div class='row progress align-center mx- '>
+                        <div class="progress-bar " role="progressbar" aria-valuenow="70"
+                        aria-valuemin="0" aria-valuemax="100" style="width:70%"> 70%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--IMAGES-->
+        <div class='row mt-5'>
+            <div class='col-12 col-sm-4 px-0'>
+                <h3>Images:</h3>
+            </div>
+            <div class='col-12 col-sm-8 d-flex justify-content-around justify-content-lg-end'>
+                <button type="button" class="btn btn-outline-primary mr-4" onclick='alert("Upload Image.");'> Upload </button>
+                <a href = './images'>
+                    <button type="button" class="btn btn-outline-primary mr-sm-5">Show all</button>
+                </a>
+            </div>
+            <div class='col'>
+                <div class='row d-flex justify-content-around'>
+                    {% if images %}
+                    {% for image in images %}
+                    <div class='square'> <img src = "{{image.url}}"> </div>
+                    {% endfor %}
+                    {% else %}
+                    No image availble for the project.
+                    Try uploading one.  
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--MEMBERS -->
+    <div class="col-12 col-lg-3 ml-lg-5 pl-lg-5">
+        <div class="row">
+            <table class="table table-hover">
+                <h3>Members:</h3>
+                <tbody>
+                    {% if members %}
+                    {% for member in members %}
+                    <tr><td>{{member.username}}</td></tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr><td>Nobody here.</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class='row float-right mr-3'>
+            <button type="button" class="btn btn-outline-primary">Invite</button>
+        </div>
+    </div>
+</div>
+    
+{% endblock main %}
+
+
+
