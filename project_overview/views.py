@@ -26,20 +26,20 @@ members = [
     }
 ]
 tags = [
-    'testing',
+    'band',
     'the queen',
     'old'
 ]
 images = [
     {'url':'https://www.cheatsheet.com/wp-content/uploads/2017/12/Queen-Elizabeth-Waving.jpg',
      'isTagged': True,},
-    {'url':'https://www.cheatsheet.com/wp-content/uploads/2017/10/queen-elizabeth-fur.jpg',
+    {'url':'https://images-na.ssl-images-amazon.com/images/I/C1YRnQIzuTS._SL1000_.png',
     'isTagged': False,},
     {'url':'http://i.dailymail.co.uk/i/newpix/2018/06/29/21/4DBC9DE400000578-0-Fans_of_the_Royal_family_grew_worried_about_Queen_Elizabeth_II_s-m-55_1530303342340.jpg',
     'isTagged': False,},
     {'url':'https://tse3.mm.bing.net/th?id=OIP.raEAx7WtuS2iOyrYhTQUdQHaE8&pid=Api',
     'isTagged':True,},
-    {'url':'https://tse4.mm.bing.net/th?id=OIP.kiRqPNokgSnJ6ApWGksB2QHaJe&pid=Api',
+    {'url':'https://www.swr.de/-/id=22651064/property=full/1jzbpoi/Queen%201985.jpg',
     'isTagged':True},
     {'url':'https://tse1.mm.bing.net/th?id=OIP.HC7u7SXAjRSapw29hIQ6ZgHaFj&pid=Api',
     'isTagged':True,},
