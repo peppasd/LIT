@@ -11,7 +11,7 @@ class Project(models.Model):
     created = models.DateField(default=datetime.date.today)
     labeled_photos = models.IntegerField(default=0)
     photos_total = models.IntegerField(default=0)
-    labels=models.CharField(max_length=160, default='')
+    labels=models.CharField(max_length=160, default='',blank=True)
     user_tmp=models.CharField(max_length=1024, default='',blank=True)
     users = models.ManyToManyField(User)
 
