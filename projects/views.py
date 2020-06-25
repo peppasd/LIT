@@ -4,29 +4,21 @@ from .forms import ProjectForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 import datetime
-from .utils import existsUser
+from .utils import existsUser, allProjects_user
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 @login_required
 def overview(request):
-    project_list = Project.objects.all()
+    project_list = allProjects_user(request.user.username)
     context = {
         'project_list': project_list,
     }
     return render(request, 'overview.html', context=context)
 
 @login_required
-def new_project(request):
-    user_list = User.objects.all()
-    txt = ''
-    for user in user_list:
-        txt += user.username + ', '
-    context = {
-        'txt': txt,
-    }
-    print(txt)
+def new_project(request):    
     now = datetime.datetime.now()
     str = now.strftime('%Y-%m-%d')
     if request.method == "POST":
@@ -43,10 +35,10 @@ def new_project(request):
                 if existsUser(user):
                     post.users.add(User.objects.get(username=user))                
                 post.save()
-            return HttpResponseRedirect('/projects/overview/')
+            return HttpResponseRedirect('/projects/')
     else:
         form = ProjectForm()
-    return render(request, 'new_project.html', context=context)
+    return render(request, 'new_project.html', {'form':form})
 
 #Dummy Project
 projects = [
