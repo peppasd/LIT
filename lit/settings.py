@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'authentification',
     'crispy_forms',
     'projects',
+    'storages',
+    's3direct',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -97,7 +99,7 @@ def getDbHost():
         return 'db'
 
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
@@ -106,8 +108,35 @@ DATABASES = {
         'HOST': getDbHost(),
         'PORT': 5432,
     }
+}"""
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'grzegorz9',
+        'HOST': 'localhost',
+        'PORT': 5432,
+    }
 }
 
+# Amazon s3
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = 'AKIATDBDTHFIUP3KCAVM'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'kubelekmateusza2'
+AWS_S3_REGION_NAME = 'eu-central-1'
+AWS_S3_ENDPOINT_URL = 'https://s3.amazonaws.com'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+S3DIRECT_DESTINATIONS = {
+    'primary_destination': {
+        'key': 'uploads/',
+        'allowed': ['image/jpg', 'image/jpeg', 'image/png', 'video/mp4'],
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

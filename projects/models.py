@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
+import uuid
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -17,3 +19,17 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+
+class Photo(models.Model):
+    uuid = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=100)
+    photo = models.FileField()
+
+
+#remove photo from s3 as well
+@receiver(models.signals.post_delete, sender=Photo)
+def remove_file_from_s3(sender, instance, using, **kwargs):
+    instance.photo.delete(save=False)

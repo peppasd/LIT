@@ -6,4 +6,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('authentification.urls')),
     path('projects/', include('projects.urls')),
+    #AWS s3
+    path('s3direct/', include('s3direct.urls')),
 ]
