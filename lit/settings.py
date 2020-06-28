@@ -99,7 +99,7 @@ def getDbHost():
         return 'db'
 
 
-"""DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
@@ -108,9 +108,9 @@ def getDbHost():
         'HOST': getDbHost(),
         'PORT': 5432,
     }
-}"""
+}
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
@@ -119,7 +119,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': 5432,
     }
-}
+}"""
 
 # Amazon s3
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
