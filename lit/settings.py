@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from google.oauth2 import service_account
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -99,7 +101,7 @@ def getDbHost():
         return 'db'
 
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
@@ -108,7 +110,7 @@ DATABASES = {
         'HOST': getDbHost(),
         'PORT': 5432,
     }
-}
+}"""
 
 """DATABASES = {
     'default': {
@@ -121,8 +123,20 @@ DATABASES = {
     }
 }"""
 
+# google cloud
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'mateuszbucket'
+STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_FILE_OVERWRITE = False
+dirname = os.path.dirname(__file__)
+filename = os.path.join(dirname, 'label-it-2020-e947d2b45826.json')
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    filename
+)
+
+
 # Amazon s3
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+"""DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_ACCESS_KEY_ID = 'AKIATDBDTHFIUP3KCAVM'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'kubelekmateusza2'
@@ -136,7 +150,7 @@ S3DIRECT_DESTINATIONS = {
         'key': 'uploads/',
         'allowed': ['image/jpg', 'image/jpeg', 'image/png', 'video/mp4'],
     },
-}
+}"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
