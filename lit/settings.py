@@ -112,17 +112,6 @@ def getDbHost():
     }
 }"""
 
-"""DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'grzegorz9',
-        'HOST': 'localhost',
-        'PORT': 5432,
-    }
-}"""
-
 # google cloud
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'mateuszbucket'
