@@ -11,18 +11,19 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from google.oauth2 import service_account
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+cloudRun = False
+if os.getenv('GCR') == 'true':
+    cloudRun = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*ol&ft2dc!(+)y_&#lp&yj1bmv(ps+cjwmb)*=8l9sdev#e9w!'
+SECRET_KEY = os.getenv('SECRET') if cloudRun else '*ol&ft2dc!(+)y_&#lp&yj1bmv(ps+cjwmb)*=8l9sdev#e9w!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -90,23 +91,13 @@ WSGI_APPLICATION = 'lit.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-def getDbHost(): 
-    try:
-        if os.environ['GCR'] == 'true':
-            return '10.17.17.3'
-        else:
-            return 'db'
-    except KeyError:
-        return 'db'
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': getDbHost(),
+        'HOST': '10.17.17.3' if cloudRun else 'db',
         'PORT': 5432,
     }
 }
@@ -121,15 +112,11 @@ DATABASES = {
 """
 
 # google cloud
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_BUCKET_NAME = 'mateuszbucket'
-#STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_FILE_OVERWRITE = False
-dirname = os.path.dirname(__file__)
-filename = os.path.join(dirname, 'label-it-2020-e947d2b45826.json')
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    filename
-)
+if cloudRun:
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    GS_BUCKET_NAME = 'mateuszbucket'
+    GS_FILE_OVERWRITE = False
+
 
 
 # Amazon s3
