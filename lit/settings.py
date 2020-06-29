@@ -101,7 +101,7 @@ def getDbHost():
         return 'db'
 
 
-"""DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
@@ -110,7 +110,16 @@ def getDbHost():
         'HOST': getDbHost(),
         'PORT': 5432,
     }
-}"""
+}
+
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+"""
 
 # google cloud
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
