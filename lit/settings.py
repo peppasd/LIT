@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'projects',
     'storages',
-    's3direct',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

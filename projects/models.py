@@ -31,5 +31,5 @@ class Photo(models.Model):
 
 #remove photo from s3 as well
 @receiver(models.signals.post_delete, sender=Photo)
-def remove_file_from_s3(sender, instance, using, **kwargs):
+def remove_file_from_bucket(sender, instance, using, **kwargs):
     instance.photo.delete(save=False)

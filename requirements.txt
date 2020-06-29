@@ -1,5 +1,4 @@
 Django>=3.0,<4.0
 psycopg2>=2.8,<3.0
 django-crispy-forms
-
-django-s3direct~=1.1.7
+django-storages[google]
