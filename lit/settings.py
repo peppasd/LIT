@@ -126,7 +126,7 @@ def getDbHost():
 # google cloud
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'mateuszbucket'
-STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+#STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_FILE_OVERWRITE = False
 dirname = os.path.dirname(__file__)
 filename = os.path.join(dirname, 'label-it-2020-e947d2b45826.json')
