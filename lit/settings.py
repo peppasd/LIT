@@ -30,9 +30,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    '.a.run.app',
     '127.0.0.1',
     '0.0.0.0',
+    '.a.run.app',
+    '.lit-2020.ml',
 ]
 
 # Application definition
