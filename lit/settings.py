@@ -11,16 +11,19 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from google.oauth2 import service_account
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+cloudRun = False
+if os.getenv('GCR') == 'true':
+    cloudRun = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*ol&ft2dc!(+)y_&#lp&yj1bmv(ps+cjwmb)*=8l9sdev#e9w!'
+SECRET_KEY = os.getenv('SECRET') if cloudRun else '*ol&ft2dc!(+)y_&#lp&yj1bmv(ps+cjwmb)*=8l9sdev#e9w!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
     'authentification',
     'crispy_forms',
     'projects',
+    'storages',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -87,27 +91,50 @@ WSGI_APPLICATION = 'lit.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-def getDbHost(): 
-    try:
-        if os.environ['GCR'] == 'true':
-            return '10.17.17.3'
-        else:
-            return 'db'
-    except KeyError:
-        return 'db'
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': getDbHost(),
+        'HOST': '10.17.17.3' if cloudRun else 'db',
         'PORT': 5432,
     }
 }
 
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+"""
+
+# google cloud
+if cloudRun:
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    GS_BUCKET_NAME = 'mateuszbucket'
+    GS_FILE_OVERWRITE = False
+
+
+
+# Amazon s3
+"""DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = 'AKIATDBDTHFIUP3KCAVM'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'kubelekmateusza2'
+AWS_S3_REGION_NAME = 'eu-central-1'
+AWS_S3_ENDPOINT_URL = 'https://s3.amazonaws.com'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+S3DIRECT_DESTINATIONS = {
+    'primary_destination': {
+        'key': 'uploads/',
+        'allowed': ['image/jpg', 'image/jpeg', 'image/png', 'video/mp4'],
+    },
+}"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
