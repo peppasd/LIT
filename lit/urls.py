@@ -6,4 +6,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('authentification.urls')),
     path('projects/', include('projects.urls')),
+    path('labeler/test/', include('carousel.urls'))
 ]
