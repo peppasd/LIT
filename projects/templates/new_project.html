@@ -18,7 +18,7 @@
                     {% csrf_token %}
                     <div class="form-group"> 
                         <input type="hidden" name="progress" value="0">
-                        <input type="hidden" name="created" value="1970-01-01">
+                        <input type="hidden" name="created" value="{% now "SHORT_DATE_FORMAT" %}">
                         <input type="hidden" name="labeled_photos" value="0">
                         <input type="hidden" name="photos_total" value="0">
                         <label for="projName">Project name</label>
