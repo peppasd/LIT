@@ -92,9 +92,9 @@
                         No tags available for the project.
                         {% endif %}
                         <!--edit tags button-->
-                        {% comment %} {% if user in project.owners %} {% endcomment %}
+                        {% if user in project.owners %}
                         <button type="button" class="btn btn-edit-icon mr-3 mt-3" onclick="window.location.href='{% url 'create_tags' %}'"></button>
-                        {% comment %} {% endif %} {% endcomment %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
