@@ -111,4 +111,8 @@ def project_images(request):
     }
     return render(request, 'project_images.html', context)
 
+def upload_images(request):
+    return render(request, 'upload_images.html')
+    
+
 
