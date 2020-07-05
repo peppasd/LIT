@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Create Tags {% endblock %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'projects/styles/projects.css' %}">
+{% endblock %}
+
+{% block main %}
+
+<!-- TITLE -->
+<div class="title" id='myHeader'>
+    <h1><b>Create Tags</b></h1>
+    
+</div>
+
+<div class="container-fluid row">
+    <form method="POST" class="form w-100">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="InputTagName">Tag Name</label>
+            <input type="text" class="form-control" id="InputTagName" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputState">Type</label>
+            <select id="inputState" class="form-control">
+                <option selected>Boolean</option>
+                <option>Integer</option>
+                <option>Float</option>
+                <option>Text</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-outline-primary col-12 col-md-4 offset-md-4 mt-5">Submit</button>
+    </div>
+    </form>
+  
+</div>
+
+
+
+{% endblock main %}

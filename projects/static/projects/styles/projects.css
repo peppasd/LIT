@@ -142,3 +142,7 @@
   width: 10rem;
   height: 5rem;
 }
+
+.btnForOwner:hover {
+  text-decoration: line-through;
+}

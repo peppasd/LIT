@@ -113,6 +113,6 @@ def project_images(request):
 
 def upload_images(request):
     return render(request, 'upload_images.html')
-    
 
-
+def create_tags(request):
+    return render(request, 'create_tags.html')

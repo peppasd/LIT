@@ -53,25 +53,48 @@
                 <div class='col'>
                     <div class='row ml-1'>
                         {% if tags %}
-                        {% for tag in tags %}
-                        <!--Tags now have 4 different colors-->
-                            {%if forloop.counter0|divisibleby:"4"%}
-                                <button type="button" class="btn btn-warning mr-3 mt-3" disabled>{{tag}}</button>
-                            {%elif forloop.counter0|divisibleby:"3"%}
-                                <button type="button" class="btn btn-primary mr-3 mt-3" disabled>{{tag}}</button>
-                            {% elif forloop.counter0|divisibleby:"2" %}
-                                <button type="button" class="btn btn-secondary mr-3 mt-3" disabled>{{tag}}</button>
+                            {%if user in project.owners%}
+                                {% for tag in tags %}
+                                <!--Tags now have 4 different colors-->
+                                    {%if forloop.counter0|divisibleby:"4"%}
+                                    <form method="POST">
+                                        <button type="submit" class="btn btn-warning mr-3 mt-3 btnForOwner" name="DeleteButon" vale="{{tag.id}}" style="">{{tag}}</button>
+                                    </form>
+                                    {%elif forloop.counter0|divisibleby:"3"%}
+                                    <form method="POST">
+                                        <button type="sub" class="btn btn-primary mr-3 mt-3" name="DeleteButon" vale="{{tag.id}}" >{{tag}}</button>
+                                        </form>
+                                    {% elif forloop.counter0|divisibleby:"2" %}
+                                    <form method="POST">
+                                        <button type="button" class="btn btn-secondary mr-3 mt-3" name="DeleteButon" vale="{{tag.id}}">{{tag}}</button>
+                                    </form>
+                                    {% else %}
+                                    <form method="POST">
+                                        <button type="button" class="btn btn-danger mr-3 mt-3" name="DeleteButon" value="{{tag.id}}" >{{tag}}</button>
+                                    </form>
+                                    {% endif %}
+                                {% endfor%}
                             {% else %}
-                                <button type="button" class="btn btn-danger mr-3 mt-3" disabled>{{tag}}</button>
+                                {% for tag in tags %}
+                                <!--Tags now have 4 different colors-->
+                                    {%if forloop.counter0|divisibleby:"4"%}
+                                        <button type="submit" class="btn btn-warning mr-3 mt-3" disabled>{{tag}}</button>
+                                    {%elif forloop.counter0|divisibleby:"3"%}
+                                        <button type="button" class="btn btn-primary mr-3 mt-3" disabled>{{tag}}</button>
+                                    {% elif forloop.counter0|divisibleby:"2" %}
+                                        <button type="button" class="btn btn-secondary mr-3 mt-3" disabled>{{tag}}</button>
+                                    {% else %}
+                                        <button type="button" class="btn btn-danger mr-3 mt-3" disabled>{{tag}}</button>
+                                    {% endif %}
+                                {% endfor%}
                             {% endif %}
-                        {% endfor%}
                         {% else %}
                         No tags available for the project.
                         {% endif %}
                         <!--edit tags button-->
-                        {% if user in project.owners %}
-                        <button type="button" class="btn btn-edit-icon mr-3 mt-3" onclick="window.location.href='{#{% url 'editProject' %}#}'"></button>
-                        {% endif %}
+                        {% comment %} {% if user in project.owners %} {% endcomment %}
+                        <button type="button" class="btn btn-edit-icon mr-3 mt-3" onclick="window.location.href='{% url 'create_tags' %}'"></button>
+                        {% comment %} {% endif %} {% endcomment %}
                     </div>
                 </div>
             </div>
