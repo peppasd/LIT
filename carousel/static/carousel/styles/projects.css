@@ -3,13 +3,14 @@
 }
 #myImg {
   border-radius: 10px;
-  max-width: 95%;
-  height: auto;
+  width: 300px;
+  height: 300px;
   display: block;
   margin-left: auto;
   margin-right: auto;
   transition: 0.3s;
   cursor: pointer;
+  object-fit: cover;
 }
 
 #myImg:hover {
@@ -79,6 +80,11 @@
     width: 100%;
   }
 }
+
+.lazy-load {
+  background: url("http://www.mozart.it/images/preloader.gif") center center no-repeat;
+}
+
 
 .btn-delete{
   border:none;

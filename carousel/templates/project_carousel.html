@@ -22,35 +22,66 @@
 <div class='row'>
   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval=false>
     <div class="carousel-inner">
-        {% if labelimages %}
+      {% if labelimages %}
         {% for image in labelimages %}
-        <div class="carousel-item {% if forloop.first %}active{% endif %}" >
-          <div class='col'>
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope='col'>#</th>
+          <div class="carousel-item {% if forloop.first %}active{% endif %} lazy-load" >
+            <div class='row'>
+
+              <div class='col-md-6'>
+                {% if tags %}
                   {% for t in tags %}
-                  <th scope="col">{{t}}</th>
+                    <div class="row px-5">
+                      <div class="col-4">
+                        <button type="button" class="btn btn-primary" disabled>{{t.title}}</button>
+                      </div>
+
+                      <div class='col-8'>
+                        {% ifequal t.type 'int' %}
+                          <div class="form-group">
+                            <input type="number" class="form-control" placeholder=Number id="usr">
+                          </div>
+
+                        {% else %}
+                        {% ifequal t.type 'string' %}
+                          <div class="form-group">
+                            <input type="text" class="form-control" placeholder=Text id="usr">
+                          </div>
+                        
+                        {% else %}
+                        {% ifequal t.type 'bool' %}
+                          <div class="form-group">
+                            <select class="form-control" id="sel1">
+                              <option>true</option>
+                              <option>false</option>
+                            </select>
+                          </div> 
+
+                        {% endifequal %}
+                        {% endifequal %}
+                        {% endifequal %}
+                      </div>
+                    </div>
                   {% endfor %}
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">{{ forloop.counter }}</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-              </tbody>
-            </table>
+
+                  <div class='row py-1'>
+                    <div class='col d-flex justify-content-md-end justify-content-around'>
+                      <button type="button" class="btn btn-outline-primary">Submit</button>
+                    </div>
+                  </div>
+
+                  {% else%}
+                  No tags defined for the
+                {% endif %}
+
+              </div>
+              <div class='col-md-6'>
+                {{forloop.counter}}
+                <img id='myImg' class="d-block w-100" src="{{ image.url }}" alt="Third slide">
+              </div>
+            </div>
           </div>
-          <div class='col'>
-            <img id='myImg' class="d-block w-100" src="{{ image.url }}" alt="Third slide">
-          </div>
-        </div>
         {% endfor %}
-        {% else %}
+      {% else %}
         <div class="carousel-item active">
           <img class="d-block w-100" src="{% static 'global/assets/logo.svg' %}" alt="Third slide">
         </div>
@@ -99,5 +130,5 @@
 
 </div>
 
-
+<script src='lazyload.js'></script>
 {% endblock main %}
