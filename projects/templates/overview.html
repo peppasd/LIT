@@ -46,7 +46,7 @@
                             <small class="text-muted">{{ recent.labeled_photos }} labeled photos</small>
 
                             <div class="d-flex justify-content-end">
-                                <a href="{% url 'project_overview' %}" class="btn btn-outline-primary mt-4">Open Project</a>
+                                <a href="{% url 'project_overview' project.pk %}" class="btn btn-outline-primary mt-4">Open Project</a>
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                             <small class="text-muted">{{ project.labeled_photos }} labeled photos</small>
 
                             <div class="d-flex justify-content-end">
-                                <a href="{% url 'project_overview' %}" class="btn btn-outline-primary mt-4">Open Project</a>
+                                <a href="{% url 'project_overview' project.pk %}" class="btn btn-outline-primary mt-4">Open Project</a>
                             </div>
                         </div>
                     </div>
