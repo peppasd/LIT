@@ -27,6 +27,7 @@ class Photo(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100)
     photo = models.FileField()
+    project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE)
 
 
 #remove photo from s3 as well
