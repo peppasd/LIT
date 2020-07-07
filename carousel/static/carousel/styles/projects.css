@@ -3,7 +3,7 @@
 }
 #myImg {
   border-radius: 10px;
-  width: 300px;
+  width: auto;
   height: 300px;
   display: block;
   margin-left: auto;
@@ -11,10 +11,20 @@
   transition: 0.3s;
   cursor: pointer;
   object-fit: cover;
+  box-shadow: 0px 0px 20px grey;
 }
 
 #myImg:hover {
   opacity: 0.8;
+}
+
+input, select {
+  box-shadow: 0px 0px 3px rgb(242, 133, 15);
+}
+
+.extrainfo {
+  color:black;
+  opacity: 60%;
 }
 
 /* The Modal (background) */
@@ -124,6 +134,7 @@
   background-color: rgb(242, 133, 15);
   border-color: rgb(242, 133, 15);
   opacity: 100%;
+  box-shadow: 4px 3px 3px rgb(237, 96, 1);
 }
 .btn-primary:hover{
   background-color: rgb(237, 96, 1);
