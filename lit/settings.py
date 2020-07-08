@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 cloudRun = False
 if os.getenv('GCR') == 'true':
-    cloudRun = TruecloudRun = False
+    cloudRun = True
 
 DEBUG = False
 if os.getenv('DJANGO_DEBUG') == 'true':
