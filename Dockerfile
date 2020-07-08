@@ -2,6 +2,7 @@ FROM python:3.8
 
 ENV PYTHONUNBUFFERED 1
 ENV PORT=8000
+ENV DJANGO_DEBUG=false
 
 RUN mkdir /code
 WORKDIR /code
