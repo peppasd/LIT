@@ -65,7 +65,7 @@ tagged_images = 4
 
 # Create your views here.
 @login_required
-def project_overview(request):
+def project_overview(request,pk):
     project = Project.objects.get(id=pk)
     members = project.users.all()
     tags = project.labels.split(', ')

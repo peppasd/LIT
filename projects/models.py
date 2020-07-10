@@ -11,10 +11,7 @@ class Project(models.Model):
     description = models.CharField(max_length=160)
     progress = models.IntegerField(default=0)
     created = models.DateField(default=datetime.date.today)
-    labeled_photos = models.IntegerField(default=0)
-    photos_total = models.IntegerField(default=0)
     labels = models.CharField(max_length=160, default='', blank=True)
-    user_tmp = models.CharField(max_length=1024, default='', blank=True)
     users = models.ManyToManyField(User)
     ownerusers = models.ManyToManyField(User)
 
@@ -22,11 +19,6 @@ class Project(models.Model):
         return self.name
 
 #add  isTagged boolean set it to method call that checks if given photo instance has a tag
-
-class Tag(models.Model):
-    InputTagName = models.CharField(max_length=160)
-    inputState = models.CharField(max_length=160)
-    project = models.ForeignKey(Project, related_name='tags', on_delete=models.CASCADE)
 
 class Photo(models.Model):
     uuid = models.UUIDField(
@@ -36,11 +28,30 @@ class Photo(models.Model):
     title = models.CharField(max_length=100)
     photo = models.FileField()
     project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag)
     def isTagged(self):
         if len(self.tag_set.all())>0:
             return True
         return False
+
+
+class Label(models.Model):
+    name = models.CharField(max_length=160)
+    type = models.CharField(max_length=160)
+    project = models.ForeignKey(Project, related_name='labels', on_delete=models.CASCADE)
+
+class Value(Label):
+    value = models.CharField(max_length=160)
+    if type=="Boolean":
+        value = models.NullBooleanField()
+    elif type=="Integer":
+        value = models.IntegerField(default=0)
+    elif type=="Float":
+        value = models.FloatField(default=0)
+    photo = models.ForeignKey(Photo, related_name='values', on_delete=models.CASCADE)
+    label = models.ForeignKey(Label, related_name='values', on_delete=models.CASCADE)
+
+
+
 
 
 
