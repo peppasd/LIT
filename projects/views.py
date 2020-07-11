@@ -61,7 +61,7 @@ def project_overview(request,pk):
     context = {
         'project':project,        
         'members': members,
-        'images': [images[0], images[1], images[2]],
+        'images': images,
         'tags': tags,
         'count_images': count_images,
     }
