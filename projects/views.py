@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from .models import Project
-from .forms import ProjectForm
+from .forms import ProjectForm, LabelForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 import datetime
-from .utils import existsUser, allProjects_user
+from .utils import existsUser, allUsers_project, allTags_project
 from django.contrib.auth.decorators import login_required
+
 
 
 # Create your views here.
@@ -28,15 +29,9 @@ def new_project(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.created = str
-            user_name = form.cleaned_data['user_tmp']
-            user_names = user_name.split(', ')
             post.save()
-            post.users.add(request.user)
-            post.save()
-            for user in user_names:
-                if existsUser(user):
-                    post.users.add(User.objects.get(username=user))
-                post.save()
+            post.owners.add(request.user)
+            post.save()            
             return HttpResponseRedirect('/projects/')
     else:
         form = ProjectForm()
@@ -44,7 +39,9 @@ def new_project(request):
 
 
 # Dummy Project
-
+projects = []
+members = []
+tags = []
 images = [
     {'url': 'https://www.cheatsheet.com/wp-content/uploads/2017/12/Queen-Elizabeth-Waving.jpg',
      'isTagged': True, },
@@ -67,11 +64,11 @@ tagged_images = 4
 @login_required
 def project_overview(request,pk):
     project = Project.objects.get(id=pk)
-    members = project.users.all()
-    tags = project.labels.split(', ')
+    members = allUsers_project(project)
+    tags = allTags_project(project)
 
     context = {
-        'projects': project,
+        'project':project,        
         'members': members,
         'images': [images[0], images[1], images[2]],
         'tags': tags,
@@ -91,10 +88,30 @@ def project_images(request):
     }
     return render(request, 'project_images.html', context)
 
-
+@login_required
 def upload_images(request):
     return render(request, 'upload_images.html')
 
+@login_required
+def create_tags(request, pk): 
+    context = {
+            'pk': pk,            
+        } 
+    if request.method == "POST":
+        form = LabelForm(request.POST)       
+        if form.is_valid():            
+            post = form.save(commit=False)                        
+            post.save()
+            post.project = Project.objects.get(id=pk) 
+            post.save()
+            txt = '/projects/test/{}/'.format(pk)                     
+            return HttpResponseRedirect(txt)
+    else:
+        form = LabelForm()
+        context = {
+            'pk': pk,
+            'form': form,
+        }        
+    return render(request, 'create_tags.html', context) 
 
-def create_tags(request):
-    return render(request, 'create_tags.html')
+    

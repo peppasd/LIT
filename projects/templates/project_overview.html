@@ -13,7 +13,7 @@
 <!-- TITLE -->
 <div class="title" id='myHeader'>
     <h1><b>{{project.name}}</b></h1>
-    {% if user in project.owners %}
+    {% if user in project.owners.all %}
         <button type="button" class="btn btn-edit-icon mr-5" onclick="window.location.href='{#{% url 'editProject' %}#}'"></button> 
     {% endif %} 
     <hr class="hr-text">
@@ -27,7 +27,7 @@
         <div class='row'>
             <!--Description-->
             <h3>Description:</h3>
-            {% if user in project.owners %}
+            {% if user in project.owners.all %}
              <button type="button" class="btn btn-edit-icon mr-3 mb-2" onclick="window.location.href='{#{% url 'editProject' %}#}'"></button>
             {% endif %}
             <div class='col-12'>
@@ -53,7 +53,7 @@
                 <div class='col'>
                     <div class='row ml-1'>
                         {% if tags %}
-                            {%if user in project.owners%}
+                            {%if user in project.owners.all%}
                                 {% for tag in tags %}
                                 <!--Tags now have 4 different colors-->
                                     {%if forloop.counter0|divisibleby:"4"%}
@@ -92,8 +92,8 @@
                         No tags available for the project.
                         {% endif %}
                         <!--edit tags button-->
-                        {% if user in project.owners %}
-                        <button type="button" class="btn btn-edit-icon mr-3 mt-3" onclick="window.location.href='{% url 'create_tags' %}'"></button>
+                        {% if user in project.owners.all %}                        
+                        <button type="button" class="btn btn-edit-icon mr-3 mt-3" onclick="window.location.href='{% url 'create_tags' project.pk %}'"></button>
                         {% endif %}
                     </div>
                 </div>
@@ -122,7 +122,7 @@
             </div>
             <div class='col-12 col-sm-8'>
                 <div class="d-flex justify-content-around justify-content-lg-end">
-                {#{% if user in project.owners %}#}
+                {#{% if user in project.owners.all %}#}
                     <a role="button" class="btn btn-outline-primary mr-4" href="{%url 'upload_images'%}" >Upload</a>
                     <a role="button" class="btn btn-outline-primary mr-sm-5" href = "{% url 'project_images' %}">Show all</a>
                 {#{% endif %}#}
@@ -161,7 +161,7 @@
                 </tbody>
             </table>
         </div>
-        {% if user in project.owners %}
+        {% if user in project.owners.all %}
         <div class='row float-right mr-3'>
             <a type="button" class="btn btn-outline-primary" href="{#{% url link to invite user %}#}">Invite</a>
         </div>

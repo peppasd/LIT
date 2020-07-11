@@ -1,8 +1,13 @@
 from django.forms import ModelForm
-from .models import Project
+from .models import Project, Label
 
 class ProjectForm(ModelForm):
     class Meta:
         model = Project        
-        fields = ['name','description','progress','created','labeled_photos','photos_total','labels','user_tmp']
+        fields = ['name','description']
+
+class LabelForm(ModelForm):
+    class Meta:
+        model = Label
+        fields = ['name', 'type']
         
