@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 import datetime
 from .utils import existsUser, allUsers_project, allTags_project
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
 
 
 
@@ -89,8 +90,16 @@ def project_images(request):
     return render(request, 'project_images.html', context)
 
 @login_required
-def upload_images(request):
-    return render(request, 'upload_images.html')
+def upload_images(request, pk):
+    context = {
+            'pk': pk,            
+        } 
+    
+    if request.method == "POST":
+        uploaded_file = request.FILES['img']
+        fs = FileSystemStorage()
+        fs.save(uploaded_file.name, uploaded_file)
+    return render(request, 'upload_images.html', context)
 
 @login_required
 def create_tags(request, pk): 

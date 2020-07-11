@@ -27,8 +27,8 @@ class Photo(models.Model):
         primary_key=True, default=uuid.uuid4, editable=False,
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    title = models.CharField(max_length=100)
-    photo = models.FileField()
+    title = models.CharField(max_length=100, default='')
+    photo = models.FileField(blank=True)
     project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE, null=True, blank=True)
     def isTagged(self):
         if len(self.tag_set.all())>0:

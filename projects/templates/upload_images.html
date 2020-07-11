@@ -20,13 +20,18 @@
 
 <div class="container-fluid row ">
 
-    <form action="POST"
+    <form method="POST"
+        enctype="multipart/form-data"
         class="dropzone col-12 rounded"
         style="border: 2px dashed #dedede; 
                 height: 25em;"
         id="FileDropzone">
+        {% csrf_token %}
+        <input type="file" name="img">
+        <button type="submit" class="btn btn-outline-primary col-12 col-md-3 mt-3 offset-md-9 ">Photo upload</button>
     </form>
-    <a role="button" class="btn btn-outline-primary mt-5 col-12 col-md-4 offset-md-8" href="{#{% url 'back to the project' %}#}">I'm done with uploading pictures</a>
+    
+    <a role="button" class="btn btn-outline-primary mt-5 col-12 col-md-4 offset-md-8" href="{% url 'project_overview' pk %}">I'm done with uploading pictures</a>
 </div>
 <script src="{%static 'projects/dropzone/dropzone.min.js' %}"></script>
 {% endblock main %}
