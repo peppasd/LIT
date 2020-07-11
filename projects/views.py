@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 
 
-
 # Create your views here.
 
 @login_required
@@ -32,7 +31,7 @@ def new_project(request):
             post.created = str
             post.save()
             post.owners.add(request.user)
-            post.save()            
+            post.save()
             return HttpResponseRedirect('/projects/')
     else:
         form = ProjectForm()
@@ -46,20 +45,21 @@ members = []
 tags = []
 images = []
 
+
 # Create your views here.
 @login_required
-def project_overview(request,pk):
+def project_overview(request, pk):
     project = Project.objects.get(id=pk)
     members = allUsers_project(project)
     tags = allTags_project(project)
     imgs = project.images.all()
     for img in imgs:
-        images.append({'url':img.url})
+        images.append({'url': img.url})
     count_images = images.__len__
     tagged_images = 4
 
     context = {
-        'project':project,        
+        'project': project,
         'members': members,
         'images': images,
         'tags': tags,
@@ -79,12 +79,13 @@ def project_images(request):
     }
     return render(request, 'project_images.html', context)
 
+
 @login_required
 def upload_images(request, pk):
     context = {
-            'pk': pk,            
-        } 
-    
+        'pk': pk,
+    }
+
     if request.method == "POST":
         uploaded_file = request.FILES['img']
         fs = FileSystemStorage()
@@ -92,30 +93,29 @@ def upload_images(request, pk):
         url = fs.url(name)
         now = datetime.datetime.now()
         str = now.strftime('%Y-%m-%d')
-        obj = Photo(created_at=str,title=name,name=name,url=url,project=Project.objects.get(id=pk))
+        obj = Photo(created_at=str, title=name, name=name, url=url, project=Project.objects.get(id=pk))
         obj.save()
     return render(request, 'upload_images.html', context)
 
+
 @login_required
-def create_tags(request, pk): 
+def create_tags(request, pk):
     context = {
-            'pk': pk,            
-        } 
+        'pk': pk,
+    }
     if request.method == "POST":
-        form = LabelForm(request.POST)       
-        if form.is_valid():            
-            post = form.save(commit=False)                        
+        form = LabelForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
             post.save()
-            post.project = Project.objects.get(id=pk) 
+            post.project = Project.objects.get(id=pk)
             post.save()
-            txt = '/projects/test/{}/'.format(pk)                     
+            txt = '/projects/test/{}/'.format(pk)
             return HttpResponseRedirect(txt)
     else:
         form = LabelForm()
         context = {
             'pk': pk,
             'form': form,
-        }        
-    return render(request, 'create_tags.html', context) 
-
-    
+        }
+    return render(request, 'create_tags.html', context)
