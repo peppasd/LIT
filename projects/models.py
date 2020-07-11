@@ -22,13 +22,15 @@ class Project(models.Model):
 
 #add  isTagged boolean set it to method call that checks if given photo instance has a tag
 
-class Photo(models.Model):
+class Photo(models.Model):      
     uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False,
     )
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, default='')
     photo = models.FileField(blank=True)
+    name = models.CharField(max_length=512, default='')
+    url =  models.CharField(max_length=512, default='')
     project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE, null=True, blank=True)
     def isTagged(self):
         if len(self.tag_set.all())>0:

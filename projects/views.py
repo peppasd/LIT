@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Project
+from .models import Project, Photo
 from .forms import ProjectForm, LabelForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -40,26 +40,11 @@ def new_project(request):
 
 
 # Dummy Project
+
 projects = []
 members = []
 tags = []
-images = [
-    {'url': 'https://www.cheatsheet.com/wp-content/uploads/2017/12/Queen-Elizabeth-Waving.jpg',
-     'isTagged': True, },
-    {'url': 'https://images-na.ssl-images-amazon.com/images/I/C1YRnQIzuTS._SL1000_.png',
-     'isTagged': False, },
-    {
-        'url': 'http://i.dailymail.co.uk/i/newpix/2018/06/29/21/4DBC9DE400000578-0-Fans_of_the_Royal_family_grew_worried_about_Queen_Elizabeth_II_s-m-55_1530303342340.jpg',
-        'isTagged': False, },
-    {'url': 'https://tse3.mm.bing.net/th?id=OIP.raEAx7WtuS2iOyrYhTQUdQHaE8&pid=Api',
-     'isTagged': True, },
-    {'url': 'https://www.swr.de/-/id=22651064/property=full/1jzbpoi/Queen%201985.jpg',
-     'isTagged': True},
-    {'url': 'https://tse1.mm.bing.net/th?id=OIP.HC7u7SXAjRSapw29hIQ6ZgHaFj&pid=Api',
-     'isTagged': True, },
-]
-count_images = images.__len__
-tagged_images = 4
+images = []
 
 # Create your views here.
 @login_required
@@ -67,6 +52,11 @@ def project_overview(request,pk):
     project = Project.objects.get(id=pk)
     members = allUsers_project(project)
     tags = allTags_project(project)
+    imgs = project.images.all()
+    for img in imgs:
+        images.append({'url':img.url})
+    count_images = images.__len__
+    tagged_images = 4
 
     context = {
         'project':project,        
@@ -98,7 +88,12 @@ def upload_images(request, pk):
     if request.method == "POST":
         uploaded_file = request.FILES['img']
         fs = FileSystemStorage()
-        fs.save(uploaded_file.name, uploaded_file)
+        name = fs.save(uploaded_file.name, uploaded_file)
+        url = fs.url(name)
+        now = datetime.datetime.now()
+        str = now.strftime('%Y-%m-%d')
+        obj = Photo(created_at=str,title=name,name=name,url=url,project=Project.objects.get(id=pk))
+        obj.save()
     return render(request, 'upload_images.html', context)
 
 @login_required
