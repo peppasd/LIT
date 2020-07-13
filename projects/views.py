@@ -67,16 +67,25 @@ def project_overview(request,pk):
 
 
 @login_required
-def project_images(request):
+def project_images(request, pk):
     projects = []
     members = []
     tags = []
     images = []
+    project = Project.objects.get(id=pk)
+    members = allUsers_project(project)
+    tags = allTags_project(project)
+    imgs = project.images.all()
+    for img in imgs:
+        images.append({'url':img.url})
+    count_images = images.__len__
+    tagged_images = 4
     context = {
-        'projects': projects,
+        'project':project,        
         'members': members,
         'images': images,
-        'tags': tags
+        'tags': tags,
+        'count_images': count_images,
     }
     return render(request, 'project_images.html', context)
 
