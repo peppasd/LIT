@@ -89,6 +89,15 @@ def project_images(request, pk):
     }
     return render(request, 'project_images.html', context)
 
+
+VALID_IMAGE_EXTENSIONS = [
+    "jpg",
+    "jpeg",
+    "png",
+    "gif",
+]
+
+
 @login_required
 def upload_images(request, pk):
     context = {
@@ -98,13 +107,16 @@ def upload_images(request, pk):
     if request.method == "POST":
         uploaded_files = request.FILES.getlist('img')
         for uploaded_file in uploaded_files:
-            fs = FileSystemStorage()
-            name = fs.save(uploaded_file.name, uploaded_file)
-            url = fs.url(name)
-            now = datetime.datetime.now()
-            str = now.strftime('%Y-%m-%d')
-            obj = Photo(created_at=str,title=name,name=name,url=url,project=Project.objects.get(id=pk))
-            obj.save()
+            ends = uploaded_file.name.split(".")
+            end = ends[1]           
+            if VALID_IMAGE_EXTENSIONS.count(end) > 0:
+                fs = FileSystemStorage()
+                name = fs.save(uploaded_file.name, uploaded_file)
+                url = fs.url(name)
+                now = datetime.datetime.now()
+                str = now.strftime('%Y-%m-%d')
+                obj = Photo(created_at=str,title=name,name=name,url=url,project=Project.objects.get(id=pk))
+                obj.save()
     return render(request, 'upload_images.html', context)
 
 @login_required
