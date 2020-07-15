@@ -29,10 +29,10 @@ tags = [
 ]
 
 
-def project_carousel(request):
+def project_labeler(request):
     context = {
         'labelimages': labelimages,
         'tags': tags
     }
 
-    return render(request, 'project_carousel.html', context)
+    return render(request, 'project_labeler.html', context)

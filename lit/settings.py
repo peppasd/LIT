@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'authentification',
     'crispy_forms',
     'projects',
-    'carousel',
+    'labeler',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -69,6 +69,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'home/templates'),
             os.path.join(BASE_DIR, 'projects/templates'),
+            os.path.join(BASE_DIR, 'labeler/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -154,6 +155,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "home/static"),
     os.path.join(BASE_DIR, "projects/static"),
+    os.path.join(BASE_DIR, "labeler/static")
 ]
 
 LOGIN_REDIRECT_URL = '/projects/'
