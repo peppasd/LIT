@@ -8,4 +8,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('authentification.urls')),
     path('projects/', include('projects.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('labeler/', include('labeler.urls')),
+    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

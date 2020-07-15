@@ -41,19 +41,6 @@ def new_project(request):
     return render(request, 'new_project.html', {'form':form})
 
 #Dummy Project
-projects = [
-    {
-        'id' : '001',
-        'title' : 'Face Detector',
-        'date_created': 'August 22, 2030'
-    },
-    
-    {
-        'id': '002',
-        'title' : 'Puppy Detector',
-        'date_created': 'November 02, 1894'
-    }
-]
 members = [
     {
        'username': 'John'
