@@ -163,6 +163,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "labeler/static")
 ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = '/media/'
+
 LOGIN_REDIRECT_URL = '/projects/'
 LOGOUT_REDIRECT_URL = 'logout_done'
 

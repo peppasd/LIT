@@ -137,3 +137,13 @@
 .progress-bar {
     background-color: rgb(255, 197, 68);
 }
+
+.dropzone{
+  border: 2px dashed #dedede !important;
+  width: 10rem;
+  height: 5rem;
+}
+
+.btnForOwner:hover {
+  text-decoration: line-through;
+}

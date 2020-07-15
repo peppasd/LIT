@@ -10,7 +10,7 @@
 
 {% block main %}
 
-    <h1 class="text-center"><b>The Queen Project</b></h1>
+    <h1 class="text-center"><b>{{project.name}}</b></h1>
     <hr class="hr-text">
 
 <div class="row h-100">
@@ -19,8 +19,8 @@
     </div>
     <div class='col-12 col-sm-8'>
         <div class="d-flex justify-content-around justify-content-lg-end">
-            <a role="button" class="btn btn-outline-primary mr-4">Upload</a>
-            <a role="button" class="btn btn-outline-primary mr-sm-5" href = "{% url 'project_overview' %}">Overview</a>
+            <a role="button" class="btn btn-outline-primary mr-4" href="{%url 'upload_images' project.id%}" >Upload</a>
+            <a role="button" class="btn btn-outline-primary mr-sm-5" href = "{% url 'project_overview' project.id  %}">Back to Project</a>
         </div>
     </div>
     <div class='col'>
@@ -28,13 +28,13 @@
             {% if images %}
             {% for image in images %}
             <div class='square-grid'> 
-                <button type="button" class="btn btn-delete"></button>
+                <button type="button" class="btn btn-delete" onclick="{#link to delete this image#}"></button>
                 {% if image.isTagged %}
                 <button type="button" class="btn btn-success"></button>
                 {% else %}
                 <button type="button" class="btn btn-nosuccess"></button>
                 {% endif %}
-                <img src = "{{image.url}}" onclick="alert('image click');" > 
+                <img src = "{{image.url}}" onclick="window.location.href='{{image.url}}' ;" > 
             </div>
             {% endfor %}
             {% else %}
