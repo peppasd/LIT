@@ -36,9 +36,8 @@ def new_project(request):
             return HttpResponseRedirect('/projects/')
     else:
         form = ProjectForm()
+
     return render(request, 'new_project.html', {'form': form})
-
-
 
 @login_required
 def project_overview(request,pk):

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+import django
 import os
 from google.oauth2 import service_account
 
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'authentification',
     'crispy_forms',
     'projects',
+    'labeler',
     'storages',
 ]
 
@@ -73,6 +75,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'home/templates'),
             os.path.join(BASE_DIR, 'projects/templates'),
+            os.path.join(BASE_DIR, 'labeler/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -117,25 +120,9 @@ if cloudRun:
     DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
     GS_BUCKET_NAME = 'mateuszbucket'
     GS_FILE_OVERWRITE = False
-
-
-
-# Amazon s3
-"""DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = 'AKIATDBDTHFIUP3KCAVM'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'kubelekmateusza2'
-AWS_S3_REGION_NAME = 'eu-central-1'
-AWS_S3_ENDPOINT_URL = 'https://s3.amazonaws.com'
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-
-S3DIRECT_DESTINATIONS = {
-    'primary_destination': {
-        'key': 'uploads/',
-        'allowed': ['image/jpg', 'image/jpeg', 'image/png', 'video/mp4'],
-    },
-}"""
+else:
+    MEDIA_ROOT = 'media/'
+    MEDIA_URL = '/media/'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -155,22 +142,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Europe/Berlin'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -181,6 +160,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "home/static"),
     os.path.join(BASE_DIR, "projects/static"),
+    os.path.join(BASE_DIR, "labeler/static")
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
