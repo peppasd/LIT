@@ -8,6 +8,8 @@ def existsUser(username):
 
     return False
 
+def getUser(username):
+    return User.objects.get(username=username)
 
 def allUsers_project(project):
     ret = []

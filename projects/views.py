@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from .models import Project, Photo
+from .models import Project, Photo, Member
 from .forms import ProjectForm, LabelForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 import datetime
-from .utils import existsUser, allUsers_project, allTags_project
+from .utils import existsUser, allUsers_project, allTags_project, getUser
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 
@@ -40,12 +40,22 @@ def new_project(request):
     return render(request, 'new_project.html', {'form': form})
 
 @login_required
-def project_overview(request,pk):
+def project_overview(request,pk):    
     projects = []
     members = []
     tags = []
     images = []
     project = Project.objects.get(id=pk)
+    if request.method == 'POST':
+        username = request.POST['username']
+        if username=='__join__':
+            m = Member(user=request.user)
+            m.save()
+            project.members.add(m)
+        else:
+            if existsUser(username):
+                project.owners.add(getUser(username)) 
+            
     members = allUsers_project(project)
     tags = allTags_project(project)
     imgs = project.images.all()

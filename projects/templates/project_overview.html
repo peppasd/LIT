@@ -6,6 +6,7 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'projects/styles/projects.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'auth/styles/forms.css' %}">
 {% endblock %}
 
 {% block main %}
@@ -58,7 +59,7 @@
                                 <!--Tags now have 4 different colors-->
                                     {%if forloop.counter0|divisibleby:"4"%}
                                     <form method="POST">
-                                        <button type="submit" class="btn btn-warning mr-3 mt-3 btnForOwner" name="DeleteButon" value="{{tag.id}}" "">{{tag}}</button>
+                                        <button type="submit" class="btn btn-warning mr-3 mt-3 btnForOwner" name="DeleteButon" value="{{tag.id}}">{{tag}}</button>
                                     </form>
                                     {%elif forloop.counter0|divisibleby:"3"%}
                                     <form method="POST">
@@ -163,11 +164,33 @@
                 </tbody>
             </table>
         </div>
-        {% if user in project.owners.all %}
+        
         <div class='row float-right mr-3'>
-            <a type="button" class="btn btn-outline-primary" href="{#{% url link to invite user %}#}">Invite</a>
+            {% if user in project.owners.all %} 
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                                       
+                    <input name="username"  type="text" class="form-control mb-3"
+                        placeholder="user name" required>                         
+                        <button type="submit" class="btn btn-outline-primary mb-3">Invite</button>
+                </div>
+                
+            </form> 
+            {% endif %} 
+            {% if user not in members %} 
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input name="username"  type="text" class="form-control mb-3"
+                        value="__join__" hidden>                 
+                        <button type="submit" class="btn btn-outline-primary mb-3">Join</button>
+                </div>
+                
+            </form> 
+            {% endif %}                     
         </div>
-        {% endif %}
+        
     </div>
 </div>
     
