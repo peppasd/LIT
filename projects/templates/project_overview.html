@@ -58,15 +58,15 @@
                                 <!--Tags now have 4 different colors-->
                                     {%if forloop.counter0|divisibleby:"4"%}
                                     <form method="POST">
-                                        <button type="submit" class="btn btn-warning mr-3 mt-3 btnForOwner" name="DeleteButon" vale="{{tag.id}}" style="">{{tag}}</button>
+                                        <button type="submit" class="btn btn-warning mr-3 mt-3 btnForOwner" name="DeleteButon" value="{{tag.id}}" "">{{tag}}</button>
                                     </form>
                                     {%elif forloop.counter0|divisibleby:"3"%}
                                     <form method="POST">
-                                        <button type="sub" class="btn btn-primary mr-3 mt-3" name="DeleteButon" vale="{{tag.id}}" >{{tag}}</button>
+                                        <button type="sub" class="btn btn-primary mr-3 mt-3" name="DeleteButon" value="{{tag.id}}" >{{tag}}</button>
                                         </form>
                                     {% elif forloop.counter0|divisibleby:"2" %}
                                     <form method="POST">
-                                        <button type="button" class="btn btn-secondary mr-3 mt-3" name="DeleteButon" vale="{{tag.id}}">{{tag}}</button>
+                                        <button type="button" class="btn btn-secondary mr-3 mt-3" name="DeleteButon" value="{{tag.id}}">{{tag}}</button>
                                     </form>
                                     {% else %}
                                     <form method="POST">
@@ -124,6 +124,8 @@
                 <div class="d-flex justify-content-around justify-content-lg-end">
                 {% if user in project.owners.all %}
                     <a role="button" class="btn btn-outline-primary mr-4" href="{%url 'upload_images' project.id%}" >Upload</a>
+                    <a role="button" class="btn btn-outline-primary mr-sm-5" href = "{% url 'project_images' project.id %}">Show all</a>
+                    {% else %}
                     <a role="button" class="btn btn-outline-primary mr-sm-5" href = "{% url 'project_images' project.id %}">Show all</a>
                 {% endif %}
                 </div>
