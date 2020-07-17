@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from projects.utils import allTags_project
-from projects.models import Project
+from projects.models import Project, Value
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -31,11 +32,23 @@ tags = [
 ]
 
 
+@login_required
 def project_labeler(request, pk):    
     labelimages = []
     project = Project.objects.get(id=pk)
     labelimages = project.images.all()    
     
+    if request.method == 'POST':
+        tagIds = list(request.POST.getlist('tagId'))
+        tagVals = (request.POST.getlist('tagVal'))
+
+        for i in range(len(tagIds)):
+            obj = Value.objects.get(id=tagIds[i])
+            obj.val = tagVals[i]
+            obj.save()
+        
+        
+
     context = {
         'labelimages': labelimages,       
         'pk': pk,
