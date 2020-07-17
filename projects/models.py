@@ -46,17 +46,10 @@ class Label(models.Model):
     type = models.CharField(max_length=160)
     project = models.ForeignKey(Project, related_name='labels', on_delete=models.CASCADE, null=True, blank=True)
 
-
-class Value(Label):
-    val = models.CharField(max_length=160)
-    if type == "Boolean":
-        val = models.NullBooleanField()
-    elif type == "Integer":
-        val = models.IntegerField(default=0)
-    elif type == "Float":
-        val = models.FloatField(default=0)
-    photo = models.ForeignKey(Photo, related_name='values', on_delete=models.CASCADE)
-    label = models.ForeignKey(Label, related_name='values', on_delete=models.CASCADE)
+class Value(models.Model):
+    label = models.OneToOneField(Label, related_name='values', on_delete=models.CASCADE, null=True, blank=True)
+    val = models.CharField(max_length=160)    
+    photo = models.ForeignKey(Photo, related_name='values', on_delete=models.CASCADE, null=True, blank=True)
 
 # remove photo from s3 as well
 

@@ -136,7 +136,7 @@
                     {% if images %}
                     {% for image in images|slice:"10" %} <!--only the first 10 images, other will be loaded if the button gets klicked-->
                     <div class='square'>
-                        <img src = "{{image.url}}">
+                        <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_labeler' project.id %}'">
                     </div>
                     {% endfor %}
                     {% else %}

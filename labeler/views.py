@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from projects.utils import allTags_project
+from projects.models import Project
 
 # Create your views here.
 
@@ -29,10 +31,14 @@ tags = [
 ]
 
 
-def project_labeler(request):
+def project_labeler(request, pk):    
+    labelimages = []
+    project = Project.objects.get(id=pk)
+    labelimages = project.images.all()    
+    
     context = {
-        'labelimages': labelimages,
-        'tags': tags
+        'labelimages': labelimages,       
+        'pk': pk,
     }
 
     return render(request, 'project_labeler.html', context)

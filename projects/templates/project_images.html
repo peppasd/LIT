@@ -36,7 +36,7 @@
                 {% else %}
                 <button type="button" class="btn btn-nosuccess"></button>
                 {% endif %}
-                <img src = "{{image.url}}" onclick="window.location.href='{{image.url}}' ;" > 
+                <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_labeler' project.id %}'" > 
             </div>
             {% endfor %}
             {% else %}

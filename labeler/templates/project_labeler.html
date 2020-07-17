@@ -29,28 +29,36 @@
               <form method="POST">
                 {% csrf_token %}
                 <div class='form-group'>
-                  {% if tags %}
-                    {% for t in tags %}
+                  {% if image %}                  
+                    {% for t in image.values.all %}
                       <div class="row px-4 py-2">
                         <div class="col-4">
-                          <button type="button" class="btn btn-primary w-100" disabled>{{t.title}}</button>
+                          <button type="button" class="btn btn-primary w-100" disabled>{{t.label.name}}</button>
                         </div>
 
                         <!-- INPUT SPECIFICATION -->
                         <div class='col-8'>
-                          {% ifequal t.type 'int' %}
-                              <input type="number" class="form-control" placeholder=Number required>
+                          {% ifequal t.label.type 'Integer' %}
+                              <input type="number" class="form-control" placeholder=Number required value={{t.val}}>
 
                           {% else %}
-                          {% ifequal t.type 'string' %}
-                              <input type="text" class="form-control" placeholder=Text required>
+                          {% ifequal t.label.type 'Text' %}
+                              <input type="text" class="form-control" placeholder=Text value={{t.val}} required>
                           
                           {% else %}
-                          {% ifequal t.type 'bool' %}
-                              <select class="form-control" required>
+                          {% ifequal t.label.type 'Boolean' %}                            
+                              <select class="form-control" required id="bools">
                                 <option value=''>Select</option>
+                                {% if t.val == 'true' %}
+                                <option value='true' selected>True</option>
+                                {% else %}
                                 <option value='true'>True</option>
+                                {% endif %}
+                                {% if t.val == 'false' %}
+                                <option value='false' selected>False</option>
+                                {% else %}
                                 <option value='false'>False</option>
+                                {% endif %}
                               </select>
 
                           {% endifequal %}
