@@ -46,10 +46,12 @@ class Label(models.Model):
     type = models.CharField(max_length=160)
     project = models.ForeignKey(Project, related_name='labels', on_delete=models.CASCADE, null=True, blank=True)
 
+
 class Value(models.Model):
-    label = models.ManyToManyField(Label, related_name='values', null=True, blank=True)
-    val = models.CharField(max_length=160)    
+    label = models.ManyToManyField(Label, related_name='values', blank=True)
+    val = models.CharField(max_length=160)
     photo = models.ForeignKey(Photo, related_name='values', on_delete=models.CASCADE, null=True, blank=True)
+
 
 # remove photo from s3 as well
 
