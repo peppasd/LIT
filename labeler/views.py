@@ -63,6 +63,7 @@ def project_labeler(request, pk):
         'labelimages': labelimages,
         'pk': pk,
         'tagLists': tagLists,
+        'project': project,
     }
 
     return render(request, 'project_labeler.html', context)
