@@ -55,6 +55,7 @@
         </div>
         {% endfor %}
     </div>
+    <hr>
     <strong>My Projects:</strong>
     <div class="ml-0 row row-cols-1 row-cols-lg-2 m-3">
     {% for project in project_list%}
@@ -62,7 +63,7 @@
             <div class="card mb-5">
                 <div class="row no-gutters">
                     <div class="col-md-4">
-                        <img src="{# project.images|first.src #}" class="card-img" alt="Could not load an image">
+                        <img src={{ project.images.all.first.url }} class="card-img" alt="Could not load an image">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -86,14 +87,15 @@
         </div>
         {% endfor %}
     </div>
+    <hr>
+    <strong>Explore other Projects: </strong>
     <div class="ml-0 row row-cols-1 row-cols-lg-2 m-3">
-        <strong>Explore other Projects: </strong>
             {% for ran in all_projects %}
                      <div class="col">
                         <div class="card mb-5">
                             <div class="row no-gutters">
                                 <div class="col-md-4">
-                                  <img src="{# ran.images|first.src #}" class="card-img" alt="Could not load an image">
+                                  <img src={{ ran.images.all.first.url }} class="card-img" alt="Could not load an image">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
@@ -108,7 +110,7 @@
                                         <small class="text-muted">{{ ran.labeled_photos }} labeled photos</small>
 
                                         <div class="d-flex justify-content-end">
-                                            <a href="{% url 'project_overview' %}" class="btn btn-outline-primary mt-4">Open Project</a>
+                                            <a href="{% url 'project_overview' ran.pk %}" class="btn btn-outline-primary mt-4">Open Project</a>
                                         </div>
                                     </div>
                                 </div>
