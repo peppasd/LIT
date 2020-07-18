@@ -29,8 +29,8 @@
               <form method="POST">
                 {% csrf_token %}
                 <div class='form-group'>
-                  {% if image %}
-                  <input name="imgId" type="text" value={{image.uuid}} hidden required>
+                  {% if image %} 
+                  <input name="imgId" type="text" value={{image.uuid}} hidden required>                 
                     {% for t in image.values.all %}
                     <input name="tagId" type="number" value={{t.id}} hidden required>
                       <div class="row px-4 py-2">
@@ -45,10 +45,10 @@
 
                           {% else %}
                           {% ifequal t.label.all.first.type 'Text' %}
-                              <input name="tagVal" type="text" class="form-control" placeholder=Text value={{t.val}} required>
-
+                              <input name="tagVal" type="text" class="form-control" placeholder=Text required value={{t.val}} >
+                          
                           {% else %}
-                          {% ifequal t.label.all.first.type 'Boolean' %}
+                          {% ifequal t.label.all.first.type 'Boolean' %}                            
                               <select name="tagVal" class="form-control" required id="bools">
                                 <option value=''>Select</option>
                                 {% if t.val == 'true' %}
@@ -65,7 +65,7 @@
 
                           {% endifequal %}
                           {% endifequal %}
-                          {% endifequal %}
+                          {% endifequal %}                          
                         </div>
                       </div>
                     {% endfor %}
