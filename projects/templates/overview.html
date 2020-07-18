@@ -23,39 +23,7 @@
                 </button>
             </div>
         </div>
-    </form>
-    <strong>Recently Labeled:</strong>
-    <div class="ml-0 row row-cols-1 row-cols-lg-2 m-3">
-        {% for recent in recently_labeled%}
-        <div class="col">
-            <div class="card mb-5">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="{# recent.images|first.src #}" class="card-img" alt="Could not load an image">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h4 class="card-title">{{ recent.name }}</h4>
-                            <h6 class="card-subtitle text-muted mb-3">{{recent.created}}</h6>
-
-                            <p class="card-text">{{ recent.description }}</p>
-
-                            <div class="progress mt-3 mb-1">
-                                <div class="progress-bar" role="progressbar" style="width:{{recent.progress}}%" aria-valuenow="{{ recent.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <small class="text-muted">{{ recent.labeled_photos }} labeled photos</small>
-
-                            <div class="d-flex justify-content-end">
-                                <a href="{% url 'project_overview' project.pk %}" class="btn btn-outline-primary mt-4">Open Project</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    <hr>
+    </form>    
     <strong>My Projects:</strong>
     <div class="ml-0 row row-cols-1 row-cols-lg-2 m-3">
     {% for project in project_list%}
@@ -89,7 +57,7 @@
     </div>
     <hr>
     <strong>Explore other Projects: </strong>
-    <div class="ml-0 row row-cols-1 row-cols-lg-2 m-3">
+    <div class="ml-0 row row-cols-1 row-cols-lg-2 m-3">        
             {% for ran in all_projects %}
                      <div class="col">
                         <div class="card mb-5">
