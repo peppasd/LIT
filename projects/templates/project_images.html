@@ -36,7 +36,11 @@
                 {% else %}
                 <button type="button" class="btn btn-nosuccess"></button>
                 {% endif %}
-                <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_labeler' project.id %}'" > 
+                {% if user in project.owners.all %}
+                <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_labeler' project.id %}'" >
+                {% else %}
+                <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_overview' project.id %}'" >
+                {% endif %}
             </div>
             {% endfor %}
             {% else %}

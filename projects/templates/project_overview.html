@@ -135,9 +135,15 @@
                 <div class='row d-flex justify-content-around'>
                     {% if images %}
                     {% for image in images|slice:"10" %} <!--only the first 10 images, other will be loaded if the button gets klicked-->
+                    {% if user in project.owners.all %}
                     <div class='square'>
                         <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_labeler' project.id %}'">
                     </div>
+                    {% else %}
+                    <div class='square'>
+                   <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_overview' project.id %}'" >
+                </div>
+                    {% endif %}
                     {% endfor %}
                     {% else %}
                     No image available for the project.
