@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Labeler {% endblock %}
+
+{% load static %}
+{% block css %}
+    <link rel='stylesheet' type='text/css' href='{% static "labeler/styles/labeler.css" %}'>
+{% endblock css %}
+
+{% block main %}
+
+<!--TITLE-->
+<div class='title'>
+    <h1><b>The Queen Project</b></h1>
+    <hr class="hr-text">
+</div>
+
+<!--Carousel-->
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval=false>
+  <div class="carousel-inner">
+    {% if labelimages %}
+      {% for image in labelimages %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %} lazy-load" >
+          <div class='row pt-2'>
+
+            <!-- TAGS -->
+            <div class='col-lg-6'>
+              <form method="POST">
+                {% csrf_token %}
+                <div class='form-group'>
+                  {% if tags %}
+                    {% for t in tags %}
+                      <div class="row px-4 py-2">
+                        <div class="col-4">
+                          <button type="button" class="btn btn-primary w-100" disabled>{{t.title}}</button>
+                        </div>
+
+                        <!-- INPUT SPECIFICATION -->
+                        <div class='col-8'>
+                          {% ifequal t.type 'int' %}
+                              <input type="number" class="form-control" placeholder=Number required>
+
+                          {% else %}
+                          {% ifequal t.type 'string' %}
+                              <input type="text" class="form-control" placeholder=Text required>
+                          
+                          {% else %}
+                          {% ifequal t.type 'bool' %}
+                              <select class="form-control" required>
+                                <option value=''>Select</option>
+                                <option value='true'>True</option>
+                                <option value='false'>False</option>
+                              </select>
+
+                          {% endifequal %}
+                          {% endifequal %}
+                          {% endifequal %}
+                        </div>
+                      </div>
+                    {% endfor %}
+                    
+                    <!-- SUBMIT BUTTON -->
+                    <div class='row py-2'>
+                      <div class='col d-flex justify-content-start'>
+                        <button type="submit" class="btn btn-outline-primary mx-5 mb-3 w-100">Submit</button>
+                      </div>
+                    </div>
+
+                    {% else%}
+                    No tags defined for the
+                  {% endif %}
+                </div>
+              </form>
+            </div>
+
+            <!-- IMAGE -->
+            <div class='col-lg-6 text-block'>
+              <div class="px-4 text-center">
+                Forloop.counter: {{forloop.counter}}
+                <img id='myImg' class="d-flex w-100" src="{{ image.url }}" alt="Third slide">
+              </div>
+              <hr>
+              <div class='extrainfo text-center'>
+                <div class='row'>
+                  <div class='col-4 pr-0'>
+                    Image uploaded:
+                  </div>
+                  <div class='col-8 px-0'>
+                    {{image.uploaded}} by {{image.uploader}}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class='col-4 pr-0'>
+                    Last edit:
+                  </div>
+                  <div class='col-8 px-0'>
+                    {{image.lastedit}} by {{image.lastlabeler}}
+                  </div>
+                </div>                 
+              </div>
+
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="carousel-item active">
+        <img class="d-block w-100" src="{% static 'global/assets/logo.svg' %}" alt="Third slide">
+      </div>
+      {% endif %} 
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+  </div>
+
+  <script>
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById('myImg');
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function(){
+      modal.style.display = "block";
+      modalImg.src = this.src;
+      captionText.innerHTML = this.alt;
+    }
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() { 
+      modal.style.display = "none";
+    }
+    </script>
+
+
+{% endblock main %}

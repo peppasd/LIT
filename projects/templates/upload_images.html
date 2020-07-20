@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} Upload {% endblock %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'projects/styles/projects.css' %}">
+<link rel="stylesheet" type="text/css" href="{%static 'projects/dropzone/dropzone.min.css' %}">
+{% endblock %}
+
+{% block main %}
+
+<!-- TITLE -->
+<div class="title" id='myHeader'>
+    <h1><b>Upload Images</b></h1>
+    
+</div>
+
+
+<div class="container-fluid row ">
+    <form action="#"        
+        class="dropzone col-12 rounded"
+        style="border: 2px dashed #dedede; 
+                height: 25em;"
+        id="FileDropzone">
+        {% csrf_token %}        
+    </form>
+    
+    <a role="button" class="btn btn-outline-primary mt-5 col-12 col-md-4 offset-md-8" href="{% url 'project_overview' pk %}">I'm done with uploading pictures</a>
+</div>
+<script src="{%static 'projects/dropzone/dropzone.min.js' %}"></script>
+<script>
+    Dropzone.options.FileDropzone =  {
+        paramName: "img"
+    }
+</script>
+
+{% endblock main %}
+
+
+

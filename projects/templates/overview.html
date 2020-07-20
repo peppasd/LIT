@@ -6,43 +6,118 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'projects/styles/overview.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'auth/styles/forms.css' %}">
 {% endblock %}
 
+
+
+
 {% block main %}
-
-{% if project_list %}
+<form method="POST" class="mt-3 mb-5">
+        {% csrf_token %}
+        <div class="input-group" >
+            <input type="text" class="form-control" placeholder="Search projects" style="border-right: none;">
+            <div class="input-group-append">
+                <button type="submit" class="btn form-control" style="border-left: none;">
+                    <i class="material-icons">search</i>
+                </button>
+            </div>
+        </div>
+    </form>
+    <strong>Recently Labeled:</strong>
     <div class="ml-0 row row-cols-1 row-cols-lg-2 m-3">
-    {% for project in project_list%}
+        {% for recent in recently_labeled%}
+        <div class="col">
+            <div class="card mb-5">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="{# recent.images|first.src #}" class="card-img" alt="Could not load an image">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ recent.name }}</h4>
+                            <h6 class="card-subtitle text-muted mb-3">{{recent.created}}</h6>
 
-    <div class="col">
-        <div class="card mb-5">
-            <div class="row no-gutters">
-                <div class="col">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ project.name }}</h4>
-                        <h6 class="card-subtitle text-muted mb-3">{{project.created}}</h6>
+                            <p class="card-text">{{ recent.description }}</p>
 
-                        <p class="card-text">{{ project.description }}</p>
+                            <div class="progress mt-3 mb-1">
+                                <div class="progress-bar" role="progressbar" style="width:{{recent.progress}}%" aria-valuenow="{{ recent.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <small class="text-muted">{{ recent.labeled_photos }} labeled photos</small>
 
-                        <div class="progress mt-3 mb-1">
-                            <!-- TODO: change style after demo -->
-                            <div class="progress-bar" role="progressbar" style="width:50%" aria-valuenow="{{ project.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <small class="text-muted">{{ project.labeled_photos }} labeled photos</small>
-
-                        <div class="d-flex justify-content-end">
-                            <a href="{% url 'project_overview' %}" class="btn btn-outline-primary mt-4">Open Project</a>
+                            <div class="d-flex justify-content-end">
+                                <a href="{% url 'project_overview' project.pk %}" class="btn btn-outline-primary mt-4">Open Project</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+    <strong>My Projects:</strong>
+    <div class="ml-0 row row-cols-1 row-cols-lg-2 m-3">
+    {% for project in project_list%}
+        <div class="col">
+            <div class="card mb-5">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="{# project.images|first.src #}" class="card-img" alt="Could not load an image">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ project.name }}</h4>
+                            <h6 class="card-subtitle text-muted mb-3">{{project.created}}</h6>
+
+                            <p class="card-text">{{ project.description }}</p>
+
+                            <div class="progress mt-3 mb-1">
+                                <div class="progress-bar" role="progressbar" style="width:{{project.progress}}%" aria-valuenow="{{ project.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <small class="text-muted">{{ project.labeled_photos }} labeled photos</small>
+
+                            <div class="d-flex justify-content-end">
+                                <a href="{% url 'project_overview' project.pk %}" class="btn btn-outline-primary mt-4">Open Project</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-{%else %}
-    <p>No projects</p>
-{% endif %}
+    <div class="ml-0 row row-cols-1 row-cols-lg-2 m-3">
+        <strong>Explore other Projects: </strong>
+            {% for ran in all_projects %}
+                     <div class="col">
+                        <div class="card mb-5">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                  <img src="{# ran.images|first.src #}" class="card-img" alt="Could not load an image">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h4 class="card-title">{{ ran.name }}</h4>
+                                        <h6 class="card-subtitle text-muted mb-3">{{ran.created}}</h6>
+
+                                        <p class="card-text">{{ ran.description }}</p>
+
+                                        <div class="progress mt-3 mb-1">
+                                            <div class="progress-bar" role="progressbar" style="width:{{ran.progress}}%" aria-valuenow="{{ ran.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <small class="text-muted">{{ ran.labeled_photos }} labeled photos</small>
+
+                                        <div class="d-flex justify-content-end">
+                                            <a href="{% url 'project_overview' %}" class="btn btn-outline-primary mt-4">Open Project</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            {% endfor %}
+    </div>
 <a role="button" href="{% url 'new_project' %}" class="floating-btn btn"> 
     <i class="material-icons">add</i> 
 </a>

@@ -1,18 +1,28 @@
 from django.contrib.auth.models import User
-from .models import Project
+from .models import Project, Label, Photo
+
 
 def existsUser(username):
     if User.objects.filter(username=username).exists():
         return True
-    
+
     return False
 
-def allProjects_user(username):
+
+def allUsers_project(project):
     ret = []
-    projects = Project.objects.all()
-    for project in projects:
-        users = project.users.all()
-        for elm in users:
-            if elm.username == username:
-                ret.append(project)    
+    users = project.owners.all()
+    for user in users:
+        ret.append(user)
+    members = project.members.all()
+    for member in members:
+        ret.append(member.user)
+    return ret
+
+
+def allTags_project(project):
+    ret = []
+    tags = project.labels.all()
+    for tag in tags:
+        ret.append(tag.name)
     return ret
