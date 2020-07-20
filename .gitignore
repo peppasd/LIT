@@ -154,3 +154,5 @@ cython_debug/
 
 #user uploads
 media/
+#static file copies
+staticfiles/
