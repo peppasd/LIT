@@ -15,7 +15,7 @@
 <div class="title" id='myHeader'>
     <h1><b>{{project.name}}</b></h1>
     {% if user in project.owners.all %}
-        <button type="button" class="btn btn-edit-icon mr-5" onclick="window.location.href='{#{% url 'editProject' %}#}'"></button> 
+        <button type="button" class="btn btn-edit-icon mr-5" onclick="window.location.href='{% url 'edit_project' project.id %}';"></button> 
     {% endif %} 
     <hr class="hr-text">
 </div>
@@ -29,7 +29,7 @@
             <!--Description-->
             <h3>Description:</h3>
             {% if user in project.owners.all %}
-             <button type="button" class="btn btn-edit-icon mr-3 mb-2" onclick="window.location.href='{#{% url 'editProject' %}#}'"></button>
+             <button type="button" class="btn btn-edit-icon mr-3 mb-2" onclick="window.location.href='{% url 'edit_project' project.id %}';"></button>
             {% endif %}
             <div class='col-12'>
                 {% if project.description %}

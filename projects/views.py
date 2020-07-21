@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Project, Photo, Member
 from .forms import ProjectForm, LabelForm
 from django.http import HttpResponseRedirect
@@ -52,6 +52,20 @@ def new_project(request):
         form = ProjectForm()
 
     return render(request, 'new_project.html', {'form': form})
+
+@login_required
+def edit_project(request, pk):
+    post = get_object_or_404(Project, pk=pk)
+    if request.method == "POST":
+        form = ProjectForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)            
+            post.save()
+            return HttpResponseRedirect('/projects/test/{}/'.format(pk))
+    else:
+        form = ProjectForm(instance=post)
+    return render(request, 'edit_project.html', {'form': form})
+
 
 @login_required
 def project_overview(request,pk):    
