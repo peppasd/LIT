@@ -176,9 +176,11 @@
             <form method="POST">
                 {% csrf_token %}
                 <div class="form-group">
-                                       
-                    <input name="username"  type="text" class="form-control mb-3"
-                        placeholder="user name" required>                         
+                     {% if ph %}
+                     <span class="text-danger">{{ph}}</span>  
+                     {% endif %}                
+                    <input name="username"  type="text" class="form-control mb-3" required
+                        placeholder="user name" >                         
                         <button type="submit" class="btn btn-outline-primary mb-3">Invite</button>
                 </div>
                 
