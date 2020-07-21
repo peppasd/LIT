@@ -3,29 +3,6 @@ from projects.utils import allTags_project
 from projects.models import Project, Value, Label, Photo
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
-
-labelimages = [
-    {
-        "url": "https://www.wonderplugin.com/wp-content/uploads/2013/12/Evening_1024.jpg",
-        "uploaded": "15-Jun-20",
-        "uploader": "theRealLabeler",
-        "lastedit": "07-Jul-20",
-        "lastlabeler": "belerla"
-    }, {
-        "url": "https://tse1.mm.bing.net/th?id=OIP.otIPf0nD6Sxy3HcAhQJnGAHaE8&pid=Api",
-    }, {
-        'url': "https://i.ytimg.com/vi/7WCbIjqjHM4/maxresdefault.jpg",
-    }, {
-        'url': "https://www.wonderplugin.com/wp-content/uploads/2013/12/Evening_1024.jpg",
-    }, {
-        'url': "https://www.wonderplugin.com/wp-content/uploads/2013/12/Evening_1024.jpg",
-    }, {
-        'url': "https://i.ytimg.com/vi/7WCbIjqjHM4/maxresdefault.jpg",
-    }
-]
-
-
 @login_required
 def project_labeler(request, pk):
     labelimages = []
