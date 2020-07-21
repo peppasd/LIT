@@ -15,8 +15,9 @@
 <div class="title" id='myHeader'>
     <h1><b>{{project.name}}</b></h1>
     {% if user in project.owners.all %}
-        <button type="button" class="btn btn-edit-icon mr-5" onclick="window.location.href='{% url 'edit_project' project.id %}';"></button> 
-    {% endif %} 
+    <button type="button" class="btn btn-edit-icon mr-5"
+        onclick="window.location.href='{% url 'edit_project' project.id %}';"></button>
+    {% endif %}
     <hr class="hr-text">
 </div>
 
@@ -29,19 +30,20 @@
             <!--Description-->
             <h3>Description:</h3>
             {% if user in project.owners.all %}
-             <button type="button" class="btn btn-edit-icon mr-3 mb-2" onclick="window.location.href='{% url 'edit_project' project.id %}';"></button>
+            <button type="button" class="btn btn-edit-icon mr-3 mb-2"
+                onclick="window.location.href='{% url 'edit_project' project.id %}';"></button>
             {% endif %}
             <div class='col-12'>
                 {% if project.description %}
-                    {{project.description}}
+                {{project.description}}
                 {%else %}
-                    No description found.
+                No description found.
                 {% endif %}
             </div>
-            
+
         </div>
 
-        <div class= 'row mt-5'>
+        <div class='row mt-5'>
             <!--TAGS-->
             <div class='col-12 col-lg-8 px-0'>
                 <div class='row'>
@@ -54,47 +56,52 @@
                 <div class='col'>
                     <div class='row ml-1'>
                         {% if tags %}
-                            {%if user in project.owners.all%}
-                                {% for tag in tags %}
-                                <!--Tags now have 4 different colors-->
-                                    {%if forloop.counter0|divisibleby:"4"%}
-                                    <form method="POST">
-                                        <button type="submit" class="btn btn-warning mr-3 mt-3 btnForOwner" name="DeleteButon" value="{{tag.id}}">{{tag}}</button>
-                                    </form>
-                                    {%elif forloop.counter0|divisibleby:"3"%}
-                                    <form method="POST">
-                                        <button type="sub" class="btn btn-primary mr-3 mt-3" name="DeleteButon" value="{{tag.id}}" >{{tag}}</button>
-                                        </form>
-                                    {% elif forloop.counter0|divisibleby:"2" %}
-                                    <form method="POST">
-                                        <button type="button" class="btn btn-secondary mr-3 mt-3" name="DeleteButon" value="{{tag.id}}">{{tag}}</button>
-                                    </form>
-                                    {% else %}
-                                    <form method="POST">
-                                        <button type="button" class="btn btn-danger mr-3 mt-3" name="DeleteButon" value="{{tag.id}}" >{{tag}}</button>
-                                    </form>
-                                    {% endif %}
-                                {% endfor%}
-                            {% else %}
-                                {% for tag in tags %}
-                                <!--Tags now have 4 different colors-->
-                                    {%if forloop.counter0|divisibleby:"4"%}
-                                        <button type="submit" class="btn btn-warning mr-3 mt-3" disabled>{{tag}}</button>
-                                    {%elif forloop.counter0|divisibleby:"3"%}
-                                        <button type="button" class="btn btn-primary mr-3 mt-3" disabled>{{tag}}</button>
-                                    {% elif forloop.counter0|divisibleby:"2" %}
-                                        <button type="button" class="btn btn-secondary mr-3 mt-3" disabled>{{tag}}</button>
-                                    {% else %}
-                                        <button type="button" class="btn btn-danger mr-3 mt-3" disabled>{{tag}}</button>
-                                    {% endif %}
-                                {% endfor%}
-                            {% endif %}
+                        {%if user in project.owners.all%}
+                        {% for tag in tags %}
+                        <!--Tags now have 4 different colors-->
+                        {%if forloop.counter0|divisibleby:"4"%}
+
+                        <button class="btn btn-warning mr-3 mt-3"
+                            onclick="window.location.href='{% url 'edit_tag' tag.id %}'">{{tag.name}}</button>
+
+                        {%elif forloop.counter0|divisibleby:"3"%}
+
+                        <button class="btn btn-primary mr-3 mt-3"
+                            onclick="window.location.href='{% url 'edit_tag' tag.id %}'">{{tag.name}}</button>
+
+                        {% elif forloop.counter0|divisibleby:"2" %}
+
+                        <button type="button" class="btn btn-secondary mr-3 mt-3"
+                            onclick="window.location.href='{% url 'edit_tag' tag.id %}'">{{tag.name}}</button>
+
+                        {% else %}
+
+                        <button type="button" class="btn btn-danger mr-3 mt-3"
+                            onclick="window.location.href='{% url 'edit_tag' tag.id %}'">{{tag.name}}</button>
+
+                        {% endif %}
+                        {% endfor%}
+                        {% else %}
+                        {% for tag in tags %}
+                        <!--Tags now have 4 different colors-->
+                        {%if forloop.counter0|divisibleby:"4"%}
+                        <button type="submit" class="btn btn-warning mr-3 mt-3" disabled>{{tag.name}}</button>
+                        {%elif forloop.counter0|divisibleby:"3"%}
+                        <button type="button" class="btn btn-primary mr-3 mt-3" disabled>{{tag.name}}</button>
+                        {% elif forloop.counter0|divisibleby:"2" %}
+                        <button type="button" class="btn btn-secondary mr-3 mt-3" disabled>{{tag.name}}</button>
+                        {% else %}
+                        <button type="button" class="btn btn-danger mr-3 mt-3" disabled>{{tag.name}}</button>
+                        {% endif %}
+                        {% endfor%}
+                        {% endif %}
                         {% else %}
                         No tags available for the project.
                         {% endif %}
                         <!--edit tags button-->
-                        {% if user in project.owners.all %}                        
-                        <button type="button" class="btn btn-edit-icon mr-3 mt-3" onclick="window.location.href='{% url 'create_tags' project.pk %}'"></button>
+                        {% if user in project.owners.all %}
+                        <button type="button" class="btn btn-edit-icon mr-3 mt-3"
+                            onclick="window.location.href='{% url 'create_tags' project.pk %}'"></button>
                         {% endif %}
                     </div>
                 </div>
@@ -106,16 +113,17 @@
                     <h3>Stats:</h3>
                 </div>
                 <div class='col'>
-                    Count Images :  {{count_images}} <p></p>
+                    Count Images : {{count_images}} <p></p>
                     <div class='row progress align-center mx- '>
                         <div class="progress-bar " role="progressbar" aria-valuenow="{{project.progress}}"
-                        aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">{{project.progress}}%
+                            aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
+                            {{project.progress}}%
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!--IMAGES-->
         <div class='row mt-5'>
             <div class='col-12 col-sm-4 px-0'>
@@ -123,32 +131,38 @@
             </div>
             <div class='col-12 col-sm-8'>
                 <div class="d-flex justify-content-around justify-content-lg-end">
-                {% if user in project.owners.all %}
-                    <a role="button" class="btn btn-outline-primary mr-4" href="{%url 'upload_images' project.id%}" >Upload</a>
-                    <a role="button" class="btn btn-outline-primary mr-sm-5" href = "{% url 'project_images' project.id %}">Show all</a>
+                    {% if user in project.owners.all %}
+                    <a role="button" class="btn btn-outline-primary mr-4"
+                        href="{%url 'upload_images' project.id%}">Upload</a>
+                    <a role="button" class="btn btn-outline-primary mr-sm-5"
+                        href="{% url 'project_images' project.id %}">Show all</a>
                     {% else %}
-                    <a role="button" class="btn btn-outline-primary mr-sm-5" href = "{% url 'project_images' project.id %}">Show all</a>
-                {% endif %}
+                    <a role="button" class="btn btn-outline-primary mr-sm-5"
+                        href="{% url 'project_images' project.id %}">Show all</a>
+                    {% endif %}
                 </div>
             </div>
             <div class='col'>
                 <div class='row d-flex justify-content-around'>
                     {% if images %}
-                    {% for image in images|slice:"10" %} <!--only the first 10 images, other will be loaded if the button gets klicked-->
+                    {% for image in images|slice:"10" %}
+                    <!--only the first 10 images, other will be loaded if the button gets klicked-->
                     {% if user in project.owners.all %}
                     <div class='square'>
-                        <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_labeler' project.id %}'">
+                        <img src="{{image.url}}"
+                            onclick="window.location.href='{% url 'project_labeler' project.id %}'">
                     </div>
                     {% else %}
                     <div class='square'>
-                   <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_overview' project.id %}'" >
-                </div>
+                        <img src="{{image.url}}"
+                            onclick="window.location.href='{% url 'project_overview' project.id %}'">
+                    </div>
                     {% endif %}
                     {% endfor %}
                     {% else %}
                     No image available for the project.
                     {% endif %}
-                    
+
                 </div>
             </div>
         </div>
@@ -162,47 +176,46 @@
                 <tbody>
                     {% if members %}
                     {% for member in members %}
-                    <tr><td>{{member.username}}</td></tr>
+                    <tr>
+                        <td>{{member.username}}</td>
+                    </tr>
                     {% endfor %}
                     {% else %}
-                    <tr><td>Nobody here.</td></tr>
+                    <tr>
+                        <td>Nobody here.</td>
+                    </tr>
                     {% endif %}
                 </tbody>
             </table>
         </div>
-        
+
         <div class='row float-right mr-3'>
-            {% if user in project.owners.all %} 
+            {% if user in project.owners.all %}
             <form method="POST">
                 {% csrf_token %}
                 <div class="form-group">
-                     {% if ph %}
-                     <span class="text-danger">{{ph}}</span>  
-                     {% endif %}                
-                    <input name="username"  type="text" class="form-control mb-3" required
-                        placeholder="user name" >                         
-                        <button type="submit" class="btn btn-outline-primary mb-3">Invite</button>
+                    {% if ph %}
+                    <span class="text-danger">{{ph}}</span>
+                    {% endif %}
+                    <input name="username" type="text" class="form-control mb-3" required placeholder="user name">
+                    <button type="submit" class="btn btn-outline-primary mb-3">Invite</button>
                 </div>
-                
-            </form> 
-            {% endif %} 
-            {% if user not in members %} 
+
+            </form>
+            {% endif %}
+            {% if user not in members %}
             <form method="POST">
                 {% csrf_token %}
                 <div class="form-group">
-                    <input name="username"  type="text" class="form-control mb-3"
-                        value="__join__" hidden>                 
-                        <button type="submit" class="btn btn-outline-primary mb-3">Join</button>
+                    <input name="username" type="text" class="form-control mb-3" value="__join__" hidden>
+                    <button type="submit" class="btn btn-outline-primary mb-3">Join</button>
                 </div>
-                
-            </form> 
-            {% endif %}                     
+
+            </form>
+            {% endif %}
         </div>
-        
+
     </div>
 </div>
-    
+
 {% endblock main %}
-
-
-

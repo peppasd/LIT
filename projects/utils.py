@@ -26,5 +26,5 @@ def allTags_project(project):
     ret = []
     tags = project.labels.all()
     for tag in tags:
-        ret.append(tag.name)
+        ret.append(tag)
     return ret

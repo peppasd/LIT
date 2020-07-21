@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Project, Photo, Member
+from .models import Project, Photo, Member, Label
 from .forms import ProjectForm, LabelForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -66,6 +66,20 @@ def edit_project(request, pk):
         form = ProjectForm(instance=post)
     return render(request, 'edit_project.html', {'form': form})
 
+
+@login_required
+def edit_tag(request, pk):
+    post = get_object_or_404(Label, pk=pk)
+    project = post.project
+    if request.method == "POST":
+        form = LabelForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)            
+            post.save()
+            return HttpResponseRedirect('/projects/test/{}/'.format(project.id))
+    else:
+        form = LabelForm(instance=post)
+    return render(request, 'edit_tag.html', {'form': form})
 
 @login_required
 def project_overview(request,pk):    
