@@ -13,6 +13,15 @@ from django.core.files.storage import FileSystemStorage
 # Create your views here.
 
 @login_required
+def removeImg(request, slug):
+    elm = Photo.objects.get(uuid=slug)
+    project = elm.project
+    fs = FileSystemStorage()
+    fs.delete(elm.name)
+    elm.delete()
+    return HttpResponseRedirect('/projects/project_images/{}/'.format(project.id))
+
+@login_required
 def overview(request):
     project_list = []
     all_projects = []   
@@ -133,7 +142,7 @@ def project_images(request, pk):
     tags = allTags_project(project)
     imgs = project.images.all()
     for img in imgs:
-        images.append({'url':img.url})
+        images.append(img)
     count_images = images.__len__
     tagged_images = 4
     context = {

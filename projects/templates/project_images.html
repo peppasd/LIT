@@ -30,14 +30,12 @@
             {% if images %}
             {% for image in images %}
             <div class='square-grid'> 
-                <button type="button" class="btn btn-delete" onclick="{#link to delete this image#}"></button>
-                {% if image.isTagged %}
-                <button type="button" class="btn btn-success"></button>
-                {% else %}
-                <button type="button" class="btn btn-nosuccess"></button>
-                {% endif %}
                 {% if user in project.owners.all %}
-                <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_labeler' project.id %}'" >
+                <a role="button" class="btn btn-delete" href="{% url 'removeImg' image.uuid %}"></a>                
+                {% endif %}
+                
+                {% if user in project.owners.all %}
+                <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_labeler' project.id %}'" > 
                 {% else %}
                 <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_overview' project.id %}'" >
                 {% endif %}

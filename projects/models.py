@@ -39,6 +39,10 @@ class Photo(models.Model):
         if len(self.tag_set.all()) > 0:
             return True
         return False
+    
+    def delete(self, *args, **kwargs):
+        self.photo.delete()
+        super().delete( *args, **kwargs)
 
 
 class Label(models.Model):
@@ -46,12 +50,10 @@ class Label(models.Model):
     type = models.CharField(max_length=160)
     project = models.ForeignKey(Project, related_name='labels', on_delete=models.CASCADE, null=True, blank=True)
 
-
 class Value(models.Model):
     label = models.ManyToManyField(Label, related_name='values', blank=True)
-    val = models.CharField(max_length=160)
+    val = models.CharField(max_length=160)    
     photo = models.ForeignKey(Photo, related_name='values', on_delete=models.CASCADE, null=True, blank=True)
-
 
 # remove photo from s3 as well
 
