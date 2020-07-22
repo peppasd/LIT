@@ -4,7 +4,7 @@ from .forms import ProjectForm, LabelForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 import datetime
-from .utils import existsUser, allUsers_project, allTags_project, getUser
+from .utils import existsUser, allUsers_project, allTags_project, getUser, calProgress
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 
@@ -24,8 +24,10 @@ def removeImg(request, slug):
 @login_required
 def overview(request):
     project_list = []
-    all_projects = []   
+    all_projects = []
     for project in Project.objects.all():
+        x, y, z = calProgress(project)
+        project.progress = x
         for member in project.members.all():
             if request.user == member.user:
                 project_list.append(project)
@@ -99,6 +101,8 @@ def project_overview(request,pk):
     ph = ""
 
     project = Project.objects.get(id=pk)
+    x,y,z = calProgress(project)
+    project.progress = x
     if request.method == 'POST':
         username = request.POST['username']
         if username=='__join__':
@@ -116,8 +120,8 @@ def project_overview(request,pk):
     imgs = project.images.all()
     for img in imgs:
         images.append({'url':img.url})
-    count_images = images.__len__
-    tagged_images = 4
+    count_images = y
+    tagged_images = z
 
     context = {
         'project':project,        
@@ -126,6 +130,7 @@ def project_overview(request,pk):
         'tags': tags,
         'count_images': count_images,
         'ph' : ph,
+        'tagged_images': tagged_images,
     }
     # project = get_object_or_404(Project, pk=project_id)
     return render(request, 'project_overview.html', context)
@@ -179,7 +184,7 @@ def upload_images(request, pk):
                 name = fs.save(uploaded_file.name, uploaded_file)
                 url = fs.url(name)
                 now = datetime.datetime.now()
-                str = now.strftime('%Y-%m-%d')
+                str = now.strftime('%Y-%m-%d') 
                 obj = Photo(created_at=str,title=name,name=name,url=url,project=Project.objects.get(id=pk))
                 obj.save()
     return render(request, 'upload_images.html', context)

@@ -41,9 +41,9 @@
                             <p class="card-text">{{ project.description }}</p>
 
                             <div class="progress mt-3 mb-1">
-                                <div class="progress-bar" role="progressbar" style="width:{{project.progress}}%" aria-valuenow="{{ project.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width:{{project.progress}}%" aria-valuenow="{{ project.progress }}" aria-valuemin="0" aria-valuemax="100">{{ project.progress }}</div>
                             </div>
-                            <small class="text-muted">{{ project.labeled_photos }} labeled photos</small>
+                           
 
                             <div class="d-flex justify-content-end">
                                 <a href="{% url 'project_overview' project.pk %}" class="btn btn-outline-primary mt-4">Open Project</a>
@@ -73,9 +73,8 @@
                                         <p class="card-text">{{ ran.description }}</p>
 
                                         <div class="progress mt-3 mb-1">
-                                            <div class="progress-bar" role="progressbar" style="width:{{ran.progress}}%" aria-valuenow="{{ ran.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar" role="progressbar" style="width:{{ran.progress}}%" aria-valuenow="{{ ran.progress }}" aria-valuemin="0" aria-valuemax="100">{{ran.progress}}</div>
                                         </div>
-                                        <small class="text-muted">{{ ran.labeled_photos }} labeled photos</small>
 
                                         <div class="d-flex justify-content-end">
                                             <a href="{% url 'project_overview' ran.pk %}" class="btn btn-outline-primary mt-4">Open Project</a>

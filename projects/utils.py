@@ -28,3 +28,15 @@ def allTags_project(project):
     for tag in tags:
         ret.append(tag)
     return ret
+
+def calProgress(project):
+    imgs = list(project.images.all())
+    count_images = len(imgs)
+    count_getag = 0
+    for img in imgs:
+        val = list(img.values.all())
+        if len(val) != 0:
+            count_getag += 1
+    if count_images == 0:
+        return 0,0,0
+    return int((count_getag / count_images) * 100), count_images, count_getag
