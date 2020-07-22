@@ -10,6 +10,8 @@ from django.core.files.storage import FileSystemStorage
 
 
 
+
+
 # Create your views here.
 
 @login_required
@@ -181,12 +183,15 @@ def upload_images(request, pk):
             end = ends[1]           
             if VALID_IMAGE_EXTENSIONS.count(end) > 0:
                 fs = FileSystemStorage()
-                name = fs.save(uploaded_file.name, uploaded_file)
-                url = fs.url(name)
+                name = fs.save(uploaded_file.name, uploaded_file)                
+                url = fs.url(name)                              
                 now = datetime.datetime.now()
                 str = now.strftime('%Y-%m-%d') 
                 obj = Photo(created_at=str,title=name,name=name,url=url,project=Project.objects.get(id=pk))
-                obj.save()
+                obj.save() 
+                obj.photo.save(name,fs.open(name))                
+                obj.save() 
+                #fs.delete(name)                               
     return render(request, 'upload_images.html', context)
 
 @login_required
