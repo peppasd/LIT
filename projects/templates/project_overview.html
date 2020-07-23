@@ -18,6 +18,8 @@
     <button type="button" class="btn btn-edit-icon mr-5"
         onclick="window.location.href='{% url 'edit_project' project.id %}';"></button>
     {% endif %}
+    <p></p>
+    <h6 class="card-subtitle text-muted mb-3">{{project.created}}, owner: {{project.ownerName}}</h6>
     <hr class="hr-text">
 </div>
 

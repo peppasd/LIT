@@ -25,6 +25,8 @@ def removeImg(request, slug):
 @login_required
 def removeProject(request, pk):
     elm = Project.objects.get(pk=pk)
+    for member in elm.members.all():
+        member.delete()    
     elm.delete()
     return HttpResponseRedirect('/projects/')
 
@@ -65,7 +67,9 @@ def new_project(request):
             post.created = str
             post.save()
             post.owners.add(request.user)
-            post.save()            
+            post.save() 
+            post.ownerName = request.user.username
+            post.save()           
             return HttpResponseRedirect('/projects/')
     else:
         form = ProjectForm()

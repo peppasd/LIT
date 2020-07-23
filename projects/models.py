@@ -12,6 +12,7 @@ class Member(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=160)
+    ownerName = models.CharField(max_length=160, default="")
     description = models.CharField(max_length=160)
     progress = models.IntegerField(default=0)
     created = models.DateField(default=datetime.date.today)
