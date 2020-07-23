@@ -13,4 +13,5 @@ urlpatterns = [
     path('edit_tag/<int:pk>/', views.edit_tag, name='edit_tag'),
     path('removeImg/<slug:slug>/', views.removeImg, name='removeImg'),
     path('removeProject/<int:pk>/', views.removeProject, name='removeProject'),
+    path('removeTag/<int:pk>/', views.removeTag, name='removeTag'),
 ]

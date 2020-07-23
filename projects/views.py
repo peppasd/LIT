@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Project, Photo, Member, Label
+from .models import Project, Photo, Member, Label, Value
 from .forms import ProjectForm, LabelForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -92,9 +92,25 @@ def edit_project(request, pk):
         }        
     return render(request, 'edit_project.html', context)
 
+@login_required
+def removeTag(request, pk):
+    elm = Label.objects.get(pk=pk)
+    project = elm.project
+    ok = True
+    for value in Value.objects.all():
+        if elm in value.label.all():
+            ok = False
+            break
+    if ok:
+        elm.delete()    
+    return HttpResponseRedirect('/projects/test/{}/'.format(project.id))
+
 
 @login_required
 def edit_tag(request, pk):
+    context = {
+            'pk': pk,
+        }            
     post = get_object_or_404(Label, pk=pk)
     project = post.project
     if request.method == "POST":
@@ -105,7 +121,11 @@ def edit_tag(request, pk):
             return HttpResponseRedirect('/projects/test/{}/'.format(project.id))
     else:
         form = LabelForm(instance=post)
-    return render(request, 'edit_tag.html', {'form': form})
+        context = {
+            'pk': pk,
+            'form': form,
+        }        
+    return render(request, 'edit_tag.html', context)
 
 @login_required
 def project_overview(request,pk):    
