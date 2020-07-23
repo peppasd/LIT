@@ -11,5 +11,6 @@ urlpatterns = [
     path('project_images/<int:pk>/', views.project_images, name='project_images'),
     path('create_tags/<int:pk>/', views.create_tags, name='create_tags'),
     path('edit_tag/<int:pk>/', views.edit_tag, name='edit_tag'),
-    path('removeImg/<slug:slug>/', views.removeImg, name='removeImg')
+    path('removeImg/<slug:slug>/', views.removeImg, name='removeImg'),
+    path('removeProject/<int:pk>/', views.removeProject, name='removeProject'),
 ]

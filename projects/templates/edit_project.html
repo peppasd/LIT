@@ -25,6 +25,7 @@
                             style="resize: none; height: auto;" placeholder="A short description of your project"
                             required>{{form.initial.description}}</textarea>
                     </div>
+                    <a role="button" class="btn btn-outline-secondary mb-3" onclick="return confirm('Are you sure you want to delete this?')" href="{% url 'removeProject' pk %}">Remove</a>
                     <button type="submit" class="btn btn-outline-primary mb-3">Save</button>
                 </form>
             </div>

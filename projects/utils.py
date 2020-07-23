@@ -18,7 +18,7 @@ def allUsers_project(project):
         ret.append(user)
     members = project.members.all()
     for member in members:
-        ret.append(member.user)
+        ret.append(member.user.first())
     return ret
 
 

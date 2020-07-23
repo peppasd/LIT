@@ -7,7 +7,7 @@ from django.dispatch import receiver
 
 # Create your models here.
 class Member(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ManyToManyField(User, blank=True)
 
 
 class Project(models.Model):

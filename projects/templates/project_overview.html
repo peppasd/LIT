@@ -148,7 +148,7 @@
                     {% if images %}
                     {% for image in images|slice:"10" %}
                     <!--only the first 10 images, other will be loaded if the button gets klicked-->
-                    {% if user in project.owners.all %}
+                    {% if user in members %}
                     <div class='square'>
                         <img src="{{image.file.url}}"
                             onclick="window.location.href='{% url 'project_labeler' project.id %}'">

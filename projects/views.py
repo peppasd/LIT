@@ -18,10 +18,16 @@ from django.core.files.storage import FileSystemStorage
 def removeImg(request, slug):
     elm = Photo.objects.get(uuid=slug)
     project = elm.project
-    #fs = FileSystemStorage()
-    #fs.delete(elm.name)
     elm.delete()
     return HttpResponseRedirect('/projects/project_images/{}/'.format(project.id))
+
+
+@login_required
+def removeProject(request, pk):
+    elm = Project.objects.get(pk=pk)
+    elm.delete()
+    return HttpResponseRedirect('/projects/')
+
 
 @login_required
 def overview(request):
@@ -31,7 +37,7 @@ def overview(request):
         x, y, z = calProgress(project)
         project.progress = x
         for member in project.members.all():
-            if request.user == member.user:
+            if request.user == member.user.first():
                 project_list.append(project)
         if request.user in project.owners.all():
             if project not in project_list:
@@ -68,6 +74,9 @@ def new_project(request):
 
 @login_required
 def edit_project(request, pk):
+    context = {
+            'pk': pk,
+        }            
     post = get_object_or_404(Project, pk=pk)
     if request.method == "POST":
         form = ProjectForm(request.POST, instance=post)
@@ -75,9 +84,13 @@ def edit_project(request, pk):
             post = form.save(commit=False)            
             post.save()
             return HttpResponseRedirect('/projects/test/{}/'.format(pk))
-    else:
+    else:        
         form = ProjectForm(instance=post)
-    return render(request, 'edit_project.html', {'form': form})
+        context = {
+            'pk': pk,
+            'form': form,
+        }        
+    return render(request, 'edit_project.html', context)
 
 
 @login_required
@@ -108,7 +121,9 @@ def project_overview(request,pk):
     if request.method == 'POST':
         username = request.POST['username']
         if username=='__join__':
-            m = Member(user=request.user)
+            m = Member()
+            m.save()
+            m.user.add(request.user)
             m.save()
             project.members.add(m)
         else:
