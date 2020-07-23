@@ -18,8 +18,8 @@ from django.core.files.storage import FileSystemStorage
 def removeImg(request, slug):
     elm = Photo.objects.get(uuid=slug)
     project = elm.project
-    fs = FileSystemStorage()
-    fs.delete(elm.name)
+    #fs = FileSystemStorage()
+    #fs.delete(elm.name)
     elm.delete()
     return HttpResponseRedirect('/projects/project_images/{}/'.format(project.id))
 
@@ -121,7 +121,7 @@ def project_overview(request,pk):
     tags = allTags_project(project)
     imgs = project.images.all()
     for img in imgs:
-        images.append({'url':img.url})
+        images.append(img)
     count_images = y
     tagged_images = z
 
@@ -183,15 +183,14 @@ def upload_images(request, pk):
             end = ends[1]           
             if VALID_IMAGE_EXTENSIONS.count(end) > 0:
                 fs = FileSystemStorage()
-                name = fs.save(uploaded_file.name, uploaded_file)                
-                url = fs.url(name)                              
+                name = fs.save(uploaded_file.name, uploaded_file)
                 now = datetime.datetime.now()
                 str = now.strftime('%Y-%m-%d') 
-                obj = Photo(created_at=str,title=name,name=name,url=url,project=Project.objects.get(id=pk))
+                obj = Photo(created_at=str,name=name,project=Project.objects.get(id=pk))
                 obj.save() 
-                obj.photo.save(name,fs.open(name))                
+                obj.file.save(name,fs.open(name))                
                 obj.save() 
-                #fs.delete(name)                               
+                fs.delete(name)                               
     return render(request, 'upload_images.html', context)
 
 @login_required

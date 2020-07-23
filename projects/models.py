@@ -28,20 +28,13 @@ class Photo(models.Model):
     uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False,
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    title = models.CharField(max_length=100, default='')
-    photo = models.FileField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)    
+    file = models.FileField(blank=True)
     name = models.CharField(max_length=512, default='')
-    url = models.CharField(max_length=512, default='')
-    project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE, null=True, blank=True)
-
-    def isTagged(self):
-        if len(self.tag_set.all()) > 0:
-            return True
-        return False
+    project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE, null=True, blank=True)    
     
     def delete(self, *args, **kwargs):
-        self.photo.delete()
+        self.file.delete()
         super().delete( *args, **kwargs)
 
 
@@ -60,4 +53,4 @@ class Value(models.Model):
 
 @receiver(models.signals.post_delete, sender=Photo)
 def remove_file_from_bucket(sender, instance, using, **kwargs):
-    instance.photo.delete(save=False)
+    instance.file.delete(save=False)

@@ -35,9 +35,9 @@
                 {% endif %}
                 
                 {% if user in project.owners.all %}
-                <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_labeler' project.id %}'" > 
+                <img src = "{{image.file.url}}" onclick="window.location.href='{% url 'project_labeler' project.id %}'" > 
                 {% else %}
-                <img src = "{{image.url}}" onclick="window.location.href='{% url 'project_overview' project.id %}'" >
+                <img src = "{{image.file.url}}" onclick="window.location.href='{% url 'project_overview' project.id %}'" >
                 {% endif %}
             </div>
             {% endfor %}
