@@ -36,11 +36,11 @@
               <input name="tagId" type="number" value={{t.id}} hidden required>
               <div class="row px-4 py-2">
                 <div class="col-4">
-                  <button type="button" class="btn btn-primary w-100" disabled>{{t.label.all.first.name}}</button>
+                  <button type="button" class="btn btn-primary w-100" disabled>{{t.label.all.first.name}}</button>                  
                 </div>
 
                 <!-- INPUT SPECIFICATION -->
-                <div class='col-8'>
+                <div class='col-6'>
                   {% ifequal t.label.all.first.type 'Integer' %}
                   <input name="tagVal" type="number" class="form-control" placeholder=Number required value={{t.val}}>
 
@@ -66,8 +66,14 @@
 
                   {% endifequal %}
                   {% endifequal %}
-                  {% endifequal %}
+                  {% endifequal %}                  
                 </div>
+                <!-- REMOVE CHECKBOX -->
+                <div class='col-2'>                  
+                  <label class="checkbox-inline">
+                    <input title="to delete" name="del" type="checkbox" value={{t.id}}>
+                  </label>
+                </div>                
               </div>
               {% endfor %}
               <div class="row px-4 py-2">

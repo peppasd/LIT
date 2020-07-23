@@ -1,8 +1,16 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from projects.utils import allTags_project
 from projects.models import Project, Value, Label, Photo
 from django.contrib.auth.decorators import login_required
 
+
+
+
+
+def removeValue(pk):
+    elm = Value.objects.get(pk=pk)      
+    elm.delete()    
 
 @login_required
 def project_labeler(request, pk):    
@@ -19,11 +27,18 @@ def project_labeler(request, pk):
 
     if request.method == 'POST':
         tagIds = list(request.POST.getlist('tagId'))
+        delValues = list(request.POST.getlist('del'))                
         tagVals = request.POST.getlist('tagVal')
         addId = request.POST['addTag']
         imgId = request.POST['imgId']
         loopId = request.POST['loopId']
         loopId = int(loopId)
+        if len(delValues) > 0:
+            for delId in delValues:
+                if delId in tagIds:
+                    tagIds.remove(delId)
+                valId = int(delId)
+                removeValue(valId)
         if loopId != 0:
             indexImg = 0
             for i,j in enumerate(labelimages):               
