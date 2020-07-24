@@ -11,6 +11,8 @@ services:
     build: .
     volumes:
       - .:/code
+    environment:
+      DJANGO_DEBUG: 'true'
     ports:
       - "8000:8000"
     depends_on:
