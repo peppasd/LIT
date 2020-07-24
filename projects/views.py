@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Project, Photo, Member, Label, Value
 from .forms import ProjectForm, LabelForm
 from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
 from django.conf import settings
 from .utils import existsUser, allUsers_project, allTags_project, getUser, calProgress
 from django.contrib.auth.decorators import login_required
@@ -13,7 +14,7 @@ def removeImg(request, slug):
     elm = Photo.objects.get(uuid=slug)
     project = elm.project
     elm.delete()
-    return HttpResponseRedirect('/projects/project_images/{}/'.format(project.id))
+    return HttpResponseRedirect(reverse('project_images', args=[project.id]))
 
 
 @login_required
@@ -76,8 +77,8 @@ def edit_project(request, pk):
         if form.is_valid():
             post = form.save(commit=False)            
             post.save()
-            return HttpResponseRedirect('/projects/test/{}/'.format(pk))
-    else:        
+            return HttpResponseRedirect(reverse('project_overview', args=[pk]))
+    else:
         form = ProjectForm(instance=post)
         context = {
             'pk': pk,
@@ -96,7 +97,7 @@ def removeTag(request, pk):
             break
     if ok:
         elm.delete()    
-    return HttpResponseRedirect('/projects/test/{}/'.format(project.id))
+    return HttpResponseRedirect(reverse('project_overview', args=[pk]))
 
 
 @login_required
@@ -111,7 +112,7 @@ def edit_tag(request, pk):
         if form.is_valid():
             post = form.save(commit=False)            
             post.save()
-            return HttpResponseRedirect('/projects/test/{}/'.format(project.id))
+            return HttpResponseRedirect(reverse('project_overview', args=[pk]))
     else:
         form = LabelForm(instance=post)
         context = {
@@ -180,9 +181,9 @@ def upload_images(request, pk):
     elif request.method == "POST":
         uploaded_file = request.FILES['img']
         extension = uploaded_file.name.split(".")[-1]
-        if uploaded_file._size > settings.MAX_UPLOAD_SIZE:
-            return HttpResponse("File too big.", status=413)
-        elif extension not in VALID_IMAGE_EXTENSIONS:
+        # if uploaded_file.size > settings.MAX_UPLOAD_SIZE:
+        #    return HttpResponse("File too big.", status=413)
+        if extension not in VALID_IMAGE_EXTENSIONS:
             return HttpResponse("Invalid file extension.", status=415)
         else:
             obj = Photo(file=request.FILES['img'], name=uploaded_file.name, project=Project.objects.get(id=pk))
@@ -202,8 +203,7 @@ def create_tags(request, pk):
             post.save()
             post.project = Project.objects.get(id=pk) 
             post.save()
-            txt = '/projects/test/{}/'.format(pk)                     
-            return HttpResponseRedirect(txt)
+            return HttpResponseRedirect(reverse('project_overview', args=[pk]))
     else:
         form = LabelForm()
         context = {
