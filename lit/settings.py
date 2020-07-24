@@ -173,3 +173,5 @@ LOGOUT_REDIRECT_URL = 'logout_done'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'emails')
+
+MAX_UPLOAD_SIZE = "2000000"

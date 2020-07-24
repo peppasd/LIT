@@ -33,6 +33,8 @@
 <script src="{%static 'projects/dropzone/dropzone.min.js' %}"></script>
 <script>
     Dropzone.options.FileDropzone =  {
+        acceptedFiles: ".jpg,.jpeg,.png",
+        maxFilesize: 2,
         paramName: "img"
     }
 </script>

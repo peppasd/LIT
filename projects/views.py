@@ -2,15 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from .models import Project, Photo, Member, Label, Value
 from .forms import ProjectForm, LabelForm
 from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib.auth.models import User
-import datetime
+from django.conf import settings
 from .utils import existsUser, allUsers_project, allTags_project, getUser, calProgress
 from django.contrib.auth.decorators import login_required
-from django.core.files.storage import FileSystemStorage
-
-
-
-
 
 # Create your views here.
 
@@ -173,7 +167,6 @@ VALID_IMAGE_EXTENSIONS = [
     "jpg",
     "jpeg",
     "png",
-    "gif",
 ]
 
 
@@ -187,12 +180,14 @@ def upload_images(request, pk):
     elif request.method == "POST":
         uploaded_file = request.FILES['img']
         extension = uploaded_file.name.split(".")[-1]
-        if extension in VALID_IMAGE_EXTENSIONS:
+        if uploaded_file._size > settings.MAX_UPLOAD_SIZE:
+            return HttpResponse("File too big.", status=413)
+        elif extension not in VALID_IMAGE_EXTENSIONS:
+            return HttpResponse("Invalid file extension.", status=415)
+        else:
             obj = Photo(file=request.FILES['img'], name=uploaded_file.name, project=Project.objects.get(id=pk))
             obj.save()
             return HttpResponse("Upload successful.")
-        else:
-            return HttpResponse("Invalid file extension.", status=415)
 
 
 @login_required
