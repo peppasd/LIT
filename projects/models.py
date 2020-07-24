@@ -26,7 +26,8 @@ class Photo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     file = models.FileField()
     name = models.CharField(max_length=512)
-    project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE, null=True, blank=True)    
+    project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE, null=True, blank=True)
+    uploader = models.CharField(max_length=160)
     
     def delete(self, *args, **kwargs):
         self.file.delete()

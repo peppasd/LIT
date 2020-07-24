@@ -186,7 +186,8 @@ def upload_images(request, pk):
         if extension not in VALID_IMAGE_EXTENSIONS:
             return HttpResponse("Invalid file extension.", status=415)
         else:
-            obj = Photo(file=request.FILES['img'], name=uploaded_file.name, project=Project.objects.get(id=pk))
+            obj = Photo(file=uploaded_file, name=uploaded_file.name, project=Project.objects.get(id=pk),
+                        uploader=request.user)
             obj.save()
             return HttpResponse("Upload successful.")
 
