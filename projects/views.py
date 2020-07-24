@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Project, Photo, Member, Label, Value
 from .forms import ProjectForm, LabelForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 import datetime
 from .utils import existsUser, allUsers_project, allTags_project, getUser, calProgress
@@ -58,22 +58,17 @@ def overview(request):
 
 @login_required
 def new_project(request):
-    now = datetime.datetime.now()
-    str = now.strftime('%Y-%m-%d')
     if request.method == "POST":
         form = ProjectForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.created = str
             post.save()
             post.owners.add(request.user)
-            post.save() 
             post.ownerName = request.user.username
             post.save()           
             return HttpResponseRedirect('/projects/')
     else:
         form = ProjectForm()
-
     return render(request, 'new_project.html', {'form': form})
 
 @login_required
@@ -114,7 +109,7 @@ def removeTag(request, pk):
 def edit_tag(request, pk):
     context = {
             'pk': pk,
-        }            
+    }
     post = get_object_or_404(Label, pk=pk)
     project = post.project
     if request.method == "POST":
@@ -132,15 +127,10 @@ def edit_tag(request, pk):
     return render(request, 'edit_tag.html', context)
 
 @login_required
-def project_overview(request,pk):    
-    projects = []
-    members = []
-    tags = []
-    images = []
+def project_overview(request, pk):
     ph = ""
-
     project = Project.objects.get(id=pk)
-    x,y,z = calProgress(project)
+    x, y, z = calProgress(project)
     project.progress = x
     if request.method == 'POST':
         username = request.POST['username']
@@ -158,45 +148,23 @@ def project_overview(request,pk):
             
     members = allUsers_project(project)
     tags = allTags_project(project)
-    imgs = project.images.all()
-    for img in imgs:
-        images.append(img)
     count_images = y
     tagged_images = z
-
     context = {
-        'project':project,        
+        'project': project,
         'members': members,
-        'images': images,
         'tags': tags,
         'count_images': count_images,
-        'ph' : ph,
+        'ph': ph,
         'tagged_images': tagged_images,
     }
-    # project = get_object_or_404(Project, pk=project_id)
     return render(request, 'project_overview.html', context)
-
 
 @login_required
 def project_images(request, pk):
-    projects = []
-    members = []
-    tags = []
-    images = []
     project = Project.objects.get(id=pk)
-    members = allUsers_project(project)
-    tags = allTags_project(project)
-    imgs = project.images.all()
-    for img in imgs:
-        images.append(img)
-    count_images = images.__len__
-    tagged_images = 4
     context = {
-        'project':project,        
-        'members': members,
-        'images': images,
-        'tags': tags,
-        'count_images': count_images,
+        'project': project,
     }
     return render(request, 'project_images.html', context)
 
@@ -213,24 +181,19 @@ VALID_IMAGE_EXTENSIONS = [
 def upload_images(request, pk):
     context = {
             'pk': pk,            
-        } 
-            
-    if request.method == "POST":
-        uploaded_files = request.FILES.getlist('img')
-        for uploaded_file in uploaded_files:
-            ends = uploaded_file.name.split(".")
-            end = ends[1]           
-            if VALID_IMAGE_EXTENSIONS.count(end) > 0:
-                fs = FileSystemStorage()
-                name = fs.save(uploaded_file.name, uploaded_file)
-                now = datetime.datetime.now()
-                str = now.strftime('%Y-%m-%d') 
-                obj = Photo(created_at=str,name=name,project=Project.objects.get(id=pk))
-                obj.save() 
-                obj.file.save(name,fs.open(name))                
-                obj.save() 
-                fs.delete(name)                               
-    return render(request, 'upload_images.html', context)
+    }
+    if request.method == "GET":
+        return render(request, 'upload_images.html', context)
+    elif request.method == "POST":
+        uploaded_file = request.FILES['img']
+        extension = uploaded_file.name.split(".")[-1]
+        if extension in VALID_IMAGE_EXTENSIONS:
+            obj = Photo(file=request.FILES['img'], name=uploaded_file.name, project=Project.objects.get(id=pk))
+            obj.save()
+            return HttpResponse("Upload successful.")
+        else:
+            return HttpResponse("Invalid file extension.", status=415)
+
 
 @login_required
 def create_tags(request, pk): 
@@ -253,5 +216,3 @@ def create_tags(request, pk):
             'form': form,
         }        
     return render(request, 'create_tags.html', context) 
-
-    

@@ -115,8 +115,8 @@
                     <h3>Stats:</h3>
                 </div>
                 <div class='col'>
-                    Count Images : {{count_images}} <p></p>
-                    Labeled Images : {{tagged_images}} <p></p>
+                    Count Images: {{count_images}} <p></p>
+                    Labeled Images: {{tagged_images}} <p></p>
                     <div class='row progress align-center mx- '>
                         <div class="progress-bar " role="progressbar" aria-valuenow="{{project.progress}}"
                             aria-valuemin="0" aria-valuemax="100" style="width:{{project.progress}}%">
@@ -147,8 +147,8 @@
             </div>
             <div class='col'>
                 <div class='row d-flex justify-content-around'>
-                    {% if images %}
-                    {% for image in images|slice:"10" %}
+                    {% if project.images %}
+                    {% for image in project.images.all|slice:"10" %}
                     <!--only the first 10 images, other will be loaded if the button gets klicked-->
                     {% if user in members %}
                     <div class='square'>

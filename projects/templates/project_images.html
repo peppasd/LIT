@@ -27,8 +27,8 @@
     </div>
     <div class='col'>
         <div class='row d-flex justify-content-around'>
-            {% if images %}
-            {% for image in images %}
+            {% if project.images %}
+            {% for image in project.images.all %}
             <div class='square-grid'> 
                 {% if user in project.owners.all %}
                 <a role="button" class="btn btn-delete" href="{% url 'removeImg' image.uuid %}"></a>                
@@ -42,7 +42,7 @@
             </div>
             {% endfor %}
             {% else %}
-            No image availble for the project.
+            No image available for the project.
             {% endif %}
 
         </div>
