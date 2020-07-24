@@ -11,6 +11,8 @@ services:
     build: .
     volumes:
       - .:/code
+    environment:
+      DJANGO_DEBUG: 'true'
     ports:
       - "8000:8000"
     depends_on:
@@ -22,3 +24,5 @@ services:
       PGADMIN_DEFAULT_PASSWORD: pgadmin
     ports:
       - 80:80
+    depends_on:
+      - db

@@ -26,16 +26,22 @@
     <header>
         <nav class="navbar fixed-top navbar-light">
           <a class="navbar-brand" href="/">
-            <img src="{% static 'global/assets/logo.svg' %}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+            <img src="{% static 'global/assets/logo.svg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
             <strong>lit</strong>
           </a>
           {% block nav%}
+
+
           <div>
             {% if user.is_authenticated %}
            <!-- <a role="button" class="btn btn-outline-secondary" href="{% url 'profile_edit' %}">Profile Settings</a>
             <a role="button" class="btn btn-outline-secondary" href="{% url 'password_change' %}">Change Password</a>
             <a role="button" class="btn btn-outline-primary" href="{% url 'logout' %}">Logout</a>-->
-            <div id="account-div">
+
+
+
+
+            <div id="account-div" class="pt-1">
               <a role="button" class="btn btn-outline-primary" href="{% url 'overview' %}"> overview </a>
               <div class="dropdown">
                 <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -68,6 +74,7 @@
 
     <main role="main" class="flex-shrink-0 h-100">
       <div class="container-fluid h-100">
+
         {% block main %}{% endblock %}
       </div>
     </main>

@@ -10,26 +10,32 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+import django
 import os
+from google.oauth2 import service_account
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+cloudRun = False
+if os.getenv('GCR') == 'true':
+    cloudRun = True
+
+DEBUG = False
+if os.getenv('DJANGO_DEBUG') == 'true':
+    DEBUG = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*ol&ft2dc!(+)y_&#lp&yj1bmv(ps+cjwmb)*=8l9sdev#e9w!'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = os.getenv('SECRET') if cloudRun else '*ol&ft2dc!(+)y_&#lp&yj1bmv(ps+cjwmb)*=8l9sdev#e9w!'
 
 ALLOWED_HOSTS = [
     'localhost',
-    '.a.run.app',
     '127.0.0.1',
     '0.0.0.0',
+    '.a.run.app',
+    '.lit-2020.ml',
 ]
 
 # Application definition
@@ -45,6 +51,8 @@ INSTALLED_APPS = [
     'authentification',
     'crispy_forms',
     'projects',
+    'labeler',
+    'storages',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -68,6 +76,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'home/templates'),
             os.path.join(BASE_DIR, 'projects/templates'),
+            os.path.join(BASE_DIR, 'labeler/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -87,27 +96,34 @@ WSGI_APPLICATION = 'lit.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-def getDbHost(): 
-    try:
-        if os.environ['GCR'] == 'true':
-            return '10.17.17.3'
-        else:
-            return 'db'
-    except KeyError:
-        return 'db'
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': getDbHost(),
+        'HOST': '10.17.17.3' if cloudRun else 'db',
         'PORT': 5432,
     }
 }
 
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+"""
+
+# google cloud
+if cloudRun:
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    GS_BUCKET_NAME = 'mateuszbucket'
+    GS_FILE_OVERWRITE = False
+else:
+    MEDIA_ROOT = 'media/'
+    MEDIA_URL = '/media/'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -127,36 +143,35 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Europe/Berlin'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "home/static"),
     os.path.join(BASE_DIR, "projects/static"),
+    os.path.join(BASE_DIR, "labeler/static")
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = '/projects/'
 LOGOUT_REDIRECT_URL = 'logout_done'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'emails')
+
+MAX_UPLOAD_SIZE = "2000000"

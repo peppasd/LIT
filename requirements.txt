@@ -1,3 +1,5 @@
 Django>=3.0,<4.0
 psycopg2>=2.8,<3.0
 django-crispy-forms
+django-storages[google]
+uvicorn<1.0
