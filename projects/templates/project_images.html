@@ -35,14 +35,14 @@
                 {% endif %}
                 
                 {% if user in members %}
-                <img src = "{{image.file.url}}" onclick="window.location.href='{% url 'project_labeler' project.id %}'" > 
+                <img src = "{{image.file.url}}" loading="lazy" onclick="window.location.href='{% url 'project_labeler' project.id %}'" >
                 {% else %}
-                <img src = "{{image.file.url}}" onclick="window.location.href='{% url 'project_overview' project.id %}'" >
+                <img src = "{{image.file.url}}" loading="lazy" onclick="window.location.href='{% url 'project_overview' project.id %}'" >
                 {% endif %}
             </div>
             {% endfor %}
             {% else %}
-            No image available for the project.
+                No image available for the project.
             {% endif %}
 
         </div>
