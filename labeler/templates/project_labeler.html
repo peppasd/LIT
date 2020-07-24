@@ -5,151 +5,187 @@
 
 {% load static %}
 {% block css %}
-    <link rel='stylesheet' type='text/css' href='{% static "labeler/styles/labeler.css" %}'>
+<link rel='stylesheet' type='text/css' href='{% static "labeler/styles/labeler.css" %}'>
 {% endblock css %}
 
 {% block main %}
 
 <!--TITLE-->
 <div class='title'>
-    <h1><b>The Queen Project</b></h1>
-    <hr class="hr-text">
+  <h1><b>{{project.name}}</b></h1>
+  <hr class="hr-text">
 </div>
 
 <!--Carousel-->
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval=false>
   <div class="carousel-inner">
     {% if labelimages %}
-      {% for image in labelimages %}
-        <div class="carousel-item {% if forloop.first %}active{% endif %} lazy-load" >
-          <div class='row pt-2'>
+    {% for image in labelimages %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %} lazy-load">
+      <div class='row pt-2'>
 
-            <!-- TAGS -->
-            <div class='col-lg-6'>
-              <form method="POST">
-                {% csrf_token %}
-                <div class='form-group'>
-                  {% if tags %}
-                    {% for t in tags %}
-                      <div class="row px-4 py-2">
-                        <div class="col-4">
-                          <button type="button" class="btn btn-primary w-100" disabled>{{t.title}}</button>
-                        </div>
+        <!-- TAGS -->
+        <div class='col-lg-6'>
+          <form method="POST">
+            {% csrf_token %}
+            <div class='form-group'>
+              {% if image %}
+              <input name="imgId" type="text" value={{image.uuid}} hidden required>
+              <input name="loopId" type="text" value={{forloop.counter}} hidden required>
+              {% for t in image.values.all %}
+              <input name="tagId" type="number" value={{t.id}} hidden required>
+              <div class="row px-4 py-2">
+                <div class="col-4">
+                  <button type="button" class="btn btn-primary w-100" disabled>{{t.label.all.first.name}}</button>                  
+                </div>
 
-                        <!-- INPUT SPECIFICATION -->
-                        <div class='col-8'>
-                          {% ifequal t.type 'int' %}
-                              <input type="number" class="form-control" placeholder=Number required>
+                <!-- INPUT SPECIFICATION -->
+                <div class='col-6'>
+                  {% ifequal t.label.all.first.type 'Integer' %}
+                  <input name="tagVal" type="number" class="form-control" placeholder=Number required value={{t.val}}>
 
-                          {% else %}
-                          {% ifequal t.type 'string' %}
-                              <input type="text" class="form-control" placeholder=Text required>
-                          
-                          {% else %}
-                          {% ifequal t.type 'bool' %}
-                              <select class="form-control" required>
-                                <option value=''>Select</option>
-                                <option value='true'>True</option>
-                                <option value='false'>False</option>
-                              </select>
+                  {% else %}
+                  {% ifequal t.label.all.first.type 'Text' %}
+                  <input name="tagVal" type="text" class="form-control" placeholder=Text required value={{t.val}}>
 
-                          {% endifequal %}
-                          {% endifequal %}
-                          {% endifequal %}
-                        </div>
-                      </div>
+                  {% else %}
+                  {% ifequal t.label.all.first.type 'Boolean' %}
+                  <select name="tagVal" class="form-control" required id="bools">
+                    <option value=''>Select</option>
+                    {% if t.val == 'true' %}
+                    <option value='true' selected>True</option>
+                    {% else %}
+                    <option value='true'>True</option>
+                    {% endif %}
+                    {% if t.val == 'false' %}
+                    <option value='false' selected>False</option>
+                    {% else %}
+                    <option value='false'>False</option>
+                    {% endif %}
+                  </select>
+
+                  {% endifequal %}
+                  {% endifequal %}
+                  {% endifequal %}                  
+                </div>
+                <!-- REMOVE CHECKBOX -->
+                <div class='col-2'>                  
+                  <label class="checkbox-inline">
+                    <input title="to delete" name="del" type="checkbox" value={{t.id}}>
+                  </label>
+                </div>                
+              </div>
+              {% endfor %}
+              <div class="row px-4 py-2">
+                <div class='col-4'>
+                  <select name="addTag" class="form-control">
+                    <option value=''>Select</option>
+                    {% for elm in tagLists%}
+                    <option value={{elm.id}}>{{elm.name}}</option>
                     {% endfor %}
-                    
-                    <!-- SUBMIT BUTTON -->
-                    <div class='row py-2'>
-                      <div class='col d-flex justify-content-start'>
-                        <button type="submit" class="btn btn-outline-primary mx-5 mb-3 w-100">Submit</button>
-                      </div>
-                    </div>
-
-                    {% else%}
-                    No tags defined for the
-                  {% endif %}
+                  </select>
                 </div>
-              </form>
+                <!-- ADDTAG BUTTON -->
+                <div class='col-8'>
+                  <div class='col d-flex justify-content-start'>
+                    <button type="submit" class="btn btn-outline-primary mx-5 mb-3 w-100">Add new tag</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SUBMIT BUTTON -->
+              <div class='row py-2'>
+                <div class='col d-flex justify-content-start'>
+                  <button type="submit" class="btn btn-outline-primary mx-5 mb-3 w-100">Submit</button>
+                </div>
+              </div>
+
+              {% else%}
+              No tags defined for the
+              {% endif %}
             </div>
+          </form>
+        </div>
 
-            <!-- IMAGE -->
-            <div class='col-lg-6 text-block'>
-              <div class="px-4 text-center">
-                Forloop.counter: {{forloop.counter}}
-                <img id='myImg' class="d-flex w-100" src="{{ image.url }}" alt="Third slide">
+        <!-- IMAGE -->
+        <div class='col-lg-6 text-block'>
+          <div class="px-4 text-center">
+            Forloop.counter: {{forloop.counter}}
+            <img id='myImg_{{forloop.counter}}' class="d-flex w-100" src="{{ image.file.url }}" alt="Third slide">
+          </div>
+          <hr>
+          <div class='extrainfo text-center'>
+            <div class='row'>
+              <div class='col-4 pr-0'>
+                Image uploaded:
               </div>
-              <hr>
-              <div class='extrainfo text-center'>
-                <div class='row'>
-                  <div class='col-4 pr-0'>
-                    Image uploaded:
-                  </div>
-                  <div class='col-8 px-0'>
-                    {{image.uploaded}} by {{image.uploader}}
-                  </div>
-                </div>
-                <div class="row">
-                  <div class='col-4 pr-0'>
-                    Last edit:
-                  </div>
-                  <div class='col-8 px-0'>
-                    {{image.lastedit}} by {{image.lastlabeler}}
-                  </div>
-                </div>                 
+              <div class='col-8 px-0'>
+                {{image.created}} by {{image.uploader}}
               </div>
-
+            </div>
+            <div class="row">
+              <div class='col-4 pr-0'>
+                Last edit:
+              </div>
+              <div class='col-8 px-0'>
+                {{image.lastedit}} by {{image.lastlabeler}}
+              </div>
             </div>
           </div>
+
         </div>
-      {% endfor %}
-    {% else %}
-      <div class="carousel-item active">
-        <img class="d-block w-100" src="{% static 'global/assets/logo.svg' %}" alt="Third slide">
       </div>
-      {% endif %} 
     </div>
+
+    {% endfor %}
+    {% else %}
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="{% static 'global/assets/logo.svg' %}" alt="Third slide">
+    </div>
+    {% endif %}
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
+</div>
+<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  <span class="sr-only">Previous</span>
+</a>
+<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  <span class="sr-only">Next</span>
+</a>
 </div>
 
-  <!-- The Modal -->
-  <div id="myModal" class="modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="img01">
-    <div id="caption"></div>
-  </div>
+{% if labelimages %}
+{% for image in labelimages %}
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
+</div>
 
-  <script>
-    // Get the modal
-    var modal = document.getElementById('myModal');
-    
-    // Get the image and insert it inside the modal - use its "alt" text as a caption
-    var img = document.getElementById('myImg');
-    var modalImg = document.getElementById("img01");
-    var captionText = document.getElementById("caption");
-    img.onclick = function(){
-      modal.style.display = "block";
-      modalImg.src = this.src;
-      captionText.innerHTML = this.alt;
-    }
-    
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-    
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() { 
-      modal.style.display = "none";
-    }
-    </script>
+<script>
+  // Get the modal
+  var modal = document.getElementById('myModal');
 
+  // Get the image and insert it inside the modal - use its "alt" text as a caption
+  var img = document.getElementById('myImg_{{forloop.counter}}');
+  var modalImg = document.getElementById("img01");
+  var captionText = document.getElementById("caption");
+  img.onclick = function () {
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
+  }
 
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  }
+</script>
+{% endfor %}
+{% endif %}
 {% endblock main %}
