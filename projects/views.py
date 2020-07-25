@@ -10,6 +10,10 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 @login_required
+def download(request, pk):
+    return HttpResponse('downloading project ' + str(pk))
+
+@login_required
 def removeImg(request, slug):
     elm = Photo.objects.get(uuid=slug)
     project = elm.project
