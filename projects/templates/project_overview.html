@@ -7,16 +7,30 @@
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'projects/styles/projects.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'auth/styles/forms.css' %}">
+
 {% endblock %}
 
 {% block main %}
 
 <!-- TITLE -->
 <div class="title" id='myHeader'>
-    <h1><b>{{project.name}}</b></h1>
+    <div id='titleChange'>
+        <h1 style="display: block;"><b>{{project.name}}</b></h1>
+        <form method="POST" style="display: none;">
+            {% csrf_token %}
+            <div class="form-group">
+                <input name="name" id="projName" type="text" class="form-control mb-3"
+                placeholder="{{project.name}}" required value="{{form.initial.name}}" required>
+                <button type="submit" class="btn btn-outline-primary mb-3">Save</button>
+            </div>
+
+        </form>
+    </div>
     {% if user in project.owners.all %}
-    <button type="button" class="btn btn-edit-icon mr-5"
-        onclick="window.location.href='{% url 'edit_project' project.id %}';"></button>
+    <!-- <button type="button" id="titleButton" class="btn btn-edit-icon p-3"
+        onclick="window.location.href='{% url 'edit_project' project.id %}';"></button> -->
+        <button type="button" id="titleButton" class="btn btn-edit-icon p-3"
+        onclick="titleChanger();"></button>
     {% endif %}
     <p></p>
     <h6 class="card-subtitle text-muted mb-3">{{project.created}}, owner: {{project.ownerName}}</h6>
@@ -30,10 +44,23 @@
 
         <div class='row'>
             <!--Description-->
-            <h3>Description:</h3>
+            <div id="descChange">
+                <h3 style="display: block;">Description:</h3>
+                <form method="POST" style="display: none;">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea name="description" id="projDesc" class="form-control mb-3" maxlength="160" rows="3"
+                            style="resize: none; height: auto;" placeholder="A short description of your project"
+                            required>{{project.description}}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary mb-3">Save</button>
+                </form>
+            </div>
             {% if user in project.owners.all %}
-            <button type="button" class="btn btn-edit-icon mr-3 mb-2"
-                onclick="window.location.href='{% url 'edit_project' project.id %}';"></button>
+            <!-- <button type="button" id="descButton" class="btn btn-edit-icon mr-3 mb-2"
+                onclick="window.location.href='{% url 'edit_project' project.id %}';"></button> -->
+            <button type="button" id="descButton" class="btn btn-edit-icon mr-3 mb-2"
+                onclick="descriptionChanger()"></button>    
             {% endif %}
             <div class='col-12'>
                 {% if project.description %}
@@ -102,7 +129,7 @@
                         {% endif %}
                         <!--edit tags button-->
                         {% if user in project.owners.all %}
-                        <button type="button" class="btn btn-edit-icon mr-3 mt-3"
+                        <button type="button" class="btn btn-edit-icon mr-3 p-3"
                             onclick="window.location.href='{% url 'create_tags' project.pk %}'"></button>
                         {% endif %}
                     </div>
@@ -221,4 +248,7 @@
     </div>
 </div>
 
+{%if user in project.owners.all%}
+    <script src="{%static 'projects/javascript/single_page.js' %}"></script>
+{% endif %}
 {% endblock main %}
