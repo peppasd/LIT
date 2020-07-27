@@ -68,43 +68,16 @@
                     <div class='row ml-1'>
                         {% if tags %}
                         {%if user in project.owners.all%}
-                        {% for tag in tags %}
-                        <!--Tags now have 4 different colors-->
-                        {%if forloop.counter0|divisibleby:"4"%}
+                            {% for tag in tags %}
 
-                        <button class="btn btn-warning mr-3 mt-3"
-                            onclick="window.location.href='{% url 'edit_tag' tag.id %}'">{{tag.name}}</button>
+                            <button type="button" class="btn tag mr-3 mt-3"
+                                onclick="window.location.href='{% url 'edit_tag' tag.id %}'">{{tag.name}}</button>
 
-                        {%elif forloop.counter0|divisibleby:"3"%}
-
-                        <button class="btn btn-primary mr-3 mt-3"
-                            onclick="window.location.href='{% url 'edit_tag' tag.id %}'">{{tag.name}}</button>
-
-                        {% elif forloop.counter0|divisibleby:"2" %}
-
-                        <button type="button" class="btn btn-secondary mr-3 mt-3"
-                            onclick="window.location.href='{% url 'edit_tag' tag.id %}'">{{tag.name}}</button>
-
+                            {% endfor%}
                         {% else %}
-
-                        <button type="button" class="btn btn-danger mr-3 mt-3"
-                            onclick="window.location.href='{% url 'edit_tag' tag.id %}'">{{tag.name}}</button>
-
-                        {% endif %}
-                        {% endfor%}
-                        {% else %}
-                        {% for tag in tags %}
-                        <!--Tags now have 4 different colors-->
-                        {%if forloop.counter0|divisibleby:"4"%}
-                        <button type="submit" class="btn btn-warning mr-3 mt-3" disabled>{{tag.name}}</button>
-                        {%elif forloop.counter0|divisibleby:"3"%}
-                        <button type="button" class="btn btn-primary mr-3 mt-3" disabled>{{tag.name}}</button>
-                        {% elif forloop.counter0|divisibleby:"2" %}
-                        <button type="button" class="btn btn-secondary mr-3 mt-3" disabled>{{tag.name}}</button>
-                        {% else %}
-                        <button type="button" class="btn btn-danger mr-3 mt-3" disabled>{{tag.name}}</button>
-                        {% endif %}
-                        {% endfor%}
+                            {% for tag in tags %}
+                                <button type="button" class="btn tag mr-3 mt-3" disabled>{{tag.name}}</button>
+                            {% endfor%}
                         {% endif %}
                         {% else %}
                         No tags available for the project.
@@ -139,8 +112,10 @@
             <div class='col-12 col-sm-8'>
                 <div class="d-flex justify-content-around justify-content-lg-end">
                     {% if user in project.owners.all %}
-                    <a role="button" class="btn btn-outline-primary mr-4"
-                        href="{%url 'upload_images' project.id%}">Upload</a>
+                    <a role="button" class="btn btn-outline-primary d-flex justify-content-center align-content-between mr-4"
+                        href="{%url 'upload_images' project.id%}">
+                        <span class="material-icons mr-1">publish</span>
+                        Upload</a>
                     {% endif %}
                     <a role="button" class="btn btn-outline-primary mr-sm-5"
                         href="{% url 'project_images' project.id %}">Show all</a>
@@ -173,7 +148,7 @@
     </div>
 
     <!--MEMBERS -->
-    <div class="col-12 col-lg-3 ml-lg-5 pl-lg-5">
+    <div class="col-12 col-lg-3 ml-lg-5">
         <div class="row">
             <table class="table table-hover">
                 <h3>Owners:</h3>
@@ -202,7 +177,7 @@
                     <span class="text-danger">{{ph}}</span>
                     {% endif %}
                     <input name="username" type="text" class="form-control mb-3" required placeholder="user name">
-                    <button type="submit" class="btn btn-outline-primary mb-3">Invite</button>
+                    <button type="submit" class="btn btn-outline-secondary mb-3">Invite</button>
                 </div>
 
             </form>
