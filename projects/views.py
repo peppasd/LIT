@@ -40,7 +40,9 @@ def overview(request):
             if project not in project_list:
                 project_list.append(project)
 
-    for project in Project.objects.all():
+    for project in Project.objects.all(): 
+        x, y, z = calProgress(project)
+        project.progress = x       
         if project not in project_list:
             all_projects.append(project)
 
