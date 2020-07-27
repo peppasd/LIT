@@ -21,7 +21,7 @@ def project_labeler(request, pk):
     for img in project.images.all():
         labelimages.append(img)
      
-    tagLists = Label.objects.all()
+    tagLists = project.labels.all()
     loopId = 0    
     labelimages = list(labelimages)    
 
