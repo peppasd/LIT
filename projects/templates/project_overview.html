@@ -12,12 +12,14 @@
 
 <!-- TITLE -->
 <div class="title" id='myHeader'>
-    <h1><b>{{project.name}}</b></h1>
-    {% if user in project.owners.all %}
-    <button type="button" class="btn btn-edit-icon mr-5"
-        onclick="window.location.href='{% url 'edit_project' project.id %}';"></button>
-    {% endif %}
-    <p></p>
+    <h1><b>{{project.name}}</b>
+        {% if user in project.owners.all %}
+        <button type="button" class="btn"
+            onclick="window.location.href='{% url 'edit_project' project.id %}';">
+            <span class="material-icons edit-icon">create</span>
+        </button>
+        {% endif %}
+    </h1>
     <h6 class="card-subtitle text-muted mb-3">{{project.created}}, owner: {{project.ownerName}}</h6>
     <hr class="hr-text">
 </div>
@@ -30,10 +32,6 @@
         <div class='row'>
             <!--Description-->
             <h3>Description:</h3>
-            {% if user in project.owners.all %}
-            <button type="button" class="btn btn-edit-icon mr-3 mb-2"
-                onclick="window.location.href='{% url 'edit_project' project.id %}';"></button>
-            {% endif %}
             <div class='col-12'>
                 {% if project.description %}
                 {{project.description}}
@@ -101,8 +99,12 @@
                         {% endif %}
                         <!--edit tags button-->
                         {% if user in project.owners.all %}
-                        <button type="button" class="btn btn-edit-icon mr-3 mt-3"
-                            onclick="window.location.href='{% url 'create_tags' project.pk %}'"></button>
+
+                        <button type="button" class="btn mr-3 mt-3"
+                            onclick="window.location.href='{% url 'create_tags' project.pk %}';">
+                            <span class="material-icons edit-icon">create</span>
+                        </button>
+
                         {% endif %}
                     </div>
                 </div>
