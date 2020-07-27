@@ -31,14 +31,12 @@
             {% for image in project.images.all %}
             <div class='square-grid'> 
                 {% if user in project.owners.all %}
-                <a role="button" class="btn btn-delete" href="{% url 'removeImg' image.uuid %}"></a>                
+                <a role="button" class="btn btn-delete" href="{% url 'removeImg' image.uuid %}"></a>               
                 {% endif %}
                 
-                {% if user in members %}
                 <img src = "{{image.file.url}}" loading="lazy" onclick="window.location.href='{% url 'project_labeler' project.id %}'" >
-                {% else %}
-                <img src = "{{image.file.url}}" loading="lazy" onclick="window.location.href='{% url 'project_overview' project.id %}'" >
-                {% endif %}
+                
+                
             </div>
             {% endfor %}
             {% else %}
