@@ -27,7 +27,7 @@
         id="FileDropzone">
         {% csrf_token %}        
     </form>
-    <p>Original file names are saved. Give your images unique names to make identifying them later easier. Max upload size: 2 MiB / file.</p>
+    <p>Original file names are saved. Give your images unique names and remember them. Accepted file types: JPEG, PNG. Max upload size: 2 MiB / file.</p>
     <a role="button" class="btn btn-outline-primary mt-5 col-12 col-md-4 offset-md-8" href="{% url 'project_overview' pk %}">I'm done with uploading pictures</a>
 </div>
 <script src="{%static 'projects/dropzone/dropzone.min.js' %}"></script>
