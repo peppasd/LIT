@@ -1,34 +1,36 @@
 .square > img {
   background-color: rgb(237, 96, 1);
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-}
-.square-grid > img {
-  background-color: rgb(237, 96, 1);
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-}
-.square {
   border-radius: 1rem;
-  margin: 20px;
-  border: 3px solid rgb(242, 133, 15) ;
-  height: 200px;
-  width: 200px;
+  border: 2px solid rgb(242, 133, 15);
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.square {
   overflow: hidden;
+  max-width: 400px;
   text-align:center;
 }
-.square-grid {
+
+.square-grid > img {
   border-radius: 1rem;
-  margin: 20px;
-  border: 3px solid rgb(242, 133, 15);
-  height: 300px;
-  width: 300px;
+  border: 2px solid rgb(242, 133, 15);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: rgb(237, 96, 1);
+  cursor: pointer;
+}
+
+.square-grid {
   overflow: hidden;
-  float:center;
+  max-width: 400px;
   position: relative;
 }
+
 .checkbox {
   position:absolute; bottom:50px; right:20px;
 }
@@ -38,15 +40,14 @@
   background-color: transparent;
   background-size: cover;
   position: absolute;
-  right: 1%;
+  right: 2%;
   top: 2%;
-  transition: 0.5s;
   }
 
 .delete-icon{
   font-size: 32px;
   color: #e53935;
-  transition: 0.5s;
+  transition: 0.3s;
   }
 
 .delete-icon:hover{
