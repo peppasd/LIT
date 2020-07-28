@@ -1,17 +1,17 @@
 html, body {
     font-family: 'DM Mono', monospace;
-    width: 100vw;
     height: 100vh;
     background-color: #fff3e0;
 }
 
 main > .container-fluid {
-    padding: 60px 0 60px;
+    padding-top: 80px;
+    padding-bottom: 60px;
     width: 75%;
 }
 
-.nav-light{
-    background-color: #fff3e0;
+.navbar{
+    background-color: #ffcc80;
 }
 
 #account-div {
@@ -32,11 +32,11 @@ a {
 }
 
 a:hover {
-    color: rgb(242, 133, 15);
+    color: #c75b39;
 }
 
 .btn {
-    border-radius: 1rem;
+    border-radius: 0.5rem;
 }
 
 .btn:focus {
@@ -46,18 +46,19 @@ a:hover {
 .btn-outline-primary {
     border-color: black;
     border-width: 2px;
+    background-color: #ff8a65;
     color: black;
 }
 
 .btn-outline-primary:hover {
-    background-color: transparent;
     color: black;
-    border-color: rgb(242, 133, 15);
+    background-color: #ff8a65;
+    border-color: #c75b39;
 }
 
 .btn-outline-primary:not(:disabled):not(.disabled):active {
-    background-color: rgb(242, 133, 15);
-    border-color: rgb(237, 96, 1);
+    background-color: #c75b39;
+    border-color: #c75b39;
 }
 
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus {
@@ -66,27 +67,43 @@ a:hover {
 
 
 .btn-outline-secondary {
-    border-color: gray;
+    border-color: black;
     border-width: 2px;
-    color: grey;
+    background-color: #ffccbc;
+    color: black;
 }
 
 .btn-outline-secondary:hover {
-    background-color: transparent;
-    border-color: rgb(255, 197, 68);
-    color: grey;
+    color: black;
+    background-color: #ffccbc;
+    border-color: #cb9b8c;
 }
 
 .btn-outline-secondary:not(:disabled):not(.disabled):active {
-    background-color: rgb(255, 197, 68);
-    border-color: rgb(242, 133, 15);
+    background-color: #cb9b8c;
+    border-color: #cb9b8c;
 }
 
 .btn-outline-secondary:not(:disabled):not(.disabled):active:focus {
     box-shadow: none;
 }
 
-#user-dropdown-icon {
-    font-size: 30px;
+.form-control {
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 1rem;
+    resize: none;
+}
+
+.form-control:focus {
+    background-color: transparent;
+    border: 2px solid #c75b39;
+    box-shadow: none;
+
+}
+
+.floating-back {
+    position: absolute;
+    float: left;
 }
   

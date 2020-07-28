@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-{% block title %} Login {% endblock %}
+{% block title %} {{project.name}} {% endblock %}
 
 {% load static %}
 {% block css %}
@@ -10,35 +10,42 @@
 
 {% block main %}
 
+<a class="floating-back" href="{% url 'project_overview' project.id %}">
+    <span class="material-icons ">
+        arrow_back
+    </span>
+</a>
+
     <h1 class="text-center"><b>{{project.name}}</b></h1>
     <hr class="hr-text">
 
-<div class="row h-100">
+<div class="row mt-3">
     <div class='col-12 col-sm-4'>
         <h3>Images:</h3>
     </div>
     <div class='col-12 col-sm-8'>
         <div class="d-flex justify-content-around justify-content-lg-end">
             {% if user in project.owners.all %}
-            <a role="button" class="btn btn-outline-primary mr-4" href="{%url 'upload_images' project.id%}" >Upload</a>
+            <a role="button" class="btn btn-outline-primary d-flex justify-content-center align-content-between mr-4"
+                href="{%url 'upload_images' project.id%}">
+                <span class="material-icons mr-1">publish</span>
+                Upload
+            </a>
             {% endif %}
-            <a role="button" class="btn btn-outline-primary mr-sm-5" href = "{% url 'project_overview' project.id  %}">Back to Project</a>
         </div>
     </div>
     <div class='col'>
-        <div class='row d-flex justify-content-around'>
+        <div class='row d-flex justify-content-around mt-3'>
             {% if project.images %}
             {% for image in project.images.all %}
-            <div class='square-grid'> 
+            <div class='col-3 square-grid'> 
                 {% if user in project.owners.all %}
-                <a role="button" class="btn btn-delete" href="{% url 'removeImg' image.uuid %}"></a>                
+                <a role="button" class="btn delete-btn" onclick="return confirm('Are you sure you want to delete this?')" href="{% url 'removeImg' image.uuid %}">
+                    <span class="material-icons delete-icon">delete</span>
+                </a>                
                 {% endif %}
                 
-                {% if user in members %}
                 <img src = "{{image.file.url}}" loading="lazy" onclick="window.location.href='{% url 'project_labeler' project.id %}'" >
-                {% else %}
-                <img src = "{{image.file.url}}" loading="lazy" onclick="window.location.href='{% url 'project_overview' project.id %}'" >
-                {% endif %}
             </div>
             {% endfor %}
             {% else %}

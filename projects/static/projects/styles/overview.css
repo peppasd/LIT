@@ -6,7 +6,7 @@
 }
 
 .card:hover {
-    border: 2px solid rgb(242, 133, 15);
+    border: 2px solid #c75b39;
 }
 
 .cards::after{
@@ -20,12 +20,12 @@
     bottom: 80px;
     width: 60px;
     height: 60px;
-    background: rgb(242, 133, 15);
+    background: #ff8a65;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    color: white;
+    color: black;
     text-decoration: none;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
 }
@@ -48,6 +48,7 @@ h6 {
 }
 
 .progress-bar {
-    background-color: rgb(255, 197, 68);
+    background-color: #ffb74d;
+    color: black;
 }
 

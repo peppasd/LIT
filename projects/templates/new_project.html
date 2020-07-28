@@ -10,6 +10,12 @@
 
 {% block main %}
 
+<a class="floating-back" href="{% url 'overview' %}">
+    <span class="material-icons ">
+        arrow_back
+    </span>
+</a>
+
 <div class="row justify-content-center">
     <div class="col-xl-6 col-md-8 col-10">
         <div class="card">
@@ -25,7 +31,7 @@
                             style="resize: none; height: auto;" placeholder="A short description of your project"
                             required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-outline-primary mb-3">Create</button>
+                    <button type="submit" class="btn btn-outline-primary float-right mb-3">Create</button>
                 </form>
             </div>
         </div>
