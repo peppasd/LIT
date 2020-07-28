@@ -40,7 +40,9 @@ def overview(request):
             if project not in project_list:
                 project_list.append(project)
 
-    for project in Project.objects.all():
+    for project in Project.objects.all(): 
+        x, y, z = calProgress(project)
+        project.progress = x       
         if project not in project_list:
             all_projects.append(project)
 
@@ -97,7 +99,7 @@ def removeTag(request, pk):
             break
     if ok:
         elm.delete()    
-    return HttpResponseRedirect(reverse('project_overview', args=[pk]))
+    return HttpResponseRedirect(reverse('project_overview', args=[project.id]))
 
 
 @login_required
@@ -112,7 +114,7 @@ def edit_tag(request, pk):
         if form.is_valid():
             post = form.save(commit=False)            
             post.save()
-            return HttpResponseRedirect(reverse('project_overview', args=[pk]))
+            return HttpResponseRedirect(reverse('project_overview', args=[project.id]))
     else:
         form = LabelForm(instance=post)
         context = {
@@ -129,17 +131,10 @@ def project_overview(request, pk):
     project.progress = x
     if request.method == 'POST':
         username = request.POST['username']
-        if username=='__join__':
-            m = Member()
-            m.save()
-            m.user.add(request.user)
-            m.save()
-            project.members.add(m)
+        if existsUser(username):
+            project.owners.add(getUser(username))
         else:
-            if existsUser(username):
-                project.owners.add(getUser(username))
-            else:
-                ph = "User {} does not exist".format(username)
+            ph = "User {} does not exist".format(username)
             
     members = allUsers_project(project)
     tags = allTags_project(project)

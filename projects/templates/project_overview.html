@@ -130,14 +130,9 @@
             <div class='col'>
                 <div class='row d-flex justify-content-around'>
                     {% if project.images %}
+
                     {% for image in project.images.all|slice:"3" %}
-                    <!--only the first 10 images, other will be loaded if the button gets klicked-->
-                    {% if user in members %}
-                    <div class='col-12 col-sm-4 mt-3 square'>
-                        <img loading="lazy" src="{{image.file.url}}"
-                            onclick="window.location.href='{% url 'project_labeler' project.id %}'">
-                    </div>
-                    {% else %}
+                    <!--only the first 3 images, other will be loaded if the button gets klicked-->
                     <div class='col-12 col-sm-4 mt-3 square'>
                         <img loading="lazy" src="{{image.file.url}}"
                             onclick="window.location.href='{% url 'project_overview' project.id %}'">
@@ -188,16 +183,7 @@
 
             </form>
             {% endif %}
-            {% if user not in members %}
-            <form method="POST">
-                {% csrf_token %}
-                <div class="form-group">
-                    <input name="username" type="text" class="form-control mb-3" value="__join__" hidden>
-                    <button type="submit" class="btn btn-outline-primary mb-3">Join</button>
-                </div>
-
-            </form>
-            {% endif %}
+            
         </div>
 
     </div>
