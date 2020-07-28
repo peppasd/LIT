@@ -10,14 +10,20 @@
 
 {% block main %}
 
+<a class="floating-back" href="{% url 'project_overview' pk %}">
+    <span class="material-icons ">
+        arrow_back
+    </span>
+</a>
+
 <!-- TITLE -->
 <div class="title" id='myHeader'>
-    <h1><b>Create Tags</b></h1>
+    <h1><b>Edit Tag</b></h1>
     
 </div>
 
-<div class="container-fluid row">
-    <form method="POST" class="form w-100">
+<div class="row justify-content-center">
+    <form method="POST" class="form w-75">
         {% csrf_token %}
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -29,10 +35,10 @@
             <input name="typeDisabled" type="text" class="form-control" id="InputTagName" disabled placeholder="{{form.initial.type}}">  
             <input name="type" type="text" class="form-control"  hidden required value="{{form.initial.type}}">          
         </div>
-        <button type="submit" class="btn btn-outline-primary col-12 col-md-3 mt-3 offset-md-9 ">Save</button>
-        <a role="button" class="btn btn-outline-secondary col-12 col-md-3 mt-3 offset-md-9" onclick="return confirm('Are you sure you want to delete this?')" href="{% url 'removeTag' pk %}">Remove</a>        
-        
+            
     </div>
+    <button type="submit" class="btn btn-outline-primary float-right">Save</button>
+    <a role="button" class="btn btn-outline-secondary" onclick="return confirm('Are you sure you want to delete this?')" href="{% url 'removeTag' pk %}">Delete Tag</a>   
     </form>
   
 </div>

@@ -14,5 +14,5 @@ COPY . /code/
 
 EXPOSE $PORT
 
-CMD ["sh", "-c", "python3 manage.py makemigrations && python3 manage.py migrate && uvicorn lit.asgi:application --port ${PORT} --host 0.0.0.0"]
+CMD ["sh", "-c", "python3 manage.py migrate && uvicorn lit.asgi:application --port ${PORT} --host 0.0.0.0"]
 # https://stackoverflow.com/a/54504297

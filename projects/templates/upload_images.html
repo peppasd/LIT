@@ -11,6 +11,12 @@
 
 {% block main %}
 
+<a class="floating-back" href="{% url 'project_overview' pk %}">
+    <span class="material-icons ">
+        arrow_back
+    </span>
+</a>
+
 <!-- TITLE -->
 <div class="title" id='myHeader'>
     <h1><b>Upload Images</b></h1>
@@ -18,7 +24,7 @@
 </div>
 
 
-<div class="container-fluid row ">
+<div class="row mb-3">
     <form action="#"        
         class="dropzone col-12 rounded"
         style="border: 2px dashed #dedede; 
@@ -27,9 +33,9 @@
         id="FileDropzone">
         {% csrf_token %}        
     </form>
-    
-    <a role="button" class="btn btn-outline-primary mt-5 col-12 col-md-4 offset-md-8" href="{% url 'project_overview' pk %}">I'm done with uploading pictures</a>
+    <p>Original file names are saved. Give your images unique names and remember them. Accepted file types: JPEG, PNG. Max upload size: 2 MiB / file.</p>
 </div>
+<a role="button" class="btn btn-outline-primary float-right" href="{% url 'project_overview' pk %}">Done</a>
 <script src="{%static 'projects/dropzone/dropzone.min.js' %}"></script>
 <script>
     Dropzone.options.FileDropzone =  {
