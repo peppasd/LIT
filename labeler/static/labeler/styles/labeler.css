@@ -88,6 +88,16 @@
     }
   }
 
+.tag {
+  background-color: #ff9800;
+  color: black;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  max-width: 200px;
+}
+
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     width: 10%;

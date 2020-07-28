@@ -10,8 +10,14 @@
 
 {% block main %}
 
+<a class="floating-back" href="{% url 'project_overview' pk %}">
+  <span class="material-icons ">
+      arrow_back
+  </span>
+</a>
+
 <!--TITLE-->
-<div class='title'>
+<div class='title text-center'>
   <h1><b>{{project.name}}</b></h1>
   <hr class="hr-text">
 </div>
@@ -36,7 +42,7 @@
               <input name="tagId" type="number" value={{t.id}} hidden required>
               <div class="row px-4 py-2">
                 <div class="col-4">
-                  <button type="button" class="btn btn-primary w-100" disabled>{{t.label.all.first.name}}</button>                  
+                  <button type="button" class="btn tag w-100" disabled>{{t.label.all.first.name}}</button>                  
                 </div>
 
                 <!-- INPUT SPECIFICATION -->
@@ -154,7 +160,6 @@
   <span class="sr-only">Next</span>
 </a>
 </div>
-
 {% if labelimages %}
 {% for image in labelimages %}
 <!-- The Modal -->

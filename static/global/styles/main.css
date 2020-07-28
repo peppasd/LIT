@@ -101,4 +101,9 @@ a:hover {
     box-shadow: none;
 
 }
+
+.floating-back {
+    position: absolute;
+    float: left;
+}
   
