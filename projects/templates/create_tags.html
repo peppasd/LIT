@@ -10,14 +10,20 @@
 
 {% block main %}
 
+<a class="floating-back" href="{% url 'project_overview' pk %}">
+    <span class="material-icons ">
+        arrow_back
+    </span>
+</a>
+
 <!-- TITLE -->
 <div class="title" id='myHeader'>
     <h1><b>Create Tags</b></h1>
     
 </div>
 
-<div class="container-fluid row">
-    <form method="POST" class="form w-100">
+<div class="row justify-content-center">
+    <form method="POST" class="form w-75">
         {% csrf_token %}
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -33,9 +39,8 @@
                 <option selected>Text</option>
             </select>
         </div>
-        <a role="button" class="btn btn-outline-primary col-12 offset-md-9 col-md-3 mt-3" href="{% url 'project_overview' pk%}">Back to Project</a>
-        <button type="submit" class="btn btn-outline-primary col-12 col-md-3 mt-3 offset-md-9 ">Submit</button>
     </div>
+    <button type="submit" class="btn btn-outline-primary float-right">Create</button>
     </form>
   
 </div>

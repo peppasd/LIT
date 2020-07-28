@@ -10,8 +10,14 @@
 
 {% block main %}
 
+<a class="floating-back" href="{% url 'project_overview' pk %}">
+  <span class="material-icons ">
+      arrow_back
+  </span>
+</a>
+
 <!--TITLE-->
-<div class='title'>
+<div class='title text-center'>
   <h1><b>{{project.name}}</b></h1>
   <hr class="hr-text">
 </div>
@@ -34,9 +40,9 @@
               <input name="loopId" type="text" value={{forloop.counter}} hidden required>
               {% for t in image.values.all %}
               <input name="tagId" type="number" value={{t.id}} hidden required>
-              <div class="row px-4 py-2">
+              <div class="row py-2">
                 <div class="col-4">
-                  <button type="button" class="btn btn-primary w-100" disabled>{{t.label.all.first.name}}</button>                  
+                  <button type="button" class="btn tag w-100" disabled>{{t.label.all.first.name}}</button>                  
                 </div>
 
                 <!-- INPUT SPECIFICATION -->
@@ -69,14 +75,17 @@
                   {% endifequal %}                  
                 </div>
                 <!-- REMOVE CHECKBOX -->
-                <div class='col-2'>                  
+                <div class='col-2 d-flex mt-1'>                  
                   <label class="checkbox-inline">
                     <input title="to delete" name="del" type="checkbox" value={{t.id}}>
                   </label>
+                  <i class="material-icons ml-1">
+                    clear
+                  </i>
                 </div>                
               </div>
               {% endfor %}
-              <div class="row px-4 py-2">
+              <div class="row py-2">
                 <div class='col-4'>
                   <select name="addTag" class="form-control">
                     <option value=''>Select</option>
@@ -88,7 +97,7 @@
                 <!-- ADDTAG BUTTON -->
                 <div class='col-8'>
                   <div class='col d-flex justify-content-start'>
-                    <button type="submit" class="btn btn-outline-primary mx-5 mb-3 w-100">Add new tag</button>
+                    <button type="submit" class="btn btn-outline-secondary mb-3 w-100">Add new tag</button>
                   </div>
                 </div>
               </div>
@@ -96,7 +105,7 @@
               <!-- SUBMIT BUTTON -->
               <div class='row py-2'>
                 <div class='col d-flex justify-content-start'>
-                  <button type="submit" class="btn btn-outline-primary mx-5 mb-3 w-100">Submit</button>
+                  <button type="submit" class="btn btn-outline-primary mb-3">Save changes</button>
                 </div>
               </div>
 
@@ -154,7 +163,6 @@
   <span class="sr-only">Next</span>
 </a>
 </div>
-
 {% if labelimages %}
 {% for image in labelimages %}
 <!-- The Modal -->
