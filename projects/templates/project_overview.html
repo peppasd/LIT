@@ -26,10 +26,6 @@
         </button>
         {% endif %}
     </h1>
-     {% if user in project.owners.all %}
-    <button type="button" class="btn btn-download-icon mr-5"
-        onclick="window.location.href='{% url 'download' project.id %}';">Download</button>
-    {% endif %}
     <h6 class="card-subtitle text-muted mb-3">{{project.created}}, owner: {{project.ownerName}}</h6>
     <hr class="hr-text">
 </div>
@@ -39,7 +35,7 @@
 
     <div class="col-lg-8 col-sm-12">
 
-        <div class='row'>
+        <div class='row'>                    
             <!--Description-->
             <h3>Description:</h3>
             <div class='col-12'>
@@ -134,15 +130,13 @@
             <div class='col'>
                 <div class='row d-flex justify-content-around'>
                     {% if project.images %}
-
-                    {% for image in project.images.all|slice:"3" %}
-                    <!--only the first 3 images, other will be loaded if the button gets klicked-->
-                    <div class='col-12 col-sm-4 mt-3 square'>
-                        <img loading="lazy" src="{{image.file.url}}"
-                            onclick="window.location.href='{% url 'project_overview' project.id %}'">
-                    </div>
-                    {% endif %}
-                    {% endfor %}
+                        {% for image in project.images.all|slice:"3" %}
+                        <!--only the first 3 images, other will be loaded if the button gets klicked-->
+                        <div class='col-12 col-sm-4 mt-3 square'>
+                            <img loading="lazy" src="{{image.file.url}}"
+                                onclick="window.location.href='{% url 'project_overview' project.id %}'">
+                        </div>
+                        {% endfor %}
                     {% else %}
                     No image available for the project.
                     {% endif %}
@@ -186,6 +180,15 @@
                 </div>
 
             </form>
+
+            {% endif %}
+
+            {% if user in project.owners.all %}
+            <a role="button" class="btn btn-outline-primary d-flex justify-content-center align-content-between mb-5"
+                href="{% url 'download' project.id %}" download>
+                <span class="material-icons mr-1">get_app</span>
+                Download
+            </a>
             {% endif %}
             
         </div>
