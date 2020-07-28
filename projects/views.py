@@ -6,8 +6,29 @@ from django.urls import reverse
 from django.conf import settings
 from .utils import existsUser, allUsers_project, allTags_project, getUser, calProgress
 from django.contrib.auth.decorators import login_required
-
+import json
 # Create your views here.
+
+@login_required
+def download(request, pk):
+    project = Project.objects.get(id=pk)
+    if request.user not in project.owners.all():
+        return HttpResponse('You must be a project owner to download the data.', status=403)
+    images = project.images.all()
+    exportdata = []
+    for image in images:
+        photodata = {
+            'name': image.name,
+            'upload time': str(image.created),
+            'uploaded by': image.uploader,
+            'data': []
+        }
+        values = Value.objects.filter(photo=image)
+        for value in values:
+            data = [value.label.first().name, value.val]
+            photodata['data'].append(data)
+        exportdata.append(photodata)
+    return HttpResponse(json.dumps(exportdata), content_type='text/json')
 
 @login_required
 def removeImg(request, slug):

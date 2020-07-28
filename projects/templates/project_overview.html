@@ -26,6 +26,10 @@
         </button>
         {% endif %}
     </h1>
+     {% if user in project.owners.all %}
+    <button type="button" class="btn btn-download-icon mr-5"
+        onclick="window.location.href='{% url 'download' project.id %}';">Download</button>
+    {% endif %}
     <h6 class="card-subtitle text-muted mb-3">{{project.created}}, owner: {{project.ownerName}}</h6>
     <hr class="hr-text">
 </div>
