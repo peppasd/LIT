@@ -16,7 +16,3 @@ steps:
 #  - 'managed'
 images:
 - eu.gcr.io/label-it-2020/lit/$BRANCH_NAME
-artifacts:
-  objects:
-    location: 'gs://lit-2020-staticfiles/'
-    paths: ['staticfiles/*']
