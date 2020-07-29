@@ -3,6 +3,8 @@ steps:
   args: ['build', '-t', 'eu.gcr.io/label-it-2020/lit/$BRANCH_NAME', '.']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'eu.gcr.io/label-it-2020/lit/$BRANCH_NAME']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['run', 'eu.gcr.io/label-it-2020/lit/$BRANCH_NAME', 'python3', 'manage.py', 'collectstatic', '--noinput']
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - 'run'
@@ -16,3 +18,7 @@ steps:
   - 'managed'
 images:
 - eu.gcr.io/label-it-2020/lit/$BRANCH_NAME
+artifacts:
+  objects:
+    location: 'gs://lit-2020-staticfiles/'
+    paths: ['staticfiles/*']
