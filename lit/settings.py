@@ -119,7 +119,7 @@ DATABASES = {
 # google cloud
 if cloudRun:
     DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-    GS_BUCKET_NAME = 'mateuszbucket'
+    GS_BUCKET_NAME = 'lit-2020-images'
     GS_FILE_OVERWRITE = False
 else:
     MEDIA_ROOT = 'media/'
