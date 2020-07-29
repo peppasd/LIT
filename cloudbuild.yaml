@@ -5,6 +5,8 @@ steps:
   args: ['run', 'eu.gcr.io/label-it-2020/lit/$BRANCH_NAME', 'python3', 'manage.py', 'collectstatic', '--noinput']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'eu.gcr.io/label-it-2020/lit/$BRANCH_NAME']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['cp', 'eu.gcr.io/label-it-2020/lit/$BRANCH_NAME:code/staticfiles', 'staticfiles']
 #- name: 'gcr.io/cloud-builders/gcloud'
 #  args:
 #  - 'run'
