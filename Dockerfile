@@ -12,6 +12,8 @@ RUN pip install -r requirements.txt
 
 COPY . /code/
 
+RUN python3 manage.py collectstatic --noinput
+
 EXPOSE $PORT
 
 CMD ["sh", "-c", "uvicorn lit.asgi:application --port ${PORT} --host 0.0.0.0"]
