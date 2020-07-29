@@ -120,6 +120,7 @@ if cloudRun:
     DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
     GS_BUCKET_NAME = 'lit-2020-userdata'
     GS_FILE_OVERWRITE = False
+    GS_DEFAULT_ACL = 'publicRead'
 else:
     MEDIA_ROOT = 'media/'
     MEDIA_URL = '/media/'
