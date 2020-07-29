@@ -134,7 +134,7 @@
                         <!--only the first 3 images, other will be loaded if the button gets klicked-->
                         <div class='col-12 col-sm-4 mt-3 square'>
                             <img loading="lazy" src="{{image.file.url}}"
-                                onclick="window.location.href='{% url 'project_overview' project.id %}'">
+                                onclick="window.location.href='{% url 'project_labeler' project.id %}'">
                         </div>
                         {% endfor %}
                     {% else %}
