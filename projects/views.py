@@ -141,6 +141,7 @@ def edit_tag(request, pk):
         context = {
             'pk': pk,
             'form': form,
+            'project':project,
         }        
     return render(request, 'edit_tag.html', context)
 
