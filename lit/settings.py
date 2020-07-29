@@ -102,7 +102,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': '10.17.17.3' if cloudRun else 'db',
+        'HOST': '10.17.16.3' if cloudRun else 'db',
         'PORT': 5432,
     }
 }
